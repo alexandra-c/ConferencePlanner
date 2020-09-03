@@ -7,7 +7,8 @@
   "NavBar": {
     "Dashboard": "Panou central",
     "Settings": "Setari",
-    "User": "Profil"
+    "User": "Profil",
+    "Participants": "Participanti"
   },
   "Tooltips": {
     "Logout": "Iesire"
@@ -44,15 +45,15 @@
   },
   "Participants": {
     "Name": "Nume",
-    "StartDate": "Data de inceput",
-    "EndDate": "Data de sfarsit",
-    "Type": "Tip",
-    "Category": "Categorie",
-    "Address": "Adresa",
-    "Speaker": "Orator",
+    "StartDate": "Data de inceput: ",
+    "EndDate": "Data de sfarsit: ",
+    "Type": "Tip: ",
+    "Category": "Categorie: ",
+    "Address": "Adresa: ",
+    "Speaker": "Orator: ",
     "Attend": "Participa",
-    "Join": "Participa",
+    "Join": "Inscrie-te",
     "Withdraw": "Retras",
-    "State": "Stare"
+    "State": "Stare: "
   }
 }

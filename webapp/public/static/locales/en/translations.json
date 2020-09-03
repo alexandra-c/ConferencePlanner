@@ -14,7 +14,8 @@
   "Forbidden": "Not allowed to see this page!",
   "NavBar": {
     "Dashboard": "Dashboard",
-    "Settings": "Settings"
+    "Settings": "Settings",
+    "Participants": "Participants"
   },
   "Tooltips": {
     "Logout": "Logout"
@@ -51,15 +52,15 @@
   },
   "Participants": {
     "Name": "Name",
-    "StartDate": "Start date",
-    "EndDate": "End date",
-    "Type": "Type",
-    "Category": "Category",
-    "Address": "Address",
-    "Speaker": "Speaker",
+    "StartDate": "Start date: ",
+    "EndDate": "End date: ",
+    "Type": "Type: ",
+    "Category": "Category: ",
+    "Address": "Address: ",
+    "Speaker": "Speaker: ",
     "Attend": "Attend",
     "Join": "Join",
     "Withdraw": "Withdraw",
-    "State": "State"
+    "State": "State: "
   }
 }
