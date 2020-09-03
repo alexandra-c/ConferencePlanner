@@ -8,28 +8,16 @@ if (result.error) {
 const { customConsole } = require('./utils/functions')
 global.console = customConsole;
 
-const { ApolloServer} = require('apollo-server-koa');
+const { ApolloServer } = require('apollo-server-koa');
 const Koa = require("koa");
 
-// Auth
-// eslint-disable-next-line node/no-extraneous-require
-const cors = require("@koa/cors");
-const bodyParser = require("koa-bodyparser");
-
-
 const { dbInstanceFactory } = require("./db");
-const { contextDbInstance, jwtTokenValidation, jwtTokenUserIdentification,
-    correlationMiddleware,  errorHandlingMiddleware } = require("./middleware");
+const { contextDbInstance, errorHandlingMiddleware } = require("./middleware");
 const { schema, getDataSources, getDataLoaders } = require('./startup/index');
 
 const app = new Koa();
 
 app.use(errorHandlingMiddleware())
-app.use(bodyParser());
-app.use(correlationMiddleware());
-app.use(cors());
-app.use(jwtTokenValidation);
-app.use(jwtTokenUserIdentification);
 app.use(contextDbInstance());
 
 const server = new ApolloServer({
@@ -40,7 +28,8 @@ const server = new ApolloServer({
 
         if (connection) {
             return {
-                ...connection.context            };
+                ...connection.context
+            };
         } else {
             const { token, dbInstance, externalUser, correlationId, request, requestSpan } = ctx;
             return {
@@ -50,7 +39,7 @@ const server = new ApolloServer({
                 dbInstanceFactory,
                 externalUser,
                 correlationId,
-                request,               
+                request,
                 requestSpan
             };
         }
