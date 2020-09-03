@@ -41,5 +41,18 @@
       "MinCharacters": "Lungimea trebuie sa fie mai mare decat {{min}}",
       "Unique": "Valoarea pentru {{selector}} trebuie sa fie unica"
     }
+  },
+  "Participants": {
+    "Name": "Nume",
+    "StartDate": "Data de inceput",
+    "EndDate": "Data de sfarsit",
+    "Type": "Tip",
+    "Category": "Categorie",
+    "Address": "Adresa",
+    "Speaker": "Orator",
+    "Attend": "Participa",
+    "Join": "Participa",
+    "Withdraw": "Retras",
+    "State": "Stare"
   }
 }

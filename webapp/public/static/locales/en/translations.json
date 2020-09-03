@@ -48,5 +48,18 @@
       "MinCharacters": "The length must be greater than {{min}}",
       "Unique": "The value of {{selector}} must be unique"
     }
+  },
+  "Participants": {
+    "Name": "Name",
+    "StartDate": "Start date",
+    "EndDate": "End date",
+    "Type": "Type",
+    "Category": "Category",
+    "Address": "Address",
+    "Speaker": "Speaker",
+    "Attend": "Attend",
+    "Join": "Join",
+    "Withdraw": "Withdraw",
+    "State": "State"
   }
 }
