@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 import RegularCard from 'components/common/cards/RegularCard';
 import { Grid } from '@material-ui/core';
-import { useTranslation } from 'react-i18next';
 import DateTime from 'components/common/inputs/DateTime';
 import Button from 'components/common/buttons/Button';
 
-const ParticipantFilters = ({ }) => {
+const ParticipantFilters = ({ filters }) => {
     const { t } = useTranslation();
+    const [localFilters, setLocalFilters] = useState(filters);
 
     return (<>
         <RegularCard
@@ -15,7 +17,7 @@ const ParticipantFilters = ({ }) => {
                     <Grid item xs={12} lg={3}>
                         <DateTime
                             label={t('Participants.Filters.StartDate')}
-                            value={""}
+                            value={localFilters?.startDate}
                             onChange={() => { }}
                             clearable
                         />
@@ -23,7 +25,7 @@ const ParticipantFilters = ({ }) => {
                     <Grid item xs={12} lg={3}>
                         <DateTime
                             label={t('Participants.Filters.EndDate')}
-                            value={""}
+                            value={localFilters?.endDate}
                             onChange={() => { }}
                             clearable
                         />
@@ -38,6 +40,10 @@ const ParticipantFilters = ({ }) => {
             {t("General.Buttons.ApplyFilters")}
         </Button>
     </>)
+}
+
+ParticipantFilters.propTypes = {
+    filters: PropTypes.object.isRequired
 }
 
 export default ParticipantFilters;

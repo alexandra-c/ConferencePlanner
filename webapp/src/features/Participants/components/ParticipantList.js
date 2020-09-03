@@ -7,11 +7,12 @@ import Typography from 'components/common/inputs/Typography';
 import RoomIcon from '@material-ui/icons/Room';
 import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 import participants from '../mockFile';
+import Pagination from 'components/common/pagination/Pagination';
 
-const ParticipantsList = ({ }) => {
+const ParticipantList = () => {
     const { t } = useTranslation();
 
-    return (
+    return (<>
         <Grid container spacing={2}>
             {participants.map(participant =>
                 <Grid item xs={12} lg={4} key={participant.id}>
@@ -55,7 +56,16 @@ const ParticipantsList = ({ }) => {
                 </Grid>
             )}
         </Grid >
-    )
+        <Pagination
+            totalCount={10}
+            pageSize={5}
+            page={0}
+            rowsPerPageOptions={[5, 10, 15, 20]}
+            onChangeRowsPerPage={() => { }}
+            onChangePage={() => { }}
+            onRefresh={() => { }}
+        />
+    </>)
 }
 
-export default ParticipantsList;
+export default ParticipantList;
