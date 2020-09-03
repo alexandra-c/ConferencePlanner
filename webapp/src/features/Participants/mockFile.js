@@ -7,7 +7,8 @@ const participants = [
         type: 'Remote',
         category: 'Medical',
         address: 'Bucharest, Romania',
-        speakerName: 'Mark Sloan'
+        speakerName: 'Mark Sloan',
+        status: 'Joined'
     },
     {
         id: 2,
@@ -17,7 +18,8 @@ const participants = [
         type: 'Remote',
         category: 'IT Software',
         address: 'Bucharest, Romania',
-        speakerName: 'Dragos Rosca'
+        speakerName: 'Dragos Rosca',
+        status: 'Attend'
     },
     {
         id: 3,
@@ -27,7 +29,8 @@ const participants = [
         type: 'Remote',
         category: 'IT Software',
         address: 'Bucharest, Romania',
-        speakerName: 'Capatina Alexandra'
+        speakerName: 'Capatina Alexandra',
+        status: 'Joined'
     },
     {
         id: 4,
@@ -37,7 +40,8 @@ const participants = [
         type: 'Remote',
         category: 'IT Software',
         address: 'Bucharest, Romania',
-        speakerName: 'Radu Popovici'
+        speakerName: 'Radu Popovici',
+        status: 'Withdraw'
     }
 ]
 

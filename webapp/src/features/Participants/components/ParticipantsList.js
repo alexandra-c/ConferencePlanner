@@ -34,7 +34,10 @@ const ParticipantsList = ({ }) => {
                                 </Grid>
                             </Grid>}
                         content={<>
-                            <Grid item xs={12} lg={6}>
+                            <Grid item xs={12}>
+                                <Typography variant="subtitle1" color="error">{participant.status}</Typography>
+                            </Grid>
+                            <Grid item xs={12}>
                                 <Typography>{participant.startDate + ' - ' + participant.endDate}</Typography>
                             </Grid>
                             <Grid item xs={12} >
@@ -42,9 +45,9 @@ const ParticipantsList = ({ }) => {
                             </Grid>
                             <Grid container spacing={2}>
                                 <Grid item xs={12}>
-                                    <Button right color="info" size={"sm"}>{t('Participants.Attend')}</Button>
                                     <Button right color="success" size={"sm"}>{t('Participants.Join')}</Button>
                                     <Button right color="danger" size={"sm"}>{t('Participants.Withdraw')}</Button>
+                                    <Button right color="info" size={"sm"}>{t('Participants.Attend')}</Button>
                                 </Grid>
                             </Grid>
                         </>}

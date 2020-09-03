@@ -50,17 +50,20 @@
       "Unique": "The value of {{selector}} must be unique"
     }
   },
+  "General": {
+    "Buttons": {
+      "ApplyFilters": "Apply filters",
+      "ResetFilters": "Reset filters"
+    }
+  },
   "Participants": {
-    "Name": "Name",
-    "StartDate": "Start date: ",
-    "EndDate": "End date: ",
-    "Type": "Type: ",
-    "Category": "Category: ",
-    "Address": "Address: ",
     "Speaker": "Speaker: ",
     "Attend": "Attend",
     "Join": "Join",
     "Withdraw": "Withdraw",
-    "State": "State: "
+    "Filters": {
+      "StartDate": "Start date",
+      "EndDate": "End date"
+    }
   }
 }

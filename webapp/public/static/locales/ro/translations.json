@@ -44,16 +44,9 @@
     }
   },
   "Participants": {
-    "Name": "Nume",
-    "StartDate": "Data de inceput: ",
-    "EndDate": "Data de sfarsit: ",
-    "Type": "Tip: ",
-    "Category": "Categorie: ",
-    "Address": "Adresa: ",
     "Speaker": "Orator: ",
     "Attend": "Participa",
     "Join": "Inscrie-te",
-    "Withdraw": "Retras",
-    "State": "Stare: "
+    "Withdraw": "Retrage-te"
   }
 }
