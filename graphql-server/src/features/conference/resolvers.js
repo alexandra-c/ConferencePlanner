@@ -23,34 +23,34 @@ const conferenceResolvers = {
             const speakers = await dataSources.conferenceDb.getSpeaker();
             return speakers;
         },
-        type: async ({ conferenceTypeId }, _arguments, { dataSources }, _info) => {
-            const conferenceType = await dataSources.conferenceDb.getConferenceType(conferenceTypeId);
+        type: async ({ conferenceTypeId }, _params, { dataLoaders }, _info) => {
+            const conferenceType = await dataLoaders.conferenceByIds.load(conferenceTypeId);
             return conferenceType.name;
         },
-        category: async ({ categoryId }, _arguments, { dataSources }, _info) => {
-            const category = await dataSources.conferenceDb.getCategory(categoryId);
+        category: async ({ categoryId }, _params, { dataLoaders }, _info) => {
+            const category = await dataLoaders.categoryByIds.load(categoryId);
             return category.name;
         },
         status: async (_parent, _arguments, { dataSources }, _info) => {
             const statusInfo = await dataSources.conferenceDb.getStatus()
             return statusInfo.name
         },
-        location: async ({ locationId }, _arguments, { dataSources }, _info) => {
-            const location = await dataSources.conferenceDb.getLocation(locationId);
+        location: async ({ locationId }, _params, { dataLoaders }, _info) => {
+            const location = await dataLoaders.locationByIds.load(locationId);
             return location;
         }
     },
     Location: {
-        city: async ({ cityId }, _arguments, { dataSources }, _info) => {
-            const city = await dataSources.conferenceDb.getCity(cityId);
+        city: async ({ cityId }, _params, { dataLoaders }, _info) => {
+            const city = await dataLoaders.cityByIds.load(cityId);
             return city;
         },
-        county: async ({ countyId }, _arguments, { dataSources }, _info) => {
-            const county = await dataSources.conferenceDb.getCounty(countyId);
+        county: async ({ countyId }, _params, { dataLoaders }, _info) => {
+            const county = await dataLoaders.countyByIds.load(countyId);
             return county;
         },
-        country: async ({ countryId }, _arguments, { dataSources }, _info) => {
-            const country = await dataSources.conferenceDb.getCountry(countryId);
+        country: async ({ countryId }, _params, { dataLoaders }) => {
+            const country = await dataLoaders.countryByIds.load(countryId);
             return country;
         }
     },
