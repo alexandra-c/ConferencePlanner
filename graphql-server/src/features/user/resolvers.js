@@ -1,7 +1,7 @@
 
 const userResolvers = {
     Query: {
-        userData: async (_, { id, externalId }, { dataLoaders }) => {
+        userData: async (_parent, { id, externalId }, { dataLoaders }) => {
             if (externalId) {
                 return await dataLoaders.userByExternalId.load(externalId);
             } else return await dataLoaders.userById.load(id);
@@ -14,7 +14,7 @@ const userResolvers = {
         }
     },
     User: {
-        rights: async ({ id }, _params, { dataLoaders }) => {
+        rights: async ({ id }, _arguments, { dataLoaders }) => {
             // to avoid n+1 problem, use dataLoader whenever you can
             const userRights = await dataLoaders.userRightsByUserId.load(id);
             const rightsIds = userRights && userRights.map(ur => ur.rightId)
