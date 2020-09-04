@@ -1,13 +1,17 @@
+import React from 'react';
+import Conference from './Conference';
+import { conference, types, categories, cities, countries, counties } from 'utils/mocks/organisers'
 
-import React, { Fragment } from 'react';
-import { Typography, Grid } from '@material-ui/core';
-import Conference from './Conference'
-
-function ConferenceContainer() {
+const ConferenceContainer = () => {
     return (
-        <Conference>
-
-        </Conference>
+        <Conference
+            conference={conference}
+            types={types}
+            categories={categories}
+            countries={countries}
+            counties={counties}
+            cities={cities}
+        />
     );
 }
 

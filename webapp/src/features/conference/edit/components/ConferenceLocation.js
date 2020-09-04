@@ -16,14 +16,14 @@ const ConferenceLocation = ({ conference, countries, counties, cities }) => {
             <Grid item xs={12} sm={6} lg={3}>
                 <CustomTextField
                     label={t('Location.Name')}
-                    value={conference.location.name}
+                    value={conference?.location?.name}
                     fullWidth
                 />
             </Grid>
             <Grid item xs={12} sm={6} lg={6}>
                 <CustomTextField
                     label={t('Location.Address')}
-                    value={conference.location.address}
+                    value={conference?.location?.address}
                     fullWidth
                 />
             </Grid>
@@ -32,7 +32,7 @@ const ConferenceLocation = ({ conference, countries, counties, cities }) => {
             <Grid item xs={12} sm={6} lg={3}>
                 <Autocomplete
                     fullWidth
-                    value={conference.location.country}
+                    value={conference?.location?.country}
                     options={countries}
                     onChange={() => { }}
                     isClearable={true}
@@ -44,7 +44,7 @@ const ConferenceLocation = ({ conference, countries, counties, cities }) => {
             <Grid item xs={12} sm={6} lg={3}>
                 <Autocomplete
                     fullWidth
-                    value={conference.location.county}
+                    value={conference?.location?.county}
                     options={counties}
                     onChange={() => { }}
                     isClearable={true}
@@ -56,7 +56,7 @@ const ConferenceLocation = ({ conference, countries, counties, cities }) => {
             <Grid item xs={12} sm={6} lg={3}>
                 <Autocomplete
                     fullWidth
-                    value={conference.location.city}
+                    value={conference?.location?.city}
                     options={cities}
                     onChange={() => { }}
                     isClearable={true}
@@ -70,14 +70,14 @@ const ConferenceLocation = ({ conference, countries, counties, cities }) => {
             <Grid item xs={12} sm={6} lg={3}>
                 <CustomTextField
                     label={t('Location.Latitude')}
-                    value={conference.location.latitude}
+                    value={conference?.location?.latitude}
                     fullWidth
                 />
             </Grid>
             <Grid item xs={12} sm={6} lg={3}>
                 <CustomTextField
                     label={t('Location.Longitude')}
-                    value={conference.location.longitude}
+                    value={conference?.location?.longitude}
                     fullWidth
                 />
             </Grid>

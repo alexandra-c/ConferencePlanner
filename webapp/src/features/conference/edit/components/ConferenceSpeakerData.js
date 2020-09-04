@@ -38,7 +38,7 @@ const ConferenceSpeakerData = ({ speaker }) => {
         <Td className={classes.tableContent}>
             <Checkbox
                 color='secondary'
-                checked={Boolean(speaker.isMainSpeaker)}
+                checked={Boolean(speaker?.isMainSpeaker)}
                 onChange={() => { }}
             />
         </Td>

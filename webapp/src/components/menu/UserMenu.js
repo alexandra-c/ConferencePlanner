@@ -10,8 +10,7 @@ import LanguageSelector from "./LanguageSelector"
 import Person from "@material-ui/icons/Person";
 import avatar_default from "assets/img/default-avatar.png";
 import { useTranslation } from 'react-i18next';
-import PowerSettingsNew from "@material-ui/icons/PowerSettingsNew";
-import { useReactOidc } from '@axa-fr/react-oidc-context';
+import { useEmail } from 'hooks/useEmail';
 
 
 const useStyles = makeStyles(userMenuStyle);
@@ -21,30 +20,19 @@ function UserMenu({ miniActive, avatar, language, changeLanguage }) {
     const [currentMiniActive] = useState(true);
     const classes = useStyles();
     const { t } = useTranslation();
+    const [email] = useEmail();
 
     const openCollapseAvatar = useCallback(e => {
         setOpenAvatar(!openAvatar);
         e.preventDefault();
     }, [openAvatar])
-
-    const { oidcUser, logout } = useReactOidc();
-    const logoutAction = useCallback(e => {
-        e.preventDefault();
-        logout();
-    }, [logout]) 
-
-    const userName = oidcUser?.profile?.firstName
-        ? `${oidcUser.profile.name} ${oidcUser.profile.lastName}`
-        : oidcUser?.profile
-            ? oidcUser.profile.name.split('@')[0]
-            : "User";
     const itemText = classes.itemText +
         " " +
         cx({
             [classes.itemTextMini]: miniActive && currentMiniActive
         });
-    
-     const displayName = userName 
+
+    const displayName = email || "User"
     return (
         <div className={classes.user}>
             <div className={classes.photo}>
@@ -88,22 +76,6 @@ function UserMenu({ miniActive, avatar, language, changeLanguage }) {
                                     </NavLink>
                                 </ListItem>
                             </Tooltip>
-                            {oidcUser &&
-                                <Tooltip disableHoverListener={!miniActive} title={t('Tooltips.Logout')}>
-                                    <ListItem className={classes.item}>
-                                        <NavLink to={"/"} className={classes.itemLink} onClick={logoutAction}>
-                                            <span className={classes.collapseItemMini}>
-                                                <PowerSettingsNew />
-                                            </span>
-                                            <ListItemText
-                                                primary={t('Tooltips.Logout')}
-                                                disableTypography={true}
-                                                className={itemText}
-                                            />
-                                        </NavLink>
-                                    </ListItem>
-                                </Tooltip>
-                            }
                             <ListItem className={classes.selectorItem}>
                                 <LanguageSelector
                                     language={language}
@@ -111,7 +83,7 @@ function UserMenu({ miniActive, avatar, language, changeLanguage }) {
                                     miniActive={miniActive}
                                 />
                             </ListItem>
-                                                    </List>
+                        </List>
                     </Collapse>
                 </ListItem>
             </List>

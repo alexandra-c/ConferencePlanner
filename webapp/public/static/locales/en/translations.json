@@ -13,8 +13,10 @@
   "MyProfile": "My Profile",
   "Forbidden": "Not allowed to see this page!",
   "NavBar": {
-    "Dashboard": "Dashboard",
-    "Settings": "Settings"
+    "Welcome": "Welcome",
+    "Settings": "Settings",
+    "Conferences": "Conferences",
+    "MyConferences" : "My Conferences"
   },
   "Tooltips": {
     "Logout": "Logout"
@@ -22,12 +24,6 @@
   "Dialog": {
     "Yes": "Yes",
     "No": "No"
-  },
-  "General": {
-    "Buttons":{
-      "DeleteSpeaker": "Delete speaker",
-      "AddSpeaker": "Add speaker"
-    }
   },
   "DateTime": {
     "InvalidDateMessage": "Invalid Date Format",
@@ -80,5 +76,28 @@
       "MinCharacters": "The length must be greater than {{min}}",
       "Unique": "The value of {{selector}} must be unique"
     }
+  },
+  "General": {
+    "Buttons": {
+      "ApplyFilters": "Apply filters",
+      "ResetFilters": "Reset filters",
+      "DeleteSpeaker": "Delete speaker",
+      "AddSpeaker": "Add speaker"
+    }
+  },
+  "Conferences": {
+    "Speaker": "Speaker: ",
+    "Attend": "Attend",
+    "Join": "Join",
+    "Withdraw": "Withdraw",
+    "Filters": {
+      "StartDate": "Start date",
+      "EndDate": "End date"
+    }
+  },
+  "LandingPage": {
+    "Title": "Welcome!",
+    "Subtitle": "Please enter your email:",
+    "BadEmail": "This is not a valid email!"
   }
 }

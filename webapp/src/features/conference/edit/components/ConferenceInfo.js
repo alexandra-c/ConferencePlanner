@@ -13,7 +13,7 @@ const ConferenceInfo = ({ conference, types, categories }) => {
             <Grid item xs={12} sm={6} lg={4}>
                 <CustomTextField
                     label={t('Conference.Name')}
-                    value={conference.name}
+                    value={conference?.name}
                     fullWidth
                 />
             </Grid>
@@ -22,21 +22,21 @@ const ConferenceInfo = ({ conference, types, categories }) => {
             <Grid item xs={12} sm={6} lg={3}>
                 <DateTime
                     label={t('Conference.StartDate')}
-                    value={conference.startDate}
+                    value={conference?.startDate}
                     showTime={true}
                 />
             </Grid>
             <Grid item xs={12} sm={6} lg={3}>
                 <DateTime
                     label={t('Conference.EndDate')}
-                    value={conference.endDate}
+                    value={conference?.endDate}
                     showTime={true}
                 />
             </Grid>
             <Grid item xs={12} sm={6} lg={3}>
                 <Autocomplete
                     fullWidth
-                    value={conference.type}
+                    value={conference?.type}
                     valueKey={"id"}
                     labelKey={"name"}
                     options={types}
@@ -50,7 +50,7 @@ const ConferenceInfo = ({ conference, types, categories }) => {
             <Grid item xs={12} sm={6} lg={3}>
                 <Autocomplete
                     fullWidth
-                    value={conference.category}
+                    value={conference?.category}
                     valueKey={"id"}
                     labelKey={"name"}
                     options={categories}
