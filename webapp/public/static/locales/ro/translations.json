@@ -47,7 +47,8 @@
   "General": {
     "Buttons": {
       "ApplyFilters": "Aplica filtre",
-      "ResetFilters": "Reseteaza filtre"
+      "ResetFilters": "Reseteaza filtre",
+      "AddConference": "Adauga Conferinta"
     }
   },
   "Conferences": {
@@ -55,6 +56,15 @@
     "Attend": "Participa",
     "Join": "Inscrie-te",
     "Withdraw": "Retrage-te",
+    "Filters": {
+      "StartDate": "Data incepere",
+      "EndDate": "Data terminare"
+    }
+  },
+  "MyConferences": {
+    "Speaker": "Orator: ",
+    "Delete": "Sterge",
+    "Edit": "Editeaza",
     "Filters": {
       "StartDate": "Data incepere",
       "EndDate": "Data terminare"

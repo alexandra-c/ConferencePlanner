@@ -16,7 +16,7 @@
     "Dashboard": "Dashboard",
     "Settings": "Settings",
     "Conferences": "Conferences",
-    "MyConferences" : "My Conferences"
+    "MyConferences": "My Conferences"
   },
   "Tooltips": {
     "Logout": "Logout"
@@ -54,7 +54,8 @@
   "General": {
     "Buttons": {
       "ApplyFilters": "Apply filters",
-      "ResetFilters": "Reset filters"
+      "ResetFilters": "Reset filters",
+      "AddConference": "Add conference"
     }
   },
   "Conferences": {
@@ -62,6 +63,15 @@
     "Attend": "Attend",
     "Join": "Join",
     "Withdraw": "Withdraw",
+    "Filters": {
+      "StartDate": "Start date",
+      "EndDate": "End date"
+    }
+  },
+  "MyConferences": {
+    "Speaker": "Speaker: ",
+    "Delete": "Delete",
+    "Edit": "Edit",
     "Filters": {
       "StartDate": "Start date",
       "EndDate": "End date"
