@@ -23,6 +23,32 @@
     "MinDateMessage": "Data introdusa nu poate fi mai mica decat valoarea minima",
     "MaxDateMessage": "Data introdusa nu poate fi mai mare decat valoarea maxima"
   },
+  "Conference":{
+    "Speakers": "Oratori",
+    "Info": "Informatii conferinta",
+    "Location": "Locatie",
+    "Name": "Nume conferinta",
+    "Type": "Tipul conferintei",
+    "Category": "Categorie",
+    "StartDate": "Data inceput",
+    "EndDate": "Data sfarsit"
+  },
+  "Location":{
+    "Name": "Nume",
+    "Address": "Adresa",
+    "Country": "Tara",
+    "County": "Judet",
+    "City": "Oras",
+    "Latitude": "Latitudine",
+    "Longitude": "Longitudine"
+  },
+  "Speaker":{
+    "Name": "Nume",
+    "Nationality": "Nationalitate",
+    "Rating": "Rating",
+    "MainSpeaker": "Orator principal"
+  },
+  "Code": "Cod",
   "Validations": {
     "Cnp": "CNP-ul nu este valid",
     "UniqueCnp": "CNP-ul nu este unic",
@@ -47,7 +73,9 @@
   "General": {
     "Buttons": {
       "ApplyFilters": "Aplica filtre",
-      "ResetFilters": "Reseteaza filtre"
+      "ResetFilters": "Reseteaza filtre",
+      "DeleteSpeaker": "Sterge orator",
+      "AddSpeaker": "Adauga orator"
     }
   },
   "Conferences": {
