@@ -70,7 +70,7 @@ const conferenceTypeDefs = gql`
   }
 
   extend type Query {
-    conferenceList(pager: PagerInput!, filters: ConferenceFilterInput): ConferenceList
+    conferenceList(pager: PagerInput!, filters: ConferenceFilterInput, organizerEmail: String): ConferenceList
   }
 `
 

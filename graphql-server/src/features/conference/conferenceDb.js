@@ -46,9 +46,32 @@ class ConferenceDb extends SQLDataSource {
                 "LocationId",
                 "CategoryId",
                 "StartDate",
-                "EndDate"
+                "EndDate",
+                "OrganizerEmail"
             )
             .from("Conference")
+            .modify(this.generateFromAndWhereClause, { filters, afterId, direction, sortBy, sortByValue })
+            .modify(generateOrderByClause, { sortBy, direction, pk: "Id" })
+            .modify(generateTopClause, pageSize ? pageSize + 1 : null);
+        return { values, sortByValue };
+    }
+
+    async getConferenceListByOrganizer(pager, filters, organizerEmail) {
+        const { pageSize, sortBy = "Name", direction = 0, afterId } = pager;
+        const sortByValue = await getSortByValue(this.knex, afterId, sortBy, "Conference", "Id");
+        const values = await this.knex
+            .select(
+                "Id",
+                "Name",
+                "ConferenceTypeId",
+                "LocationId",
+                "CategoryId",
+                "StartDate",
+                "EndDate",
+                "OrganizerEmail"
+            )
+            .from("Conference")
+            .where("OrganizerEmail", organizerEmail)
             .modify(this.generateFromAndWhereClause, { filters, afterId, direction, sortBy, sortByValue })
             .modify(generateOrderByClause, { sortBy, direction, pk: "Id" })
             .modify(generateTopClause, pageSize ? pageSize + 1 : null);
