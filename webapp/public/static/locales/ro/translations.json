@@ -5,7 +5,7 @@
   "MyProfile": "Profilul meu",
   "Forbidden": "Nu aveti dreptul sa vedeti aceasta pagina!",
   "NavBar": {
-    "Dashboard": "Panou central",
+    "Welcome": "Bun venit",
     "Settings": "Setari",
     "User": "Profil",
     "Conferences": "Conferinte",
@@ -59,5 +59,10 @@
       "StartDate": "Data incepere",
       "EndDate": "Data terminare"
     }
+  },
+  "LandingPage": {
+    "Title": "Bun venit!",
+    "Subtitle": "Te rog introdu email-ul personal:",
+    "BadEmail": "Acesta nu este un email valid!"
   }
 }
