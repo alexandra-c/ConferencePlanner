@@ -4,7 +4,7 @@ const conferenceResolvers = {
             const { pageSize } = pager;
             const data = await dataSources.conferenceDb.getConferenceList(pager, filters);
             const { values, sortByValue } = data;
-            return pageSize ? { values: values.slice(0, pageSize), nextAfterId: values[pageSize], sortByValue } : { values, sortByValue }
+            return { values: values.slice(0, pageSize), nextAfterId: values[pageSize], sortByValue }
         }
     },
     ConferenceList: {
@@ -18,7 +18,7 @@ const conferenceResolvers = {
     },
     Conference: {
         speakers: async (_parent, _params, { dataSources }) => {
-            const speakers = await dataSources.conferenceDb.getSpeakerInfo();
+            const speakers = await dataSources.conferenceDb.getSpeaker();
             return speakers;
         },
         type: async ({ conferenceTypeId }, _params, { dataSources }) => {
@@ -30,7 +30,7 @@ const conferenceResolvers = {
             return category.name;
         },
         status: async (_parent, _params, { dataSources }) => {
-            const statusInfo = await dataSources.conferenceDb.getStatusInfo()
+            const statusInfo = await dataSources.conferenceDb.getStatus()
             return statusInfo.name
         },
         location: async ({ locationId }, _params, { dataSources }) => {
@@ -40,15 +40,15 @@ const conferenceResolvers = {
     },
     Location: {
         city: async ({ cityId }, _params, { dataSources }) => {
-            const city = await dataSources.conferenceDb.getCityInfo(cityId);
+            const city = await dataSources.conferenceDb.getCity(cityId);
             return city;
         },
         county: async ({ countyId }, _params, { dataSources }) => {
-            const county = await dataSources.conferenceDb.getCountyInfo(countyId);
+            const county = await dataSources.conferenceDb.getCounty(countyId);
             return county;
         },
         country: async ({ countryId }, _params, { dataSources }) => {
-            const country = await dataSources.conferenceDb.getCountryInfo(countryId);
+            const country = await dataSources.conferenceDb.getCountry(countryId);
             return country;
         }
     }

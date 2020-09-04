@@ -55,7 +55,7 @@ class ConferenceDb extends SQLDataSource {
         return { values, sortByValue };
     }
 
-    async getSpeakerInfo() {
+    async getSpeaker() {
         const data = await this.knex
             .select(
                 "SpeakerId",
@@ -68,7 +68,7 @@ class ConferenceDb extends SQLDataSource {
         return data;
     }
 
-    async getStatusInfo() {
+    async getStatus() {
         const data = await this.knex
             .select(
                 "StatusId",
@@ -119,7 +119,7 @@ class ConferenceDb extends SQLDataSource {
         return data;
     }
 
-    async getCityInfo(cityId) {
+    async getCity(cityId) {
         const data = await this.knex
             .select(
                 "Id",
@@ -131,7 +131,7 @@ class ConferenceDb extends SQLDataSource {
         return data;
     }
 
-    async getCountyInfo(countyId) {
+    async getCounty(countyId) {
         const data = await this.knex
             .select(
                 "Id",
@@ -143,7 +143,7 @@ class ConferenceDb extends SQLDataSource {
         return data;
     }
 
-    async getCountryInfo(countryId) {
+    async getCountry(countryId) {
         const data = await this.knex
             .select(
                 "Id",
