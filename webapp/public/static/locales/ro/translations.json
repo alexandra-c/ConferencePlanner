@@ -5,7 +5,7 @@
   "MyProfile": "Profilul meu",
   "Forbidden": "Nu aveti dreptul sa vedeti aceasta pagina!",
   "NavBar": {
-    "Dashboard": "Panou central",
+    "Welcome": "Bun venit",
     "Settings": "Setari",
     "User": "Profil"
   },
@@ -41,5 +41,10 @@
       "MinCharacters": "Lungimea trebuie sa fie mai mare decat {{min}}",
       "Unique": "Valoarea pentru {{selector}} trebuie sa fie unica"
     }
+  },
+  "LandingPage": {
+    "Title": "Bun venit!",
+    "Subtitle": "Te rog introdu email-ul personal:",
+    "BadEmail": "Acesta nu este un email valid!"
   }
 }

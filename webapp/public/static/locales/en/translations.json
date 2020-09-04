@@ -13,7 +13,7 @@
   "MyProfile": "My Profile",
   "Forbidden": "Not allowed to see this page!",
   "NavBar": {
-    "Dashboard": "Dashboard",
+    "Welcome": "Welcome",
     "Settings": "Settings"
   },
   "Tooltips": {
@@ -48,5 +48,10 @@
       "MinCharacters": "The length must be greater than {{min}}",
       "Unique": "The value of {{selector}} must be unique"
     }
+  },
+  "LandingPage": {
+    "Title": "Welcome!",
+    "Subtitle": "Please enter your email:",
+    "BadEmail": "This is not a valid email!"
   }
 }
