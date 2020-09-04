@@ -1,9 +1,12 @@
 const UserApi = require('../features/user/dataSources/userApi');
 const UserDb = require('../features/user/dataSources/userDb');
+const ConferenceDb = require('../features/conference/conferenceDb');
 
 const ds = {
     userApi: new UserApi(),
-    userDb: new UserDb()}
+    userDb: new UserDb(),
+    conferenceDb: new ConferenceDb()
+}
 
 module.exports.getDataSources = () => (ds)
 
@@ -11,5 +14,6 @@ module.exports.getDataSources = () => (ds)
 module.exports.initializedDataSources = (context, dbInstance) => {
     ds.userApi.initialize({ context })
     ds.userDb.initialize({ context: { dbInstance } })
+    ds.conferenceDb.initialize({ context: { dbInstance } })
     return ds
 }
