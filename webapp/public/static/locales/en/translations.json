@@ -15,7 +15,8 @@
   "NavBar": {
     "Dashboard": "Dashboard",
     "Settings": "Settings",
-    "Participants": "Participants"
+    "Conferences": "Conferences",
+    "MyConferences" : "My Conferences"
   },
   "Tooltips": {
     "Logout": "Logout"
@@ -56,7 +57,7 @@
       "ResetFilters": "Reset filters"
     }
   },
-  "Participants": {
+  "Conferences": {
     "Speaker": "Speaker: ",
     "Attend": "Attend",
     "Join": "Join",

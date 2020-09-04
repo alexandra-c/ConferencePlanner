@@ -1,7 +1,7 @@
 const { SQLDataSource } = require("../../utils/sqlDataSource");
 const { generateTopClause, getSortByValue, generateSortByPkClause, generatePrevPageWhereClause, generateOrderByClause } = require("../common/dbGenerators")
 
-class ParticipantDb extends SQLDataSource {
+class ConferenceDb extends SQLDataSource {
 
     generateFromAndWhereClause(queryBuilder, { afterId, filters = {}, direction, sortBy, sortByValue }) {
         const { startDate, endDate } = filters;
@@ -16,14 +16,14 @@ class ParticipantDb extends SQLDataSource {
         }
     }
 
-    async getParticipantListTotalCount(filters = {}) {
+    async getConferenceListTotalCount(filters = {}) {
         return await this.knex
             .count("Id", { as: "TotalCount" })
             .modify(this.generateFromAndWhereClause, { filters })
             .first();
     }
 
-    async getParticipantListPreviousPageAfterId(pager, filters, sortByValue) {
+    async getConferenceListPreviousPageAfterId(pager, filters, sortByValue) {
         const { pageSize, afterId, sortBy = "Name", direction = 0 } = pager;
         const prevPage = await this.knex
             .select("Id")
@@ -35,12 +35,13 @@ class ParticipantDb extends SQLDataSource {
         return prevPage[pageSize - 1];
     }
 
-    async getParticipantList(pager, filters) {
+    async getConferenceList(pager, filters) {
         const { pageSize, sortBy = "Name", direction = 0, afterId } = pager;
         const sortByValue = await getSortByValue(this.knex, afterId, sortBy, "Conference", "Id");
         const values = await this.knex
             .select(
                 "Id",
+                "Name",
                 "ConferenceTypeId",
                 "LocationId",
                 "CategoryId",
@@ -54,15 +55,29 @@ class ParticipantDb extends SQLDataSource {
         return { values, sortByValue };
     }
 
-    // async getSpeakerIdByConferenceId(id) {
-    //     const data = await this.knex
-    //         .select(
-    //             "SpeakerId"
-    //         )
-    //         .from("ConferenceXSpeaker")
-    //         .where("ConferenceId", id)
-    //     return data;
-    // }
+    async getSpeakerInfo() {
+        const data = await this.knex
+            .select(
+                "SpeakerId",
+                "s.Name",
+                "s.Nationality",
+                "s.Rating"
+            )
+            .from("ConferenceXSpeaker")
+            .innerJoin("Speaker AS s", "ConferenceXSpeaker.SpeakerId", "=", "s.Id")
+        return data;
+    }
+
+    async getStatusInfo() {
+        const data = await this.knex
+            .select(
+                "StatusId",
+                "dS.Name"
+            )
+            .from("ConferenceXAttendee")
+            .innerJoin("DictionaryStatus AS dS", "ConferenceXAttendee.StatusId", "=", "dS.Id")
+        return data
+    }
 
     async getConferenceType(conferenceTypeId) {
         const data = await this.knex
@@ -86,10 +101,15 @@ class ParticipantDb extends SQLDataSource {
         return data;
     }
 
-    async getAddress(locationId) {
+    async getLocation(locationId) {
         const data = await this.knex
             .select(
                 "Id",
+                "Name",
+                "Code",
+                "Address",
+                "Latitude",
+                "Longitude",
                 "CityId",
                 "CountyId",
                 "CountryId"
@@ -103,7 +123,8 @@ class ParticipantDb extends SQLDataSource {
         const data = await this.knex
             .select(
                 "Id",
-                "Name"
+                "Name",
+                "Code"
             )
             .from("DictionaryCity")
             .where("Id", cityId)
@@ -114,7 +135,8 @@ class ParticipantDb extends SQLDataSource {
         const data = await this.knex
             .select(
                 "Id",
-                "Name"
+                "Name",
+                "Code"
             )
             .from("DictionaryCounty")
             .where("Id", countyId)
@@ -125,7 +147,8 @@ class ParticipantDb extends SQLDataSource {
         const data = await this.knex
             .select(
                 "Id",
-                "Name"
+                "Name",
+                "Code"
             )
             .from("DictionaryCountry")
             .where("Id", countryId)
@@ -133,4 +156,4 @@ class ParticipantDb extends SQLDataSource {
     }
 }
 
-module.exports = ParticipantDb;
+module.exports = ConferenceDb;

@@ -8,7 +8,8 @@
     "Dashboard": "Panou central",
     "Settings": "Setari",
     "User": "Profil",
-    "Participants": "Participanti"
+    "Conferences": "Conferinte",
+    "MyConferences": "Conferintele mele"
   },
   "Tooltips": {
     "Logout": "Iesire"
@@ -43,7 +44,13 @@
       "Unique": "Valoarea pentru {{selector}} trebuie sa fie unica"
     }
   },
-  "Participants": {
+  "General": {
+    "Buttons": {
+      "ApplyFilters": "Aplica filtre",
+      "ResetFilters": "Reseteaza filtre"
+    }
+  },
+  "Conferences": {
     "Speaker": "Orator: ",
     "Attend": "Participa",
     "Join": "Inscrie-te",

@@ -1,10 +1,12 @@
 import React from 'react';
 import Dashboard from '@material-ui/icons/Dashboard';
 import Settings from '@material-ui/icons/Settings';
-import PeopleIcon from '@material-ui/icons/People';
+import EventIcon from '@material-ui/icons/Event';
+import EventNoteIcon from '@material-ui/icons/EventNote';
 
 const menuItems = [
-    { icon: <PeopleIcon />, text: 'NavBar.Participants', path: '/participants', name: 'Participants' },
+    { icon: <EventIcon />, text: 'NavBar.Conferences', path: '/conferences', name: 'Conferences' },
+    { icon: <EventNoteIcon />, text: 'NavBar.MyConferences', path: '/myconferences', name: 'My Conferences' },
     { icon: <Dashboard />, text: 'NavBar.Dashboard', path: '/dashboard', name: 'Dashboard' },
     { icon: <Settings />, text: 'NavBar.Settings', path: '/settings', name: 'Settings' }
 ]

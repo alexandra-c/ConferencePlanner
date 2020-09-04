@@ -2,11 +2,11 @@ import { gql } from "@apollo/client";
 import CommonFragments from "features/common/fragments";
 import Fragments from "../fragments";
 
-export const PARTICIPANT_QUERY_LIST = gql`
-    query participantList($pager: PagerInput!, $filters: ParticipantFilterInput) {
-        participantList(pager: $pager, filters: $filters) {
+export const CONFERENCE_QUERY_LIST = gql`
+    query conferenceList($pager: PagerInput!, $filters: ConferenceFilterInput) {
+        conferenceList(pager: $pager, filters: $filters) {
             values {
-                ...participantItem
+                ...conferenceItem
             }
             pagination(pager: $pager, filters: $filters) {
                 totalCount
@@ -20,5 +20,5 @@ export const PARTICIPANT_QUERY_LIST = gql`
         }
     }
 ${CommonFragments.paginationInfo}
-${Fragments.participantItem}
+${Fragments.conferenceItem}
 `
