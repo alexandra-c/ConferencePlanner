@@ -16,7 +16,7 @@
     "Welcome": "Welcome",
     "Settings": "Settings",
     "Conferences": "Conferences",
-    "MyConferences" : "My Conferences"
+    "MyConferences": "My Conferences"
   },
   "Tooltips": {
     "Logout": "Logout"
@@ -30,7 +30,7 @@
     "MinDateMessage": "Date should not be before minimal date",
     "MaxDateMessage": "Date should not be after maximal date"
   },
-  "Conference":{
+  "Conference": {
     "Speakers": "Speakers",
     "Info": "Conference Info",
     "Location": "Location",
@@ -40,7 +40,7 @@
     "StartDate": "Start date",
     "EndDate": "End date"
   },
-  "Location":{
+  "Location": {
     "Name": "Name",
     "Address": "Address",
     "Country": "Country",
@@ -49,7 +49,7 @@
     "Latitude": "Latitude",
     "Longitude": "Longitude"
   },
-  "Speaker":{
+  "Speaker": {
     "Name": "Name",
     "Nationality": "Nationality",
     "Rating": "Rating",
@@ -81,6 +81,7 @@
     "Buttons": {
       "ApplyFilters": "Apply filters",
       "ResetFilters": "Reset filters",
+      "AddConference": "Add conference",
       "DeleteSpeaker": "Delete speaker",
       "AddSpeaker": "Add speaker"
     }
@@ -90,6 +91,15 @@
     "Attend": "Attend",
     "Join": "Join",
     "Withdraw": "Withdraw",
+    "Filters": {
+      "StartDate": "Start date",
+      "EndDate": "End date"
+    }
+  },
+  "MyConferences": {
+    "Speaker": "Speaker: ",
+    "Delete": "Delete",
+    "Edit": "Edit",
     "Filters": {
       "StartDate": "Start date",
       "EndDate": "End date"
