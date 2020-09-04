@@ -3,11 +3,11 @@ import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
 import Welcome from 'features/welcome/Welcome'
-import Settings from 'features/settings/Settings'
 import NotFound from 'components/common/NotFound';
 import Forbidden from 'components/common/Forbidden';
 import ConferenceListContainer from 'features/conference/list/components/ConferenceListContainer';
-import ConferenceContainer from 'features/conference/edit/components/ConferenceContainer';
+import MyConferenceListContainer from 'features/myConference/list/components/MyConferenceListContainer';
+import MyConferenceContainer from 'features/myConference/edit/components/ConferenceContainer';
 
 import { useEmail } from 'hooks/useEmail';
 
@@ -24,9 +24,9 @@ const AppRoutes = (_props) => {
     return (<Switch>
         <Route exact path="/welcome" component={Welcome} />
         <Route exact path="/conferences" component={ConferenceListContainer} />
-        <Route exact path="/myconferences" component={Settings} />
-        <Route exact path="/myconferences/:id(\d+)" component={ConferenceContainer} />
-        <Route exact path="/myconferences/:id(new)" component={ConferenceContainer} />
+        <Route exact path="/myConferences" component={MyConferenceListContainer} />
+        <Route exact path="/myConferences/:id(\d+)" component={MyConferenceContainer} />
+        <Route exact path="/myConferences/:id(new)" component={MyConferenceContainer} />
         <Redirect exact from="/" to="/welcome" />
         <Route exact path="/forbidden" component={Forbidden} />
         <Route render={() => <NotFound title="PageNotFound"></NotFound>} />

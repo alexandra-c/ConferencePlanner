@@ -3,8 +3,8 @@ import CommonFragments from "features/common/fragments";
 import Fragments from "../fragments";
 
 export const CONFERENCE_QUERY_LIST = gql`
-    query conferenceList($pager: PagerInput!, $filters: ConferenceFilterInput) {
-        conferenceList(pager: $pager, filters: $filters) {
+    query conferenceList($pager: PagerInput!, $filters: ConferenceFilterInput, $organizerEmail: String) {
+        conferenceList(pager: $pager, filters: $filters, organizerEmail: $organizerEmail) {
             values {
                 ...conferenceItem
             }

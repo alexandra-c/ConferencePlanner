@@ -23,7 +23,7 @@
     "MinDateMessage": "Data introdusa nu poate fi mai mica decat valoarea minima",
     "MaxDateMessage": "Data introdusa nu poate fi mai mare decat valoarea maxima"
   },
-  "Conference":{
+  "Conference": {
     "Speakers": "Oratori",
     "Info": "Informatii conferinta",
     "Location": "Locatie",
@@ -33,7 +33,7 @@
     "StartDate": "Data inceput",
     "EndDate": "Data sfarsit"
   },
-  "Location":{
+  "Location": {
     "Name": "Nume",
     "Address": "Adresa",
     "Country": "Tara",
@@ -42,7 +42,7 @@
     "Latitude": "Latitudine",
     "Longitude": "Longitudine"
   },
-  "Speaker":{
+  "Speaker": {
     "Name": "Nume",
     "Nationality": "Nationalitate",
     "Rating": "Rating",
@@ -74,6 +74,7 @@
     "Buttons": {
       "ApplyFilters": "Aplica filtre",
       "ResetFilters": "Reseteaza filtre",
+      "AddConference": "Adauga Conferinta",
       "DeleteSpeaker": "Sterge orator",
       "AddSpeaker": "Adauga orator"
     }
@@ -83,6 +84,15 @@
     "Attend": "Participa",
     "Join": "Inscrie-te",
     "Withdraw": "Retrage-te",
+    "Filters": {
+      "StartDate": "Data incepere",
+      "EndDate": "Data terminare"
+    }
+  },
+  "MyConferences": {
+    "Speaker": "Orator: ",
+    "Delete": "Sterge",
+    "Edit": "Editeaza",
     "Filters": {
       "StartDate": "Data incepere",
       "EndDate": "Data terminare"

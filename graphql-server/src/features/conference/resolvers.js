@@ -1,8 +1,10 @@
 const conferenceResolvers = {
     Query: {
-        conferenceList: async (_parent, { pager, filters }, { dataSources }, _info) => {
+        conferenceList: async (_parent, { pager, filters, organizerEmail }, { dataSources }, _info) => {
             const { pageSize } = pager;
-            const data = await dataSources.conferenceDb.getConferenceList(pager, filters);
+            const data = organizerEmail ?
+                await dataSources.conferenceDb.getConferenceListByOrganizer(pager, filters, organizerEmail)
+                : await dataSources.conferenceDb.getConferenceList(pager, filters);
             const { values, sortByValue } = data;
             return { values: values.slice(0, pageSize), nextAfterId: values[pageSize], sortByValue }
         }
