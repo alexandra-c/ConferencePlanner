@@ -5,7 +5,7 @@
   "MyProfile": "Profilul meu",
   "Forbidden": "Nu aveti dreptul sa vedeti aceasta pagina!",
   "NavBar": {
-    "Dashboard": "Panou central",
+    "Welcome": "Bun venit",
     "Settings": "Setari",
     "User": "Profil",
     "Conferences": "Conferinte",
@@ -23,6 +23,32 @@
     "MinDateMessage": "Data introdusa nu poate fi mai mica decat valoarea minima",
     "MaxDateMessage": "Data introdusa nu poate fi mai mare decat valoarea maxima"
   },
+  "Conference": {
+    "Speakers": "Oratori",
+    "Info": "Informatii conferinta",
+    "Location": "Locatie",
+    "Name": "Nume conferinta",
+    "Type": "Tipul conferintei",
+    "Category": "Categorie",
+    "StartDate": "Data inceput",
+    "EndDate": "Data sfarsit"
+  },
+  "Location": {
+    "Name": "Nume",
+    "Address": "Adresa",
+    "Country": "Tara",
+    "County": "Judet",
+    "City": "Oras",
+    "Latitude": "Latitudine",
+    "Longitude": "Longitudine"
+  },
+  "Speaker": {
+    "Name": "Nume",
+    "Nationality": "Nationalitate",
+    "Rating": "Rating",
+    "MainSpeaker": "Orator principal"
+  },
+  "Code": "Cod",
   "Validations": {
     "Cnp": "CNP-ul nu este valid",
     "UniqueCnp": "CNP-ul nu este unic",
@@ -48,7 +74,9 @@
     "Buttons": {
       "ApplyFilters": "Aplica filtre",
       "ResetFilters": "Reseteaza filtre",
-      "AddConference": "Adauga Conferinta"
+      "AddConference": "Adauga Conferinta",
+      "DeleteSpeaker": "Sterge orator",
+      "AddSpeaker": "Adauga orator"
     }
   },
   "Conferences": {
@@ -69,5 +97,10 @@
       "StartDate": "Data incepere",
       "EndDate": "Data terminare"
     }
+  },
+  "LandingPage": {
+    "Title": "Bun venit!",
+    "Subtitle": "Te rog introdu email-ul personal:",
+    "BadEmail": "Acesta nu este un email valid!"
   }
 }
