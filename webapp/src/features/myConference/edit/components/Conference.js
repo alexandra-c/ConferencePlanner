@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import IconCard from 'components/common/cards/IconCard';
 import ConferenceInfo from './ConferenceInfo';
 import ConferenceLocation from './ConferenceLocation';
@@ -40,7 +41,7 @@ const Conference = ({ conference, types, categories, countries, counties, cities
             title={
                 <CardTitle
                     title={t("Conference.Speakers")}
-                    actions={[<AddButton key='addButton' title={t("General.Buttons.AddSpeaker")} onClick={()=>{}} />]}
+                    actions={[<AddButton key='addButton' title={t("General.Buttons.AddSpeaker")} onClick={handleAddFile} />]}
                 />
             }
             content={
@@ -50,6 +51,16 @@ const Conference = ({ conference, types, categories, countries, counties, cities
             }
         />
     </>
+}
+
+Conference.propTypes = {
+    conference: PropTypes.object.isRequired,
+    types: PropTypes.array.isRequired,
+    categories: PropTypes.array.isRequired,
+    countries: PropTypes.array.isRequired,
+    counties: PropTypes.array.isRequired,
+    cities: PropTypes.array.isRequired,
+    handleAddFile: PropTypes.func.isRequired
 }
 
 export default Conference;

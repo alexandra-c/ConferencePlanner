@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Grid } from '@material-ui/core';
 import Autocomplete from 'components/common/select/Autocomplete';
 import CustomTextField from 'components/common/inputs/CustomTextField';
@@ -83,6 +84,13 @@ const ConferenceLocation = ({ conference, countries, counties, cities }) => {
             </Grid>
         </Grid>
     </Grid>
+}
+
+ConferenceLocation.propTypes = {
+    conference: PropTypes.object.isRequired,
+    countries: PropTypes.array.isRequired,
+    counties: PropTypes.array.isRequired,
+    cities: PropTypes.array.isRequired
 }
 
 export default ConferenceLocation;
