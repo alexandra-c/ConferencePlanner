@@ -8,49 +8,48 @@ import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 import RegularCard from 'components/common/cards/RegularCard';
 import { Grid } from '@material-ui/core';
 
-const MyConferenceListItem = ({ conference }) => {
+const MyConferenceListItem = ({ conference, onEdit }) => {
     const { t } = useTranslation();
-    const { name, speaker, location, startDate, endDate, type, category } = conference;
+    const { id, name, speaker, location, startDate, endDate, type, category } = conference;
 
-    return (
-        <RegularCard
-            cardTitle={name}
-            cardSubtitle={
-                <Grid container item lg={12}>
-                    <Grid item lg={1}>
-                        <PermIdentityIcon />
-                    </Grid>
-                    <Grid item lg={11}>
-                        <Typography>{t('MyConferences.Speaker')}</Typography>
-                        <Typography>{speaker?.name}</Typography>
-                    </Grid>
-                    <Grid item lg={1}>
-                        <RoomIcon />
-                    </Grid>
-                    <Grid item lg={11}>
-                        <Typography>{`${location?.county.name}, ${location?.country.name}`}</Typography>
-                    </Grid>
-                </Grid>}
-            content={<>
+    return <RegularCard
+        cardTitle={name}
+        cardSubtitle={
+            <Grid container item lg={12}>
+                <Grid item lg={1}>
+                    <PermIdentityIcon />
+                </Grid>
+                <Grid item lg={11}>
+                    <Typography>{t('MyConferences.Speaker')}</Typography>
+                    <Typography>{speaker?.name}</Typography>
+                </Grid>
+                <Grid item lg={1}>
+                    <RoomIcon />
+                </Grid>
+                <Grid item lg={11}>
+                    <Typography>{`${location?.county.name}, ${location?.country.name}`}</Typography>
+                </Grid>
+            </Grid>}
+        content={<>
+            <Grid item xs={12}>
+                <Typography>{`${startDate} - ${endDate}`}</Typography>
+            </Grid>
+            <Grid item xs={12}>
+                <Typography>{`${type}, ${category}`}</Typography>
+            </Grid>
+            <Grid container spacing={2}>
                 <Grid item xs={12}>
-                    <Typography>{`${startDate} - ${endDate}`}</Typography>
+                    <Button right color="danger" size={"sm"}>{t('MyConferences.Delete')}</Button>
+                    <Button onClick={onEdit(id)} right color="info" size={"sm"}>{t('MyConferences.Edit')}</Button>
                 </Grid>
-                <Grid item xs={12}>
-                    <Typography>{`${type}, ${category}`}</Typography>
-                </Grid>
-                <Grid container spacing={2}>
-                    <Grid item xs={12}>
-                        <Button right color="danger" size={"sm"}>{t('MyConferences.Delete')}</Button>
-                        <Button right color="info" size={"sm"}>{t('MyConferences.Edit')}</Button>
-                    </Grid>
-                </Grid>
-            </>}
-        />
-    )
+            </Grid>
+        </>}
+    />
 }
 
 MyConferenceListItem.propTypes = {
-    conference: PropTypes.object.isRequired
+    conference: PropTypes.object.isRequired,
+    onEdit: PropTypes.func.isRequired
 }
 
 export default MyConferenceListItem;

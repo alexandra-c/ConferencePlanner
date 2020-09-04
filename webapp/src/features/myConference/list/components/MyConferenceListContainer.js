@@ -1,27 +1,33 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
+import { useHistory } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 import MyConferenceList from './MyConferenceList';
 import MyConferenceFilters from './MyConferenceFilters';
 import { useFooter, useHeader } from 'providers/AreasProvider';
 import Pagination from 'components/common/pagination/Pagination';
-import conferences from '../mockFile';
-import StandardHeader from 'features/common/StandardHeader'
+import conferences from '../../../../utils/mocks/organizerList';
+import MyConferenceHeader from 'features/myConference/list/components/MyConferenceHeader'
 
 const MyConferenceListContainer = () => {
+    const history = useHistory();
     const { t } = useTranslation();
     const [, setFooter] = useFooter();
     const [, setHeader] = useHeader();
+
+    const handleEdit = useCallback(id => () => history.push(`/myconferences/${id}`), [history]);
+    const handleAdd = useCallback(() => history.push(`/myconferences/new`), [history]);
 
     // eslint-disable-next-line 
     useEffect(() => () => (setFooter(null), setHeader(null)), []);
 
     useEffect(() => {
         setHeader(
-            <StandardHeader
+            <MyConferenceHeader
                 headerText={t('NavBar.MyConferences')}
+                onAdd={handleAdd}
             />
         )
-    }, [setHeader, t])
+    }, [handleAdd, setHeader, t])
 
     useEffect(() => {
         setFooter(
@@ -37,12 +43,13 @@ const MyConferenceListContainer = () => {
         )
     }, [setFooter])
 
-    return (<>
+    return <>
         <MyConferenceFilters />
         <MyConferenceList
             conferences={conferences}
+            onEdit={handleEdit}
         />
-    </>)
+    </>
 }
 
 export default MyConferenceListContainer;

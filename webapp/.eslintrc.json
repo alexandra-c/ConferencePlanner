@@ -31,7 +31,6 @@
         "no-console": 0,
         "react-hooks/rules-of-hooks": "error",
         "react-hooks/exhaustive-deps": "warn",
-        "no-unused-vars": [2, {"args": "after-used", "argsIgnorePattern": "^_"}],
-        "react/jsx-no-bind": [ "error", { "ignoreRefs": true } ]
+        "no-unused-vars": [2, {"args": "after-used", "argsIgnorePattern": "^_"}]       
     }
 }

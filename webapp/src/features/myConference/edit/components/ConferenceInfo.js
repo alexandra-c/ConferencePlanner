@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Grid } from "@material-ui/core";
 import DateTime from 'components/common/inputs/DateTime';
 import CustomTextField from 'components/common/inputs/CustomTextField';
@@ -63,6 +64,16 @@ const ConferenceInfo = ({ conference, types, categories }) => {
             </Grid>
         </Grid>
     </Grid >
+}
+
+ConferenceInfo.propTypes = {
+    conference: PropTypes.object.isRequired,
+    types: PropTypes.array.isRequired,
+    categories: PropTypes.array.isRequired,
+    countries: PropTypes.array.isRequired,
+    counties: PropTypes.array.isRequired,
+    cities: PropTypes.array.isRequired,
+    handleAddFile: PropTypes.func.isRequired
 }
 
 export default ConferenceInfo;
