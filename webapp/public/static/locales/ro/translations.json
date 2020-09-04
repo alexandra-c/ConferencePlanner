@@ -16,12 +16,19 @@
     "Yes": "Da",
     "No": "Nu"
   },
+  "General": {
+    "Buttons":{
+      "DeleteSpeaker": "Sterge speaker",
+      "AddSpeaker": "Adauga speaker"
+    }
+  },
   "DateTime": {
     "InvalidDateMessage": "Formatul datei este invalid",
     "MinDateMessage": "Data introdusa nu poate fi mai mica decat valoarea minima",
     "MaxDateMessage": "Data introdusa nu poate fi mai mare decat valoarea maxima"
   },
   "Conference":{
+    "Speakers": "Speakers",
     "Info": "Informatii conferinta",
     "Location": "Locatie",
     "Name": "Nume conferinta",
@@ -31,9 +38,13 @@
     "EndDate": "Data de sfarsit"
   },
   "Location":{
+    "Name": "Nume",
+    "Address": "Adresa",
     "Country": "Tara",
     "County": "Judet",
-    "City": "Oras"
+    "City": "Oras",
+    "Latitude": "Latitudine",
+    "Longitude": "Longitudine"
   },
   "Speaker":{
     "Name": "Nume",

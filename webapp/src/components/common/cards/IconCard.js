@@ -65,7 +65,7 @@ function IconCard(props) {
 }
 
 IconCard.defaultProps = {
-  iconColor: "blue",
+  iconColor: "theme",
   title: ""
 };
 

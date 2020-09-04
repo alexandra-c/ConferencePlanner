@@ -1,13 +1,14 @@
 import React from 'react';
-import { Grid, Checkbox, makeStyles } from '@material-ui/core';
-import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
+import { Grid, makeStyles } from '@material-ui/core';
+import { Table, Thead, Tbody, Tr, Th } from 'react-super-responsive-table';
 import { useTranslation } from 'react-i18next';
 import tableStyle from 'assets/jss/components/common/tableStyle';
 import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css"
-
+import ConferenceSpeakerData from './ConferenceSpeakerData';
 const useStyles = makeStyles(tableStyle);
 
-const ConferenceSpeakers = ({ speakers }) => {
+const ConferenceSpeakers = ({ conference }) => {
+    const speakers = conference.speakers;
     const { t } = useTranslation();
     const classes = useStyles();
 
@@ -19,22 +20,15 @@ const ConferenceSpeakers = ({ speakers }) => {
                     <Th className={classes.tableHeader}>{t('Speaker.Nationality')}</Th>
                     <Th className={classes.tableHeader}>{t('Speaker.Rating')}</Th>
                     <Th className={classes.tableHeader}>{t('Speaker.MainSpeaker')}</Th>
+                    <Th className={classes.tableHeader}></Th>
                 </Tr>
             </Thead>
             <Tbody>
                 {speakers?.map(speaker => (
-                    <Tr key={speaker.id}>
-                        <Td className={classes.tableContent}>{speaker.name}</Td>
-                        <Td className={classes.tableContent}>{speaker.nationality}</Td>
-                        <Td className={classes.tableContent}>{speaker.rating}</Td>
-                        <Td className={classes.tableContent}>
-                            <Checkbox
-                                color='primary'
-                                checked={Boolean(speaker.isMainSpeaker)}
-                                onChange={() => {}}
-                            />
-                        </Td>
-                    </Tr>
+                    <ConferenceSpeakerData
+                        key={speaker.id}
+                        speaker={speaker}
+                    />
                 ))}
             </Tbody>
         </Table >

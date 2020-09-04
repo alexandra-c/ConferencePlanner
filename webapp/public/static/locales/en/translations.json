@@ -23,12 +23,19 @@
     "Yes": "Yes",
     "No": "No"
   },
+  "General": {
+    "Buttons":{
+      "DeleteSpeaker": "Delete speaker",
+      "AddSpeaker": "Add speaker"
+    }
+  },
   "DateTime": {
     "InvalidDateMessage": "Invalid Date Format",
     "MinDateMessage": "Date should not be before minimal date",
     "MaxDateMessage": "Date should not be after maximal date"
   },
   "Conference":{
+    "Speakers": "Speakers",
     "Info": "Conference Info",
     "Location": "Location",
     "Name": "Conference name",
@@ -38,9 +45,13 @@
     "EndDate": "End date"
   },
   "Location":{
+    "Name": "Name",
+    "Address": "Address",
     "Country": "Country",
     "County": "County",
-    "City": "City"
+    "City": "City",
+    "Latitude": "Latitude",
+    "Longitude": "Longitude"
   },
   "Speaker":{
     "Name": "Name",

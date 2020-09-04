@@ -1,11 +1,25 @@
-export const conferences = [
-    { id: 1, name: "Introduction in GraphQL", locationId: 1, startDate: "17-10-2020 19:00", endDate: "18-10-2020 22:00" },
-    { id: 1, name: "Introduction in React", locationId: 1, startDate: "15-10-2020 19:00", endDate: "16-10-2020 22:00" }
-]
-
-export const locations = [
-    { id: 1, countryId: 1, countyId: 1, cityId: 1, address: "Bucuresti, Romania" }
-]
+export const conference = {
+    id: 1,
+    name: "Introduction in GraphQL",
+    startDate: new Date("2020-10-15T20:00:00.000Z"),
+    endDate: new Date("2020-10-06T23:30:00.000Z"),
+    location: { id: 1, 
+        name: "Totalsoft", 
+        country: { id: 1, name: "Romania", code: "ROU" }, 
+        county:  { id: 2, name: "Bucuresti", code: "B" },
+        city:  { id: 1, name: "Bucuresti", code: "Bucuresti" },
+        address: "Bucuresti, Romania", 
+        latitude: "", 
+        longitude: "" },
+    type: { id: 1, name: "On site" },
+    category: { id: 2, name: "Software" },
+    speakers: [
+        { id: 1, name: "Alexandra Capatina", nationality: "Ro", rating: 5, image: "", isMainSpeaker: true },
+        { id: 2, name: "Dragos Rosca", nationality: "Ro", rating: 4, image: "", isMainSpeaker: false },
+        { id: 3, name: "Costi Diaconita", nationality: "Ro", rating: 3, image: "", isMainSpeaker: false },
+        { id: 4, name: "Elena Dumitrescu", nationality: "Ro", rating: 2, image: "", isMainSpeaker: false }
+    ]
+}
 
 export const types = [
     { id: 1, name: "On site" },
@@ -14,12 +28,12 @@ export const types = [
 
 export const categories = [
     { id: 1, name: "Medical" },
-    { id: 2, name: "It Software" },
+    { id: 2, name: "Software" },
     { id: 3, name: "Technology" },
 ]
 
 export const countries = [
-    { id: 1, name: "Romania", code: "ROU" },
+    { id: 1, name: "Romania", code: "RO" },
     { id: 2, name: "Rusia", code: "RUS" },
     { id: 3, name: "America", code: "USA" }
 ]
@@ -31,9 +45,8 @@ export const counties = [
 ]
 
 export const cities = [
-    { id: 1, name: "Pitesti", code: "Pitesti" },
-    { id: 2, name: "Pitesti", code: "Pitesti" },
-    { id: 3, name: "Pitesti", code: "Pitesti" }
+    { id: 1, name: "Bucuresti", code: "Bucuresti" },
+    { id: 2, name: "Pitesti", code: "Pitesti" }
 ]
 
 export const speakers = [

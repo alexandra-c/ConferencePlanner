@@ -11,7 +11,8 @@ import ConferenceContainer from 'features/organizers/edit/components/ConferenceC
 export default (
     <Switch>
         <Route exact path="/dashboard" component={Dashboard}/>
-        <Route exact path="/newConference" component={ConferenceContainer}/>
+        <Route exact path="/myconferences/:id(\d+)" component={ConferenceContainer} />
+        <Route exact path="/myconferences/:id(new)" component={ConferenceContainer} />
         <Route exact path="/settings" component={Settings}/>
         <Redirect exact from="/" to="/dashboard" />
         <Route exact path="/forbidden" component={Forbidden} />
