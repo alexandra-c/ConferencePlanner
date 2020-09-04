@@ -1,7 +1,7 @@
 const contextDbInstance = require("./db/contextDbInstance");
 const correlationMiddleware = require("./correlation/correlationMiddleware")
-const validateToken = require("./auth/auth");
 const errorHandlingMiddleware = require('./errorHandling/errorHandlingMiddleware');
+const validateToken = require("./auth/auth");
 
 module.exports = {
   ...validateToken,
