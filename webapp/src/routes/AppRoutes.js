@@ -6,12 +6,11 @@ import Welcome from 'features/welcome/Welcome'
 import Settings from 'features/settings/Settings'
 import NotFound from 'components/common/NotFound';
 import Forbidden from 'components/common/Forbidden';
-import { useApolloLocalStorage } from 'hooks/apolloLocalStorage';
-import { emailKey } from 'apollo/cacheKeyFunctions';
 import ConferenceListContainer from 'features/conference/list/components/ConferenceListContainer';
+import { useEmail } from 'hooks/useEmail';
 
 const AppRoutes = (_props) => {
-    const [{ email }] = useApolloLocalStorage(emailKey)
+    const [email] = useEmail()
 
     if (!email) {
         return <Switch>
