@@ -69,8 +69,19 @@ const conferenceTypeDefs = gql`
     endDate: DateTime
   }
 
+  input Attendee {
+    id: ID!
+    attendeeEmail: String!
+    conferenceId: ID!
+    statusId:ID!
+  }
+
   extend type Query {
     conferenceList(pager: PagerInput!, filters: ConferenceFilterInput, organizerEmail: String): ConferenceList
+  }
+
+  extend type Mutation {
+    attend(input: Attendee!): Boolean    
   }
 `
 

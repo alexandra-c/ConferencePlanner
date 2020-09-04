@@ -16,7 +16,7 @@ const MyConferenceFilters = ({ filters, onApplyFilters }) => {
     const handleResetFilters = useCallback(() => setLocalFilters(emptyObject), []);
     const keyPressed = useCallback(({ keyCode }) => keyCode === 13 && handleApplyFilters(), [handleApplyFilters]);
 
-    return (<>
+    return <>
         <IconCard
             icon={Search}
             iconColor={"theme"}
@@ -48,7 +48,7 @@ const MyConferenceFilters = ({ filters, onApplyFilters }) => {
         <Button size={"sm"} color={"primary"} right={true} onClick={() => { }}>
             {t("General.Buttons.ApplyFilters")}
         </Button>
-    </>)
+    </>
 }
 
 MyConferenceFilters.propTypes = {

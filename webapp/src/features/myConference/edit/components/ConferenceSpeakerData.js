@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Checkbox } from '@material-ui/core';
 import { Tr, Td } from 'react-super-responsive-table'
@@ -48,5 +49,8 @@ const ConferenceSpeakerData = ({ speaker }) => {
     </Tr>
 };
 
+ConferenceSpeakerData.propTypes = {
+    speaker: PropTypes.object.isRequired
+}
 
 export default ConferenceSpeakerData;

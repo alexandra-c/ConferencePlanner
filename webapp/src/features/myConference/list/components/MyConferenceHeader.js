@@ -8,7 +8,7 @@ import { emptyString } from 'utils/constants';
 
 const useStyles = makeStyles((theme) => ({ title: { ...theme.header.title, width: '100%' } }));
 
-const StandardHeader = ({ headerText, ...rest }) => {
+const MyConferenceHeader = ({ headerText, onAdd }) => {
     const { t } = useTranslation();
     const classes = useStyles();
 
@@ -18,13 +18,14 @@ const StandardHeader = ({ headerText, ...rest }) => {
                 <Typography variant='subtitle1' className={classes.title}>{headerText || emptyString}</Typography>
             </Grid>
             <Grid item xs={6} sm={3} lg={3} container justify="flex-end">
-                <AddButton key='addButton' title={t("General.Buttons.AddConference")} onClick={() => { }} />
+                <AddButton key='addButton' title={t("General.Buttons.AddConference")} onClick={onAdd} />
             </Grid>
         </Grid>
     )
 }
 
-StandardHeader.propTypes = {
-    headerText: PropTypes.string
+MyConferenceHeader.propTypes = {
+    headerText: PropTypes.string,
+    onAdd: PropTypes.func.isRequired
 };
-export default StandardHeader;
+export default MyConferenceHeader;
