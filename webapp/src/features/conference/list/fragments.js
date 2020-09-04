@@ -1,40 +1,47 @@
 import { gql } from "@apollo/client";
+import CommonFragments from "features/common/fragments";
 
 const Fragments = {
-  conferenceItem: gql`
-    fragment conferenceItem on Conference {
+  conference: gql`
+    fragment conference on Conference {
+      id
+      name
+      startDate
+      endDate
+      type
+      category
+    }
+  `,
+  speaker: gql`
+    fragment speaker on Speaker {
         id
         name
-        startDate
-        endDate
-        type
-        category
+        isMainSpeaker
+        nationality
+        rating
+    }
+  `,
+  conferenceItem: gql`
+    fragment conferenceItem on Conference {
+        ...conference
         location {
-          id
-          name
+          ...CommonFragments.location
           city {
-            id
-            name
+            ...CommonFragments.city
           }
           county{
-            id
-            name
+            ...CommonFragments.county
           }
           country{
-            id
-            name
+            ...CommonFragments.country
           }
         }
         speaker {
-          id
-          name
-          isMainSpeaker
-          nationality
-          rating
+          ...speaker
         }
         status
     }
-  `,
+  `
 };
 
 export default Fragments;

@@ -3,6 +3,7 @@ import ConferenceList from './ConferenceList';
 import ConferenceFilters from './ConferenceFilters';
 import { useFooter } from 'providers/AreasProvider';
 import Pagination from 'components/common/pagination/Pagination';
+import conferences from '../mockFile';
 
 const ConferenceListContainer = () => {
     const [, setFooter] = useFooter();
@@ -26,7 +27,9 @@ const ConferenceListContainer = () => {
 
     return (<>
         <ConferenceFilters />
-        <ConferenceList />
+        <ConferenceList
+            conferences={conferences}
+        />
     </>)
 }
 
