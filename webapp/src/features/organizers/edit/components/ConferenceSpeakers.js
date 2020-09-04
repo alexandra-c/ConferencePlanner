@@ -3,6 +3,7 @@ import { Grid, Checkbox, makeStyles } from '@material-ui/core';
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import { useTranslation } from 'react-i18next';
 import tableStyle from 'assets/jss/components/common/tableStyle';
+import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css"
 
 const useStyles = makeStyles(tableStyle);
 
