@@ -14,7 +14,9 @@
   "Forbidden": "Not allowed to see this page!",
   "NavBar": {
     "Welcome": "Welcome",
-    "Settings": "Settings"
+    "Settings": "Settings",
+    "Conferences": "Conferences",
+    "MyConferences" : "My Conferences"
   },
   "Tooltips": {
     "Logout": "Logout"
@@ -47,6 +49,22 @@
       "MaxCharacters": "The length must be less than {{max}}",
       "MinCharacters": "The length must be greater than {{min}}",
       "Unique": "The value of {{selector}} must be unique"
+    }
+  },
+  "General": {
+    "Buttons": {
+      "ApplyFilters": "Apply filters",
+      "ResetFilters": "Reset filters"
+    }
+  },
+  "Conferences": {
+    "Speaker": "Speaker: ",
+    "Attend": "Attend",
+    "Join": "Join",
+    "Withdraw": "Withdraw",
+    "Filters": {
+      "StartDate": "Start date",
+      "EndDate": "End date"
     }
   },
   "LandingPage": {

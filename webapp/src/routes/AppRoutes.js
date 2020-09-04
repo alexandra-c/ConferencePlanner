@@ -8,6 +8,7 @@ import NotFound from 'components/common/NotFound';
 import Forbidden from 'components/common/Forbidden';
 import { useApolloLocalStorage } from 'hooks/apolloLocalStorage';
 import { emailKey } from 'apollo/cacheKeyFunctions';
+import ConferenceListContainer from 'features/conference/list/components/ConferenceListContainer';
 
 const AppRoutes = (_props) => {
     const [{ email }] = useApolloLocalStorage(emailKey)
@@ -21,7 +22,8 @@ const AppRoutes = (_props) => {
 
     return (<Switch>
         <Route exact path="/welcome" component={Welcome} />
-        <Route exact path="/settings" component={Settings} />
+        <Route exact path="/conferences" component={ConferenceListContainer} />
+        <Route exact path="/myconferences" component={Settings} />
         <Redirect exact from="/" to="/welcome" />
         <Route exact path="/forbidden" component={Forbidden} />
         <Route render={() => <NotFound title="PageNotFound"></NotFound>} />

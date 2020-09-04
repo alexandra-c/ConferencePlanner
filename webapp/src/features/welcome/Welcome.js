@@ -22,19 +22,19 @@ function Welcome() {
 
     useEffect(() => {
         if (email && makeTheJump) {
-            history.push("/settings")
+            history.push("/conferences")
         }
     }, [email, history, makeTheJump])
 
     const handleSubmit = useCallback(() => {
         if (validateEmail(textFieldData)) {
-            setEmail(textFieldData)
             setIsValid(true)
             setMakeTheJump(true)
+            setEmail(textFieldData)
         } else {
-            setEmail(emptyString)
             setIsValid(false)
             setMakeTheJump(false)
+            setEmail(emptyString)
         }
     }, [setEmail, textFieldData])
 
@@ -55,6 +55,7 @@ function Welcome() {
                 </Grid>
                 <Grid item xs={4}>
                     <CustomTextField
+                        debounceBy={0}
                         onKeyDown={keyPressed}
                         fullWidth
                         endAdornment={
