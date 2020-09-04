@@ -6,10 +6,12 @@ import Dashboard from 'features/dashboard/Dashboard'
 import Settings from 'features/settings/Settings'
 import NotFound from 'components/common/NotFound';
 import Forbidden from 'components/common/Forbidden';
+import ConferenceContainer from 'features/organizers/edit/components/ConferenceContainer';
 
 export default (
     <Switch>
         <Route exact path="/dashboard" component={Dashboard}/>
+        <Route exact path="/newConference" component={ConferenceContainer}/>
         <Route exact path="/settings" component={Settings}/>
         <Redirect exact from="/" to="/dashboard" />
         <Route exact path="/forbidden" component={Forbidden} />

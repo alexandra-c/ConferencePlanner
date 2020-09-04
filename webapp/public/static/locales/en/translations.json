@@ -28,6 +28,27 @@
     "MinDateMessage": "Date should not be before minimal date",
     "MaxDateMessage": "Date should not be after maximal date"
   },
+  "Conference":{
+    "Info": "Conference Info",
+    "Location": "Location",
+    "Name": "Conference name",
+    "Category": "Category",
+    "Type": "Conference type",
+    "StartDate": "Start date",
+    "EndDate": "End date"
+  },
+  "Location":{
+    "Country": "Country",
+    "County": "County",
+    "City": "City"
+  },
+  "Speaker":{
+    "Name": "Name",
+    "Nationality": "Nationality",
+    "Rating": "Rating",
+    "MainSpeaker": "Main Speaker"
+  },
+  "Code": "Code",
   "Validations": {
     "Cnp": "The value is not a valid identifier number",
     "UniqueCnp": "The identifier number is not unique",
