@@ -15,8 +15,8 @@ const conferenceTypeDefs = gql`
     type: Type
     category: Category
     location: Location!
-    speakers: [Speaker]!
-    status: String
+    speakers: [Speaker!]!
+    status(userEmail: String!): Status
   }
 
   type Location {
@@ -46,25 +46,30 @@ const conferenceTypeDefs = gql`
     country: String
   }
 
+  type Status {
+    id: ID!
+    name: String!
+  }
+
   input ConferenceFilterInput {
     startDate: DateTime
     endDate: DateTime
+    organizerEmail: String
   }
 
   input Attendee {
-    id: ID!
     attendeeEmail: String!
     conferenceId: ID!
-    statusId:ID!
   }
 
   extend type Query {
     myConference(id: ID!): Conference!
-    conferenceList(pager: PagerInput!, filters: ConferenceFilterInput, organizerEmail: String): ConferenceList
+    conferenceList(pager: PagerInput!, filters: ConferenceFilterInput): ConferenceList
   }
 
   extend type Mutation {
-    attend(input: Attendee!): Boolean    
+    attend(input: Attendee!): String    
+    withdraw(input: Attendee!): String    
   }
 `
 
