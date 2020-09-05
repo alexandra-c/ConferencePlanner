@@ -7,10 +7,12 @@ import RoomIcon from '@material-ui/icons/Room';
 import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 import RegularCard from 'components/common/cards/RegularCard';
 import { Grid } from '@material-ui/core';
+import { find } from 'ramda';
 
 const MyConferenceListItem = ({ conference, onEdit }) => {
     const { t } = useTranslation();
-    const { id, name, speaker, location, startDate, endDate, type, category } = conference;
+    const { id, name, speakers, location, startDate, endDate, type, category } = conference;
+    const speaker = find(speaker => speaker.isMainSpeaker, speakers)
 
     return <RegularCard
         cardTitle={name}
@@ -32,7 +34,7 @@ const MyConferenceListItem = ({ conference, onEdit }) => {
             </Grid>}
         content={<>
             <Grid item xs={12}>
-                <Typography>{`${startDate} - ${endDate}`}</Typography>
+                <Typography>{`${t('DATE_FORMAT', { date: { value: startDate, format: 'DD-MM-YYYY HH:mm:ss' } })} - ${t('DATE_FORMAT', { date: { value: endDate, format: 'DD-MM-YYYY HH:mm:ss' } })}`}</Typography>
             </Grid>
             <Grid item xs={12}>
                 <Typography>{`${type}, ${category}`}</Typography>
