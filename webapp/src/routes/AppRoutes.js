@@ -10,6 +10,7 @@ import MyConferenceListContainer from 'features/myConference/list/components/MyC
 import MyConferenceContainer from 'features/myConference/edit/components/ConferenceContainer';
 
 import { useEmail } from 'hooks/useEmail';
+import HelloWorld from 'features/helloWorld/HelloWorld';
 
 const AppRoutes = (_props) => {
     const [email] = useEmail()
@@ -22,6 +23,7 @@ const AppRoutes = (_props) => {
     }
 
     return (<Switch>
+        <Route exact path="/helloWorld" component={HelloWorld} />
         <Route exact path="/welcome" component={Welcome} />
         <Route exact path="/conferences" component={ConferenceListContainer} />
         <Route exact path="/myConferences" component={MyConferenceListContainer} />
