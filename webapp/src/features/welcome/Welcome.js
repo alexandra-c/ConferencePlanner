@@ -16,7 +16,7 @@ function Welcome() {
     const { t } = useTranslation()
     const history = useHistory()
     const [email, setEmail] = useEmail()
-    const [textFieldData, setTextFieldData] = useState(email)
+    const [textFieldValue, setTextFieldValue] = useState(email)
     const [isValid, setIsValid] = useState(true)
     const [makeTheJump, setMakeTheJump] = useState(false)
 
@@ -27,16 +27,16 @@ function Welcome() {
     }, [email, history, makeTheJump])
 
     const handleSubmit = useCallback(() => {
-        if (validateEmail(textFieldData)) {
+        if (validateEmail(textFieldValue)) {
             setIsValid(true)
             setMakeTheJump(true)
-            setEmail(textFieldData)
+            setEmail(textFieldValue)
         } else {
             setIsValid(false)
             setMakeTheJump(false)
             setEmail(emptyString)
         }
-    }, [setEmail, textFieldData])
+    }, [setEmail, textFieldValue])
 
     const keyPressed = useCallback(({ keyCode }) => {
         if (keyCode === 13) {
@@ -63,8 +63,8 @@ function Welcome() {
                                 <KeyboardReturnIcon fontSize="small" />
                             </CustomIconButton>
                         }
-                        value={textFieldData}
-                        onChange={onTextBoxChange(setTextFieldData)}
+                        value={textFieldValue}
+                        onChange={onTextBoxChange(setTextFieldValue)}
                         helperText={!isValid && t("LandingPage.BadEmail")}
                         error={!isValid}
                     />
