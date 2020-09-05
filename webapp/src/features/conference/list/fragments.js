@@ -21,27 +21,43 @@ const Fragments = {
         rating
     }
   `,
+  status: gql`
+    fragment status on Status {
+      id
+      name
+    }
+  `}
+
+const ConferenceFragment = {
   conferenceItem: gql`
     fragment conferenceItem on Conference {
         ...conference
         location {
-          ...CommonFragments.location
+          ...location
           city {
-            ...CommonFragments.city
+            ...city
           }
           county{
-            ...CommonFragments.county
+            ...county
           }
           country{
-            ...CommonFragments.country
+            ...country
           }
         }
-        speaker {
+        speakers {
           ...speaker
         }
-        status
+        status {
+          ...status
+        }
     }
-  `
+${CommonFragments.location}
+${CommonFragments.city}
+${CommonFragments.county}
+${CommonFragments.country}
+${Fragments.conference}
+${Fragments.status}
+${Fragments.speaker}`
 };
 
-export default Fragments;
+export default ConferenceFragment;

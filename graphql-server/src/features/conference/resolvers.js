@@ -1,10 +1,8 @@
 const conferenceResolvers = {
     Query: {
-        conferenceList: async (_parent, { pager, filters, organizerEmail }, { dataSources }, _info) => {
+        conferenceList: async (_parent, { pager, filters }, { dataSources }, _info) => {
             const { pageSize } = pager;
-            const data = organizerEmail ?
-                await dataSources.conferenceDb.getConferenceListByOrganizer(pager, filters, organizerEmail)
-                : await dataSources.conferenceDb.getConferenceList(pager, filters);
+            const data = await dataSources.conferenceDb.getConferenceList(pager, filters);
             const { values, sortByValue } = data;
             return { values: values.slice(0, pageSize), nextAfterId: values[pageSize], sortByValue }
         }
@@ -19,8 +17,8 @@ const conferenceResolvers = {
         }
     },
     Conference: {
-        speakers: async (_parent, _arguments, { dataSources }, _info) => {
-            const speakers = await dataSources.conferenceDb.getSpeaker();
+        speakers: async ({ id }, _arguments, { dataLoaders }, _info) => {
+            const speakers = await dataLoaders.speakerByIds.load(id);
             return speakers;
         },
         type: async ({ conferenceTypeId }, _params, { dataLoaders }, _info) => {
@@ -31,9 +29,9 @@ const conferenceResolvers = {
             const category = await dataLoaders.categoryByIds.load(categoryId);
             return category.name;
         },
-        status: async (_parent, _arguments, { dataSources }, _info) => {
-            const statusInfo = await dataSources.conferenceDb.getStatus()
-            return statusInfo.name
+        status: async ({ id }, _arguments, { dataLoaders }, _info) => {
+            const status = await dataLoaders.statusByIds.load(id)
+            return status
         },
         location: async ({ locationId }, _params, { dataLoaders }, _info) => {
             const location = await dataLoaders.locationByIds.load(locationId);
