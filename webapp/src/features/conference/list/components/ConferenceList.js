@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Grid } from '@material-ui/core';
 import ConferenceItem from "./ConferenceItem";
 
-const ConferenceList = ({ conferences, onAttend }) => {
+const ConferenceList = ({ conferences, onAttend, onWithdraw }) => {
 
     return (<>
         <Grid container spacing={2}>
@@ -12,6 +12,7 @@ const ConferenceList = ({ conferences, onAttend }) => {
                     <ConferenceItem
                         conference={conference}
                         onAttend={onAttend}
+                        onWithdraw={onWithdraw}
                     />
                 </Grid>
             )}
@@ -21,7 +22,8 @@ const ConferenceList = ({ conferences, onAttend }) => {
 
 ConferenceList.propTypes = {
     conferences: PropTypes.array.isRequired,
-    onAttend: PropTypes.func.isRequired
+    onAttend: PropTypes.func.isRequired,
+    onWithdraw: PropTypes.func.isRequired
 }
 
 export default ConferenceList;

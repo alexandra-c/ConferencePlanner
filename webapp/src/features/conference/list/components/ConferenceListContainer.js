@@ -11,6 +11,7 @@ import { useToast } from 'hooks/toasts';
 import LoadingFakeText from 'components/common/fakeText/LoadingFakeText';
 import { useEmail } from 'hooks/useEmail';
 import { ATTEND_CONFERENCE_MUTATION } from '../mutations/AttendConference';
+import { WITHDRAW_CONFERENCE_MUTATION } from '../mutations/WithdrawConference';
 
 import DialogDisplay from 'components/common/dialogBox/DialogDisplay';
 import ConferenceCodeModal from './ConferenceCodeModal';
@@ -51,10 +52,16 @@ const ConferenceListContainer = () => {
             if (!data) {
                 return
             }
-
             setCode(data.attend)
             setOpenDialog(true)
             addToast(t("Conferences.SuccessfullyAttended"), 'success')
+        },
+        onError: error => addToast(error, 'error', false)
+    })
+
+    const [withdraw] = useMutation(WITHDRAW_CONFERENCE_MUTATION, {
+        onCompleted: () => {
+            addToast(t("Conferences.SuccessfullyWithdrawn"), 'success')
         },
         onError: error => addToast(error, 'error', false)
     })
@@ -78,11 +85,18 @@ const ConferenceListContainer = () => {
     const handleAttend = useCallback((conference) => () => {
         const input = {
             attendeeEmail: userEmail,
-            conferenceId: conference.id,
-            statusId: 3 // Attended
+            conferenceId: conference.id
         }
         attend({ variables: { input } })
     }, [attend, userEmail]);
+
+    const handleWithdraw = useCallback((conference) => () => {
+        const input = {
+            attendeeEmail: userEmail,
+            conferenceId: conference.id
+        }
+        withdraw({ variables: { input } })
+    }, [withdraw, userEmail]);
 
     if (error) {
         addToast(t('Conference.ConferenceListError', error, 'error'))
@@ -97,6 +111,7 @@ const ConferenceListContainer = () => {
         <ConferenceList
             conferences={data?.conferenceList.values}
             onAttend={handleAttend}
+            onWithdraw={handleWithdraw}
         />
         <DialogDisplay
             id="showQRCode"

@@ -86,6 +86,7 @@
     "Join": "Inscrie-te",
     "Withdraw": "Retrage-te",
     "SuccessfullyAttended": "Felicitari! Te-ai inscris cu succes la conferinta! Vei fi notificat cu 5 minute inainte sa inceapa.",
+    "SuccessfullyWithdrawn": "Te-ai retras cu succes de la acesta conferinta.",
     "QRCodeMessage": "Te-ai inscris cu succes la conferinta! Vei fi notificat cu 5 minute inainte sa inceapa. Foloseste urmatorul cod pentru a accesa conferinta: {{code}}",
     "Filters": {
       "StartDate": "Data incepere",

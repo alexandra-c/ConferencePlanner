@@ -6,7 +6,7 @@ import Typography from 'components/common/inputs/Typography';
 import Button from 'components/common/buttons/Button';
 import attendeeStatus from 'constants/attendeeStatus';
 
-const ConferenceContent = ({ onAttend, conference }) => {
+const ConferenceContent = ({ onAttend, conference, onWithdraw }) => {
     const { status, startDate, endDate, type, category } = conference;
     const { t } = useTranslation();
     const noStatusSet = t('Conferences.StatusNotSet');
@@ -26,11 +26,11 @@ const ConferenceContent = ({ onAttend, conference }) => {
                 {status?.id === attendeeStatus.Attended
                     ? <>
                         <Button right color="success" size={"sm"}>{t('Conferences.Join')}</Button>
-                        <Button right color="danger" size={"sm"}>{t('Conferences.Withdraw')}</Button>
+                        <Button onClick={onWithdraw(conference)} right color="danger" size={"sm"}>{t('Conferences.Withdraw')}</Button>
                     </>
                     :
                     status?.id === attendeeStatus.Joined
-                        ? < Button right color="danger" size={"sm"}>{t('Conferences.Withdraw')}</Button>
+                        ? < Button onClick={onWithdraw(conference)} right color="danger" size={"sm"}>{t('Conferences.Withdraw')}</Button>
                         : <Button onClick={onAttend(conference)} right color="info" size={"sm"}>{t('Conferences.Attend')}</Button>
                 }
             </Grid>
@@ -40,7 +40,8 @@ const ConferenceContent = ({ onAttend, conference }) => {
 
 ConferenceContent.propTypes = {
     onAttend: PropTypes.func.isRequired,
-    conference: PropTypes.object.isRequired
+    conference: PropTypes.object.isRequired,
+    onWithdraw: PropTypes.func.isRequired
 }
 
 export default ConferenceContent;
