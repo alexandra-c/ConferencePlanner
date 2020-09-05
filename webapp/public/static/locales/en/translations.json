@@ -69,7 +69,7 @@
       "Email": "The value is not a valid email address",
       "OutOfRange": "The value must be between {{min}} and {{max}}",
       "Greater": "The value must be greater than {{min}}",
-      "GreaterOrEqual": "The value must be greater than or equal to{{min}}",
+      "GreaterOrEqual": "The value must be greater than or equal to {{min}}",
       "Less": "The value must be less than {{max}}",
       "LessOrEqual": "The value must be less than or equal to {{max}}",
       "MaxCharacters": "The length must be less than {{max}}",
@@ -78,6 +78,7 @@
     }
   },
   "General": {
+    "Congratulations": "Congratulations!",
     "Buttons": {
       "ApplyFilters": "Apply filters",
       "ResetFilters": "Reset filters",
@@ -91,10 +92,13 @@
     "Attend": "Attend",
     "Join": "Join",
     "Withdraw": "Withdraw",
+    "SuccessfullyAttended": "Congratulations! You successfully attended to the conference! You will be notified to join 5 minutes before it starts.",
+    "QRCodeMessage": "You successfully attended to the conference! You will be notified to join 5 minutes before it starts. Use the following code to access the conference: {{code}}",
     "Filters": {
       "StartDate": "Start date",
       "EndDate": "End date"
-    }
+    },
+    "StatusNotSet": "No status for this conf"
   },
   "MyConferences": {
     "Speaker": "Speaker: ",

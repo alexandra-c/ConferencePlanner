@@ -1,5 +1,5 @@
 const { SQLDataSource } = require("../../utils/sqlDataSource");
-const { generateTopClause, getSortByValue, generateSortByPkClause, generatePrevPageWhereClause, generateOrderByClause } = require("../common/dbGenerators")
+const { generateTopClause, getSortByValue, generateSortByPkClause, generatePrevPageWhereClause, generateOrderByClause } = require("../common/dbGenerators");
 
 class ConferenceDb extends SQLDataSource {
 
@@ -57,30 +57,31 @@ class ConferenceDb extends SQLDataSource {
         return { values, sortByValue };
     }
 
-    async updateConferenceXAttendee({ id, attendeeEmail, conferenceId, statusId }) {
+    async updateConferenceXAttendee({ attendeeEmail, conferenceId, statusId }) {
         const current = await this.knex
-            .select("Id", "ConferenceId")
+            .select("Id", "AttendeeEmail", "ConferenceId")
             .from("ConferenceXAttendee")
-            .where("Id", id)
+            .where("AttendeeEmail", attendeeEmail)
             .andWhere("ConferenceId", conferenceId)
             .first()
 
         const attendeeInfo = {
-            Id: id,
             AttendeeEmail: attendeeEmail,
             ConferenceId: conferenceId,
             StatusId: statusId
         }
-        if (current.id) {
-            return await this.knex("ConferenceXAttendee")
-                .update(attendeeInfo, "Id")
-                .where("Id", id)
-                .andWhere("ConferenceId", conferenceId)
+        let result
+        if (current && current.id) {
+            result = await this.knex("ConferenceXAttendee")
+                .update(attendeeInfo, "StatusId")
+                .where("Id", current.id)
         } else {
-            return await this.knex("ConferenceXAttendee")
-                .returning("Id")
+            result = await this.knex("ConferenceXAttendee")
+                .returning("StatusId")
                 .insert(attendeeInfo);
+
         }
+        return result[0]
     }
 }
 

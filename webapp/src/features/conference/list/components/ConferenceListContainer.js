@@ -1,14 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import ConferenceList from './ConferenceList';
 import ConferenceFilters from './ConferenceFilters';
 import { useFooter } from 'providers/AreasProvider';
 import Pagination from 'components/common/pagination/Pagination';
-import { useQuery } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client';
 import { CONFERENCE_LIST_QUERY } from '../queries/ConferenceListQuery';
 import { emptyObject } from 'utils/constants';
 import { useToast } from 'hooks/toasts';
 import LoadingFakeText from 'components/common/fakeText/LoadingFakeText';
+import { useEmail } from 'hooks/useEmail';
+import { ATTEND_CONFERENCE_MUTATION } from '../mutations/AttendConference';
+
+import DialogDisplay from 'components/common/dialogBox/DialogDisplay';
+import ConferenceCodeModal from './ConferenceCodeModal';
 
 const defaultPager = {
     totalCount: 0,
@@ -20,10 +25,13 @@ const defaultPager = {
 
 const ConferenceListContainer = () => {
     const { t } = useTranslation();
+    const addToast = useToast();
     const [, setFooter] = useFooter();
     const [pager, setPager] = useState(defaultPager);
     const [filters, setFilters] = useState(emptyObject)
-    const addToast = useToast();
+    const [userEmail] = useEmail();
+    const [code, setCode] = useState("")
+    const [open, setOpenDialog] = useState(false)
 
     const { data, error, loading, refetch } = useQuery(CONFERENCE_LIST_QUERY, {
         variables: {
@@ -33,9 +41,23 @@ const ConferenceListContainer = () => {
                 sortBy: pager.sortBy,
                 direction: pager.direction,
             },
-            filters
+            filters,
+            userEmail
         }
     });
+
+    const [attend] = useMutation(ATTEND_CONFERENCE_MUTATION, {
+        onCompleted: (data) => {
+            if (!data) {
+                return
+            }
+
+            setCode(data.attend)
+            setOpenDialog(true)
+            addToast(t("Conferences.SuccessfullyAttended"), 'success')
+        },
+        onError: error => addToast(error, 'error', false)
+    })
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => () => setFooter(null), []);
@@ -53,6 +75,15 @@ const ConferenceListContainer = () => {
         )
     }, [setFooter, refetch])
 
+    const handleAttend = useCallback((conference) => () => {
+        const input = {
+            attendeeEmail: userEmail,
+            conferenceId: conference.id,
+            statusId: 3 // Attended
+        }
+        attend({ variables: { input } })
+    }, [attend, userEmail]);
+
     if (error) {
         addToast(t('Conference.ConferenceListError', error, 'error'))
     }
@@ -62,9 +93,17 @@ const ConferenceListContainer = () => {
     }
 
     return (<>
-        <ConferenceFilters />
+        <ConferenceFilters filters={{}} onApplyFilters={() => { }} />
         <ConferenceList
             conferences={data?.conferenceList.values}
+            onAttend={handleAttend}
+        />
+        <DialogDisplay
+            id="showQRCode"
+            open={open}
+            title={t("General.Congratulations")}
+            content={<ConferenceCodeModal code={code} />}
+            onClose={() => { setOpenDialog(false); setCode("") }}
         />
     </>)
 }

@@ -12,7 +12,6 @@ import avatar_default from "assets/img/default-avatar.png";
 import { useTranslation } from 'react-i18next';
 import { useEmail } from 'hooks/useEmail';
 
-
 const useStyles = makeStyles(userMenuStyle);
 
 function UserMenu({ miniActive, avatar, language, changeLanguage }) {

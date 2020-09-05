@@ -64,7 +64,7 @@ function Welcome() {
                             </CustomIconButton>
                         }
                         value={textFieldData}
-                        onChange={setTextFieldData |> onTextBoxChange}
+                        onChange={onTextBoxChange(setTextFieldData)}
                         helperText={!isValid && t("LandingPage.BadEmail")}
                         error={!isValid}
                     />

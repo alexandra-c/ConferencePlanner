@@ -5,8 +5,8 @@ import { find } from 'ramda';
 import ConferenceSubtitle from './ConferenceSubtitle';
 import ConferenceContent from './ConferenceContent';
 
-const ConferenceItem = ({ conference }) => {
-    const { name, speakers, location, status, startDate, endDate, type, category } = conference;
+const ConferenceItem = ({ conference, onAttend }) => {
+    const { name, speakers, location } = conference;
     const speaker = find(speaker => speaker.isMainSpeaker, speakers)
 
     return (
@@ -19,18 +19,16 @@ const ConferenceItem = ({ conference }) => {
                 />}
             content={
                 <ConferenceContent
-                    status={status}
-                    startDate={startDate}
-                    endDate={endDate}
-                    type={type}
-                    category={category}
+                    onAttend={onAttend}
+                    conference={conference}
                 />}
         />
     )
 }
 
 ConferenceItem.propTypes = {
-    conference: PropTypes.object.isRequired
+    conference: PropTypes.object.isRequired,
+    onAttend: PropTypes.func.isRequired
 }
 
 export default ConferenceItem;

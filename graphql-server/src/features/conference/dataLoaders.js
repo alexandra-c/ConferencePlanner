@@ -92,12 +92,14 @@ const getConferenceLoaders = dbInstance => {
                 .select(
                     "dS.Id",
                     "dS.Name",
-                    "c.ConferenceId"
+                    "c.ConferenceId",
+                    "c.AttendeeEmail"
                 )
                 .from("ConferenceXAttendee AS c")
                 .innerJoin("DictionaryStatus AS dS", "c.StatusId", "=", "dS.Id")
-                .whereIn("c.ConferenceId", ids)
-                .then(rows => ids.map(id => rows.find(x => x.conferenceId === id)))
+                .whereIn("c.ConferenceId", ids.map(x => x.id))
+                .whereIn("c.AttendeeEmail", ids.map(x => x.userEmail))
+                .then(rows => ids.map(i => rows.find(x => x.conferenceId === i.id && x.attendeeEmail === i.userEmail)))
         )
     };
 

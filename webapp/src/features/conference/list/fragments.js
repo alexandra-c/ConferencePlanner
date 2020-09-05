@@ -47,7 +47,7 @@ const ConferenceFragment = {
         speakers {
           ...speaker
         }
-        status {
+        status(userEmail: $userEmail){
           ...status
         }
     }
@@ -56,8 +56,8 @@ ${CommonFragments.city}
 ${CommonFragments.county}
 ${CommonFragments.country}
 ${Fragments.conference}
-${Fragments.status}
-${Fragments.speaker}`
+${Fragments.speaker}
+${Fragments.status}`
 };
 
 export default ConferenceFragment;
