@@ -70,10 +70,9 @@ const conferenceTypeDefs = gql`
   }
 
   input Attendee {
-    id: ID!
     attendeeEmail: String!
     conferenceId: ID!
-    statusId:ID!
+    statusId: ID!
   }
 
   extend type Query {
@@ -81,7 +80,7 @@ const conferenceTypeDefs = gql`
   }
 
   extend type Mutation {
-    attend(input: Attendee!): Boolean    
+    attend(input: Attendee!): String    
   }
 `
 

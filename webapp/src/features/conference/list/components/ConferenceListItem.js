@@ -8,7 +8,7 @@ import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 import RegularCard from 'components/common/cards/RegularCard';
 import { Grid } from '@material-ui/core';
 
-const ConferenceListItem = ({ conference }) => {
+const ConferenceListItem = ({ conference, onAttend }) => {
     const { t } = useTranslation();
     const { name, speaker, location, status, startDate, endDate, type, category } = conference;
 
@@ -45,7 +45,7 @@ const ConferenceListItem = ({ conference }) => {
                     <Grid item xs={12}>
                         <Button right color="success" size={"sm"}>{t('Conferences.Join')}</Button>
                         <Button right color="danger" size={"sm"}>{t('Conferences.Withdraw')}</Button>
-                        <Button right color="info" size={"sm"}>{t('Conferences.Attend')}</Button>
+                        <Button onClick={onAttend(conference)} right color="info" size={"sm"}>{t('Conferences.Attend')}</Button>
                     </Grid>
                 </Grid>
             </>}
@@ -54,7 +54,8 @@ const ConferenceListItem = ({ conference }) => {
 }
 
 ConferenceListItem.propTypes = {
-    conference: PropTypes.object.isRequired
+    conference: PropTypes.object.isRequired,
+    onAttend: PropTypes.func.isRequired
 }
 
 export default ConferenceListItem;
