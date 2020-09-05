@@ -72,7 +72,7 @@ const conferenceTypeDefs = gql`
   input ConferenceFilterInput {
     startDate: DateTime
     endDate: DateTime
-    organiserEmail: String
+    organizerEmail: String
   }
 
   input Attendee {

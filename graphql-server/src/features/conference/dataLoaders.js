@@ -2,7 +2,7 @@ const DataLoader = require("dataloader");
 
 const getConferenceLoaders = dbInstance => {
     return {
-        categoryByIds: new DataLoader(ids =>
+        categoryById: new DataLoader(ids =>
             dbInstance
                 .select(
                     "Id",
@@ -12,7 +12,7 @@ const getConferenceLoaders = dbInstance => {
                 .whereIn("Id", ids)
                 .then(rows => ids.map(id => rows.find(x => x.id === id)))
         ),
-        conferenceByIds: new DataLoader(ids =>
+        conferenceById: new DataLoader(ids =>
             dbInstance
                 .select(
                     "Id",
@@ -22,7 +22,7 @@ const getConferenceLoaders = dbInstance => {
                 .whereIn("Id", ids)
                 .then(rows => ids.map(id => rows.find(x => x.id === id)))
         ),
-        locationByIds: new DataLoader(ids =>
+        locationById: new DataLoader(ids =>
             dbInstance
                 .select(
                     "Id",
@@ -39,7 +39,7 @@ const getConferenceLoaders = dbInstance => {
                 .whereIn("Id", ids)
                 .then(rows => ids.map(id => rows.find(x => x.id === id)))
         ),
-        cityByIds: new DataLoader(ids =>
+        cityById: new DataLoader(ids =>
             dbInstance
                 .select(
                     "Id",
@@ -50,7 +50,7 @@ const getConferenceLoaders = dbInstance => {
                 .whereIn("Id", ids)
                 .then(rows => ids.map(id => rows.find(x => x.id === id)))
         ),
-        countyByIds: new DataLoader(ids =>
+        countyById: new DataLoader(ids =>
             dbInstance
                 .select(
                     "Id",
@@ -61,7 +61,7 @@ const getConferenceLoaders = dbInstance => {
                 .whereIn("Id", ids)
                 .then(rows => ids.map(id => rows.find(x => x.id === id)))
         ),
-        countryByIds: new DataLoader(ids =>
+        countryById: new DataLoader(ids =>
             dbInstance
                 .select(
                     "Id",
@@ -72,7 +72,7 @@ const getConferenceLoaders = dbInstance => {
                 .whereIn("Id", ids)
                 .then(rows => ids.map(id => rows.find(x => x.id === id)))
         ),
-        speakerByIds: new DataLoader(ids =>
+        speakersByConferenceId: new DataLoader(ids =>
             dbInstance
                 .select(
                     "s.Id",
@@ -87,7 +87,7 @@ const getConferenceLoaders = dbInstance => {
                 .whereIn("c.ConferenceId", ids)
                 .then(rows => ids.map(id => rows.filter(x => x.conferenceId === id)))
         ),
-        statusByIds: new DataLoader(ids =>
+        statusByConferenceId: new DataLoader(ids =>
             dbInstance
                 .select(
                     "dS.Id",

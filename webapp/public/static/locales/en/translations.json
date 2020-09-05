@@ -99,7 +99,7 @@
       "StartDate": "Start date",
       "EndDate": "End date"
     },
-    "StatusNotSet": "No status for this conf"
+    "StatusNotSet": "Not attending"
   },
   "MyConferences": {
     "Speaker": "Speaker: ",

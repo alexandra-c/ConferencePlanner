@@ -20,37 +20,37 @@ const conferenceResolvers = {
     },
     Conference: {
         speakers: async ({ id }, _arguments, { dataLoaders }, _info) => {
-            const speakers = await dataLoaders.speakerByIds.load(id);
+            const speakers = await dataLoaders.speakersByConferenceId.load(id);
             return speakers;
         },
         type: async ({ conferenceTypeId }, _params, { dataLoaders }, _info) => {
-            const conferenceType = await dataLoaders.conferenceByIds.load(conferenceTypeId);
+            const conferenceType = await dataLoaders.conferenceById.load(conferenceTypeId);
             return conferenceType.name;
         },
         category: async ({ categoryId }, _params, { dataLoaders }, _info) => {
-            const category = await dataLoaders.categoryByIds.load(categoryId);
+            const category = await dataLoaders.categoryById.load(categoryId);
             return category.name;
         },
         status: async ({ id }, { userEmail }, { dataLoaders }, _info) => {
-            const status = await dataLoaders.statusByIds.load({ id, userEmail })
+            const status = await dataLoaders.statusByConferenceId.load({ id, userEmail })
             return status
         },
         location: async ({ locationId }, _params, { dataLoaders }, _info) => {
-            const location = await dataLoaders.locationByIds.load(locationId);
+            const location = await dataLoaders.locationById.load(locationId);
             return location;
         }
     },
     Location: {
         city: async ({ cityId }, _params, { dataLoaders }, _info) => {
-            const city = await dataLoaders.cityByIds.load(cityId);
+            const city = await dataLoaders.cityById.load(cityId);
             return city;
         },
         county: async ({ countyId }, _params, { dataLoaders }, _info) => {
-            const county = await dataLoaders.countyByIds.load(countyId);
+            const county = await dataLoaders.countyById.load(countyId);
             return county;
         },
         country: async ({ countryId }, _params, { dataLoaders }) => {
-            const country = await dataLoaders.countryByIds.load(countryId);
+            const country = await dataLoaders.countryById.load(countryId);
             return country;
         }
     },

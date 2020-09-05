@@ -4,13 +4,13 @@ const { generateTopClause, getSortByValue, generateSortByPkClause, generatePrevP
 class ConferenceDb extends SQLDataSource {
 
     generateFromAndWhereClause(queryBuilder, { afterId, filters = {}, direction, sortBy, sortByValue }) {
-        const { startDate, endDate, organiserEmail } = filters;
+        const { startDate, endDate, organizerEmail } = filters;
 
         queryBuilder.from("Conference");
 
         if (startDate) queryBuilder.whereRaw("StartDate", ">=", startDate);
         if (endDate) queryBuilder.whereRaw("EndDate", "<=", endDate);
-        if (organiserEmail) queryBuilder.whereRaw("OrganiserEmail", organiserEmail)
+        if (organizerEmail) queryBuilder.whereRaw("OrganiserEmail", organizerEmail)
 
         if (afterId) {
             queryBuilder.modify(generateSortByPkClause, { sortBy, pk: "FlowId", direction, afterId, sortByValue })

@@ -7,7 +7,7 @@ const ConferenceList = ({ conferences, onAttend, onWithdraw }) => {
 
     return (<>
         <Grid container spacing={2}>
-            {conferences.map(conference =>
+            {conferences?.map(conference =>
                 <Grid item xs={12} lg={4} key={conference.id}>
                     <ConferenceItem
                         conference={conference}
