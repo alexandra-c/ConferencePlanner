@@ -3,17 +3,17 @@ const { generateTopClause, getSortByValue, generateSortByPkClause, generatePrevP
 
 class ConferenceDb extends SQLDataSource {
 
-    generateFromAndWhereClause(queryBuilder, { afterId, filters = {}, direction, sortBy, sortByValue }) {
+    generateFromAndWhereClause(queryBuilder, { afterId, filters = {}, direction = 0, sortBy, sortByValue }) {
         const { startDate, endDate, organizerEmail } = filters;
 
         queryBuilder.from("Conference");
 
-        if (startDate) queryBuilder.whereRaw("StartDate", ">=", startDate);
-        if (endDate) queryBuilder.whereRaw("EndDate", "<=", endDate);
-        if (organizerEmail) queryBuilder.whereRaw("OrganiserEmail", organizerEmail)
+        if (startDate) queryBuilder.andWhere("StartDate", ">=", startDate);
+        if (endDate) queryBuilder.andWhere("EndDate", "<=", endDate);
+        if (organizerEmail) queryBuilder.andWhere("OrganiserEmail", organizerEmail)
 
         if (afterId) {
-            queryBuilder.modify(generateSortByPkClause, { sortBy, pk: "FlowId", direction, afterId, sortByValue })
+            queryBuilder.modify(generateSortByPkClause, { sortBy, pk: "Id", direction, afterId, sortByValue })
         }
     }
 

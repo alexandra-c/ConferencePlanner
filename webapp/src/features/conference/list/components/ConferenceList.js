@@ -21,7 +21,7 @@ const ConferenceList = ({ conferences, onAttend, onWithdraw }) => {
 }
 
 ConferenceList.propTypes = {
-    conferences: PropTypes.array.isRequired,
+    conferences: PropTypes.array,
     onAttend: PropTypes.func.isRequired,
     onWithdraw: PropTypes.func.isRequired
 }

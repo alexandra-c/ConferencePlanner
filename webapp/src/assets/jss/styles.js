@@ -109,8 +109,7 @@ const styles = (theme) => {
   };
 
   const defaultFont = {
-    fontFamily: theme.typography.fontFamily,
-    fontSize: theme.typography.fontSize,
+    ...theme.defaultFont,
     fontWeight: "300",
     lineHeight: "1.5em"
   };
@@ -126,10 +125,10 @@ const styles = (theme) => {
   const grayColor = "#999999";
   const blackColor = "#000";
   //theme colors
-  const themeColor = theme.palette.timColors.iconCardColor;
-  const themeRGBAColor = theme.palette.timColors.iconCardColorRGBA;
-  const themeShadowColor = theme.palette.timColors.iconCardShadow;
-  const themeShadowRGBAColor = theme.palette.timColors.iconCardShadowRGBA;
+  const themeColor = theme.palette.timColors.themeColor;
+  const themeRGBAColor = theme.palette.timColors.themeColorRGBA;
+  const themeShadowColor = theme.palette.timColors.themeShadowColor;
+  const themeShadowRGBAColor = theme.palette.timColors.themeShadowColorRGBA;
 
   const menuActiveColor = theme.palette.sideMenu.activeLinkColor;
   const menuActiveBkColor = theme.palette.sideMenu.activeBkColor;
@@ -727,8 +726,13 @@ const styles = (theme) => {
     primaryNoBackground: {
       "&,&:hover,&:focus": {
         color: primaryColor,
-        boxShadow: "none",
-        backgroundColor: "transparent"
+        backgroundColor: "transparent",
+        boxShadow:
+          "0 14px 26px -12px rgba(" +
+          hexToRgb(primaryColor) +
+          ", 0.42), 0 4px 23px 0px rgba(" +
+          hexToRgb(primaryColor) +
+          ", 0.2)"
       }
     },
     infoNoBackground: {
