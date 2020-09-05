@@ -6,6 +6,7 @@ import Pagination from 'components/common/pagination/Pagination';
 import { useMutation } from '@apollo/client';
 import { useEmail } from 'hooks/useEmail';
 import { ATTEND_CONFERENCE_MUTATION } from '../mutations/AttendConference';
+import { WITHDRAW_CONFERENCE_MUTATION } from '../mutations/WithdrawConference';
 
 import DialogDisplay from 'components/common/dialogBox/DialogDisplay';
 import ConferenceList from './ConferenceList';
@@ -22,16 +23,21 @@ const ConferenceListContainer = () => {
     const [code, setCode] = useState("")
     const [open, setOpenDialog] = useState(false)
 
-
     const [attend] = useMutation(ATTEND_CONFERENCE_MUTATION, {
         onCompleted: (data) => {
             if (!data) {
                 return
             }
-
             setCode(data.attend)
             setOpenDialog(true)
             addToast(t("Conferences.SuccessfullyAttended"), 'success')
+        },
+        onError: error => addToast(error, 'error', false)
+    })
+
+    const [withdraw] = useMutation(WITHDRAW_CONFERENCE_MUTATION, {
+        onCompleted: () => {
+            addToast(t("Conferences.SuccessfullyWithdrawn"), 'success')
         },
         onError: error => addToast(error, 'error', false)
     })
@@ -56,17 +62,25 @@ const ConferenceListContainer = () => {
     const handleAttend = useCallback((conference) => () => {
         const input = {
             attendeeEmail: userEmail,
-            conferenceId: conference.id,
-            statusId: 3 // Attended
+            conferenceId: conference.id
         }
         attend({ variables: { input } })
     }, [attend, userEmail]);
+
+    const handleWithdraw = useCallback((conference) => () => {
+        const input = {
+            attendeeEmail: userEmail,
+            conferenceId: conference.id
+        }
+        withdraw({ variables: { input } })
+    }, [withdraw, userEmail]);
 
     return (<>
         <ConferenceFilters filters={{}} onApplyFilters={() => { }} />
         <ConferenceList
             conferences={conferences}
             onAttend={handleAttend}
+            onWithdraw={handleWithdraw}
         />
         <DialogDisplay
             id="showQRCode"

@@ -93,6 +93,7 @@
     "Join": "Join",
     "Withdraw": "Withdraw",
     "SuccessfullyAttended": "Congratulations! You successfully attended to the conference! You will be notified to join 5 minutes before it starts.",
+    "SuccessfullyWithdrawn": "You successfully withdrawn from this conference",
     "QRCodeMessage": "You successfully attended to the conference! You will be notified to join 5 minutes before it starts. Use the following code to access the conference: {{code}}",
     "Filters": {
       "StartDate": "Start date",
