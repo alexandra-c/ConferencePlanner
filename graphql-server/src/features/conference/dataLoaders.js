@@ -2,21 +2,39 @@ const DataLoader = require("dataloader");
 
 const getConferenceLoaders = dbInstance => {
     return {
+        conferenceById: new DataLoader(ids =>
+            dbInstance
+                .select(
+                    "Id",
+                    "ConferenceTypeId",
+                    "LocationId",
+                    "OrganiserEmail",
+                    "CategoryId",
+                    "StartDate",
+                    "EndDate",
+                    "Name"
+                )
+                .from("Conference")
+                .whereIn("Id", ids)
+                .then(rows => ids.map(id => rows.find(x => x.id === id)))
+        ),
         categoryByIds: new DataLoader(ids =>
             dbInstance
                 .select(
                     "Id",
-                    "Name"
+                    "Name",
+                    "Code"
                 )
                 .from("DictionaryCategory")
                 .whereIn("Id", ids)
                 .then(rows => ids.map(id => rows.find(x => x.id === id)))
         ),
-        conferenceByIds: new DataLoader(ids =>
+        conferenceTypeByIds: new DataLoader(ids =>
             dbInstance
                 .select(
                     "Id",
-                    "Name"
+                    "Name", 
+                    "Code"
                 )
                 .from("DictionaryConferenceType")
                 .whereIn("Id", ids)

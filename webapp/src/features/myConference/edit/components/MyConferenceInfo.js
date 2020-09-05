@@ -1,13 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Grid } from "@material-ui/core";
 import DateTime from 'components/common/inputs/DateTime';
 import CustomTextField from 'components/common/inputs/CustomTextField';
 import { useTranslation } from 'react-i18next';
 import Autocomplete from 'components/common/select/Autocomplete';
+// import { emptyString } from 'utils/constants';
 
-const ConferenceInfo = ({ conference, types, categories }) => {
+const MyConferenceInfo = ({ conference, types, categories }) => {
     const { t } = useTranslation();
+    // const [name, setName] = useState(conference?.name || emptyString)
+    // const [startDate, setStartDate] = useState()
+    // const [endDate, setEndDate] = useState()
 
     return <Grid container spacing={3}>
         <Grid item container lg={9} spacing={3}>
@@ -66,14 +70,10 @@ const ConferenceInfo = ({ conference, types, categories }) => {
     </Grid >
 }
 
-ConferenceInfo.propTypes = {
+MyConferenceInfo.propTypes = {
     conference: PropTypes.object.isRequired,
     types: PropTypes.array.isRequired,
-    categories: PropTypes.array.isRequired,
-    countries: PropTypes.array.isRequired,
-    counties: PropTypes.array.isRequired,
-    cities: PropTypes.array.isRequired,
-    handleAddFile: PropTypes.func.isRequired
+    categories: PropTypes.array.isRequired
 }
 
-export default ConferenceInfo;
+export default MyConferenceInfo;

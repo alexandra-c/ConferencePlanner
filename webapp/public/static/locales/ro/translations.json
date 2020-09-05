@@ -96,7 +96,8 @@
     "Filters": {
       "StartDate": "Data incepere",
       "EndDate": "Data terminare"
-    }
+    },
+    "QueryError": "Error"
   },
   "LandingPage": {
     "Title": "Bun venit!",

@@ -7,6 +7,10 @@ const conferenceResolvers = {
                 : await dataSources.conferenceDb.getConferenceList(pager, filters);
             const { values, sortByValue } = data;
             return { values: values.slice(0, pageSize), nextAfterId: values[pageSize], sortByValue }
+        },
+        myConference: async ({ id }, _params, { dataLoaders }, _info) => {
+            const result = await dataLoaders.conferenceById.load(id);
+            return result;
         }
     },
     ConferenceList: {
@@ -24,12 +28,12 @@ const conferenceResolvers = {
             return speakers;
         },
         type: async ({ conferenceTypeId }, _params, { dataLoaders }, _info) => {
-            const conferenceType = await dataLoaders.conferenceByIds.load(conferenceTypeId);
-            return conferenceType.name;
+            const conferenceType = await dataLoaders.conferenceTypeByIds.load(conferenceTypeId);
+            return conferenceType;
         },
         category: async ({ categoryId }, _params, { dataLoaders }, _info) => {
             const category = await dataLoaders.categoryByIds.load(categoryId);
-            return category.name;
+            return category;
         },
         status: async (_parent, _arguments, { dataSources }, _info) => {
             const statusInfo = await dataSources.conferenceDb.getStatus()

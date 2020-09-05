@@ -5,7 +5,7 @@ import Autocomplete from 'components/common/select/Autocomplete';
 import CustomTextField from 'components/common/inputs/CustomTextField';
 import { useTranslation } from 'react-i18next';
 
-const ConferenceLocation = ({ conference, countries, counties, cities }) => {
+const MyConferenceLocation = ({ conference, countries, counties, cities }) => {
     const { t } = useTranslation();
 
     // const loadOptionsCountries = useCallback(() => countries, [countries])
@@ -86,11 +86,11 @@ const ConferenceLocation = ({ conference, countries, counties, cities }) => {
     </Grid>
 }
 
-ConferenceLocation.propTypes = {
+MyConferenceLocation.propTypes = {
     conference: PropTypes.object.isRequired,
     countries: PropTypes.array.isRequired,
     counties: PropTypes.array.isRequired,
     cities: PropTypes.array.isRequired
 }
 
-export default ConferenceLocation;
+export default MyConferenceLocation;

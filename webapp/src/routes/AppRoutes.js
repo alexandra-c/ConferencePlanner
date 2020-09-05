@@ -7,7 +7,7 @@ import NotFound from 'components/common/NotFound';
 import Forbidden from 'components/common/Forbidden';
 import ConferenceListContainer from 'features/conference/list/components/ConferenceListContainer';
 import MyConferenceListContainer from 'features/myConference/list/components/MyConferenceListContainer';
-import MyConferenceContainer from 'features/myConference/edit/components/ConferenceContainer';
+import MyConferenceContainer from 'features/myConference/edit/components/MyConferenceContainer';
 
 import { useEmail } from 'hooks/useEmail';
 

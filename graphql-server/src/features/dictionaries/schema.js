@@ -35,7 +35,6 @@ const dictionaryTypeDefs = gql`
   extend type Query {
     categoryList: [Category!]!
     typeList: [Type!]!
-    statusList: [Status!]!
     countryList: [Country!]!
     countyList: [County!]!
     cityList: [City!]!

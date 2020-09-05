@@ -1,5 +1,4 @@
 import { gql } from "@apollo/client";
-import { Fragment } from "react-flags";
 
 const CommonFragments = {
   paginationInfo: gql`
@@ -9,8 +8,14 @@ const CommonFragments = {
       direction
       pageSize
   }`,
-  city: gql`
-    fragment city on City {
+  type: gql`
+    fragment type on Type {
+      id 
+      name
+      code
+    }`,
+  category: gql`
+    fragment category on Category {
       id 
       name
       code

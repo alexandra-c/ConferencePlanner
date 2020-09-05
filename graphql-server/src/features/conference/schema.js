@@ -12,8 +12,8 @@ const conferenceTypeDefs = gql`
     name: String!
     startDate: DateTime!
     endDate: DateTime!
-    type: String
-    category: String
+    type: Type
+    category: Category
     location: Location!
     speakers: [Speaker]!
     status: String
@@ -29,24 +29,6 @@ const conferenceTypeDefs = gql`
     city: City!
     county: County!
     country: Country!
-  }
-
-  type City {
-    id: ID!
-    name: String!
-    code: String
-  }
-
-  type County {
-    id: ID!
-    name: String!
-    code: String
-  }
-
-  type Country {
-    id: ID!
-    name: String!
-    code: String
   }
 
   type Speaker {
@@ -77,6 +59,7 @@ const conferenceTypeDefs = gql`
   }
 
   extend type Query {
+    myConference(id: ID!): Conference!
     conferenceList(pager: PagerInput!, filters: ConferenceFilterInput, organizerEmail: String): ConferenceList
   }
 

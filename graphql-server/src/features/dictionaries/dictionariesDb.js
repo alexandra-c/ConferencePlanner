@@ -28,7 +28,7 @@ class DictionariesDb extends SQLDataSource {
     const data = await this.knex
       .select(
         "Id",
-        "Name"
+        "Name",
         "Code"
       )
       .from("DictionaryCountry")

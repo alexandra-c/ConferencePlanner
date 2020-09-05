@@ -10,7 +10,7 @@ import DeleteButton from 'components/common/buttons/DeleteButton';
 
 const useStyles = makeStyles(tableStyle);
 
-const ConferenceSpeakerData = ({ speaker }) => {
+const MyConferenceSpeakerData = ({ speaker }) => {
     const { t } = useTranslation();
     const classes = useStyles();
 
@@ -49,8 +49,8 @@ const ConferenceSpeakerData = ({ speaker }) => {
     </Tr>
 };
 
-ConferenceSpeakerData.propTypes = {
+MyConferenceSpeakerData.propTypes = {
     speaker: PropTypes.object.isRequired
 }
 
-export default ConferenceSpeakerData;
+export default MyConferenceSpeakerData;
