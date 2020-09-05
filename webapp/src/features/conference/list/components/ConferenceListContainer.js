@@ -109,7 +109,7 @@ const ConferenceListContainer = () => {
     return (<>
         <ConferenceFilters filters={{}} onApplyFilters={() => { }} />
         <ConferenceList
-            conferences={data?.conferenceList.values}
+            conferences={data?.conferenceList?.values}
             onAttend={handleAttend}
             onWithdraw={handleWithdraw}
         />
