@@ -15,7 +15,7 @@ import { CONFERENCE_LIST_QUERY } from 'features/conference/list/queries/Conferen
 
 const defaultPager = {
     totalCount: 0,
-    pageSize: 1,
+    pageSize: 5,
     page: 0,
     direction: 1,
     afterId: 0
@@ -87,7 +87,7 @@ const MyConferenceListContainer = () => {
                 totalCount={pager.totalCount}
                 pageSize={pager.pageSize}
                 page={pager.page}
-                rowsPerPageOptions={[1, 3, 5, 9, 12]}
+                rowsPerPageOptions={[5, 10, 15, 20]}
                 onChangeRowsPerPage={handleChangeRowsPerPage}
                 onChangePage={handleChangePage}
                 onRefresh={refetch}

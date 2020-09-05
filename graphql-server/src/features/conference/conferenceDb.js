@@ -8,7 +8,7 @@ class ConferenceDb extends SQLDataSource {
 
         queryBuilder.from("Conference");
 
-        if (startDate) queryBuilder.where("StartDate", ">=", startDate);
+        if (startDate) queryBuilder.andWhere("StartDate", ">=", startDate);
         if (endDate) queryBuilder.andWhere("EndDate", "<=", endDate);
         if (organizerEmail) queryBuilder.andWhere("OrganiserEmail", organizerEmail)
 

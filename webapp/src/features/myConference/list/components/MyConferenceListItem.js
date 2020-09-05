@@ -7,10 +7,12 @@ import RoomIcon from '@material-ui/icons/Room';
 import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 import RegularCard from 'components/common/cards/RegularCard';
 import { Grid } from '@material-ui/core';
+import { find } from 'ramda';
 
 const MyConferenceListItem = ({ conference, onEdit }) => {
     const { t } = useTranslation();
-    const { id, name, speaker, location, startDate, endDate, type, category } = conference;
+    const { id, name, speakers, location, startDate, endDate, type, category } = conference;
+    const speaker = find(speaker => speaker.isMainSpeaker, speakers)
 
     return <RegularCard
         cardTitle={name}
