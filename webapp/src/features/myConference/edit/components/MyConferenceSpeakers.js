@@ -8,10 +8,11 @@ import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css"
 import MyConferenceSpeakerData from './MyConferenceSpeakerData';
 const useStyles = makeStyles(tableStyle);
 
-const MyConferenceSpeakers = ({ conference }) => {
+const MyConferenceSpeakers = ({ conference, onPropertyChange, onRemoveSpeaker }) => {
     const speakers = conference.speakers;
     const { t } = useTranslation();
     const classes = useStyles();
+    const handleSpeakerChange = (index) => propName => value => onPropertyChange(`speakers.[${index}].${propName}`)(value)
 
     return <Grid className={classes.enableScrollX}>
         <Table className={classes.table}>
@@ -25,10 +26,12 @@ const MyConferenceSpeakers = ({ conference }) => {
                 </Tr>
             </Thead>
             <Tbody>
-                {speakers?.map(speaker => (
+                {speakers?.map((speaker, index) => (
                     <MyConferenceSpeakerData
                         key={speaker.id}
                         speaker={speaker}
+                        onPropertyChange={handleSpeakerChange(index)}
+                        onRemoveSpeaker={onRemoveSpeaker}
                     />
                 ))}
             </Tbody>
@@ -38,6 +41,7 @@ const MyConferenceSpeakers = ({ conference }) => {
 
 MyConferenceSpeakers.propTypes = {
     conference: PropTypes.object.isRequired
+
 }
 
 export default MyConferenceSpeakers;

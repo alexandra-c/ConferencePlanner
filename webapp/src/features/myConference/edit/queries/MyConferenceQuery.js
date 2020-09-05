@@ -4,7 +4,7 @@ import CommonFragments from "features/common/fragments";
 
 export const MY_CONFERENCE_QUERY = gql`
 query myConferenceData($id: ID!) {
-  myConference(id: $id) {
+  myConference(id: $id){
     ...conference
     type {
       ...type

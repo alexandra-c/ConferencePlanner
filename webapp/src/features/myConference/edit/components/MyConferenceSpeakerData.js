@@ -7,44 +7,46 @@ import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css"
 import tableStyle from 'assets/jss/components/common/tableStyle';
 import CustomTextField from 'components/common/inputs/CustomTextField';
 import DeleteButton from 'components/common/buttons/DeleteButton';
+import { onTextBoxChange, onCheckBoxChange } from 'utils/propertyChangeAdapters';
 
 const useStyles = makeStyles(tableStyle);
 
-const MyConferenceSpeakerData = ({ speaker }) => {
+const MyConferenceSpeakerData = ({ speaker, onPropertyChange, onRemoveSpeaker }) => {
     const { t } = useTranslation();
     const classes = useStyles();
+    const handleRemoveSpeaker = () => onRemoveSpeaker(speaker.id)
 
     return <Tr>
         <Td className={classes.tableContent}>
             <CustomTextField
                 fullWidth
                 value={speaker?.name}
-                onChange={() => { }}
+                onChange={onTextBoxChange(onPropertyChange("name"))}
             />
         </Td>
         <Td className={classes.tableContent}>
             <CustomTextField
                 fullWidth
                 value={speaker?.nationality}
-                onChange={() => { }}
+                onChange={onTextBoxChange(onPropertyChange("nationality"))}
             />
         </Td>
         <Td className={classes.tableContent}>
             <CustomTextField
                 fullWidth
                 value={speaker?.rating}
-                onChange={() => { }}
+                onChange={onTextBoxChange(onPropertyChange("rating"))}
             />
         </Td>
         <Td className={classes.tableContent}>
             <Checkbox
                 color='secondary'
                 checked={Boolean(speaker?.isMainSpeaker)}
-                onChange={() => { }}
+                onChange={onCheckBoxChange(onPropertyChange("isMainSpeaker"))}
             />
         </Td>
         <Td className={classes.tableContent}>
-            <DeleteButton onClick={() => { }} title={t('General.Buttons.DeleteSpeaker')} />
+            <DeleteButton onClick={handleRemoveSpeaker} title={t('General.Buttons.DeleteSpeaker')} />
         </Td>
     </Tr>
 };

@@ -7,8 +7,6 @@ const Fragments = {
       name
       startDate
       endDate
-      type
-      category
     }
   `,
   speaker: gql`

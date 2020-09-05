@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 // import PropTypes from 'prop-types';
 import MyConference from './MyConference';
-// import { conference, types, categories, cities, countries, counties } from 'utils/mocks/organizers'
+import * as data from 'utils/mocks/organizers'
 import { useRouteMatch } from 'react-router-dom';
 import { MY_CONFERENCE_QUERY } from '../queries/MyConferenceQuery';
 import { useQuery } from '@apollo/client';
 import LoadingFakeText from 'components/common/fakeText/LoadingFakeText';
-import { useToast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
+import { set } from 'lodash';
 
 const MyConferenceContainer = () => {
     const match = useRouteMatch();
@@ -15,27 +15,30 @@ const MyConferenceContainer = () => {
     const isNew = conferenceId === 'new';
 
     const { t } = useTranslation();
-    const addToast = useToast();
-    const { loading, data, error } = useQuery(MY_CONFERENCE_QUERY, {
-        variables: { id: conferenceId },
-    });
+    // const { loading, data, error } = useQuery(MY_CONFERENCE_QUERY, {
+    //     variables: { id: conferenceId },
+    // });
 
-    if(loading) {
-        return <LoadingFakeText lines={10} />;
-    }
+    const [localConference, setLocalConference] = useState(data.conference)
 
-    if (error) {
-        addToast(t('MyConference.QueryError', error, 'error'))  // eritat QueryError
-    }
+    const handlePropertyChange = propName => value => setLocalConference(prev => set({ ...prev }, propName, value))
+
+    const handleRemoveSpeaker = (speakerId) => setLocalConference(prev => ({ ...prev, speakers: prev.speakers.filter(s => s.id !== speakerId) }))
+
+    // if (loading) {
+    //     return <LoadingFakeText lines={10} />;
+    // }
 
     return (
         <MyConference
-            conference={isNew ? {} : data.myConference}
-            types={data.typeList}
-            categories={data.categoryList}
-            countries={data.countryList}
-            counties={data.countyList}
-            cities={data.cityList}
+            conference={isNew ? {} : localConference}
+            onPropertyChange={handlePropertyChange}
+            onRemoveSpeaker={handleRemoveSpeaker}
+            types={data.types}
+            categories={data.categories}
+            countries={data.countries}
+            counties={data.counties}
+            cities={data.cities}
         />
     );
 }

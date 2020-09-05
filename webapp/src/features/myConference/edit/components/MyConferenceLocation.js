@@ -4,13 +4,10 @@ import { Grid } from '@material-ui/core';
 import Autocomplete from 'components/common/select/Autocomplete';
 import CustomTextField from 'components/common/inputs/CustomTextField';
 import { useTranslation } from 'react-i18next';
+import { onTextBoxChange } from 'utils/propertyChangeAdapters';
 
-const MyConferenceLocation = ({ conference, countries, counties, cities }) => {
+const MyConferenceLocation = ({ conference, countries, counties, cities, onLocationChange}) => {
     const { t } = useTranslation();
-
-    // const loadOptionsCountries = useCallback(() => countries, [countries])
-    // const loadOptionsCounties = useCallback(() => counties, [counties])
-    // const loadOptionsCities = useCallback(() => cities, [cities])
 
     return <Grid item container lg={12} spacing={3}>
         <Grid item container lg={12} spacing={3}>
@@ -18,6 +15,7 @@ const MyConferenceLocation = ({ conference, countries, counties, cities }) => {
                 <CustomTextField
                     label={t('Location.Name')}
                     value={conference?.location?.name}
+                    onChange={onTextBoxChange(onLocationChange("name"))}
                     fullWidth
                 />
             </Grid>
@@ -25,6 +23,7 @@ const MyConferenceLocation = ({ conference, countries, counties, cities }) => {
                 <CustomTextField
                     label={t('Location.Address')}
                     value={conference?.location?.address}
+                    onChange={onTextBoxChange(onLocationChange("address"))}
                     fullWidth
                 />
             </Grid>
@@ -35,7 +34,7 @@ const MyConferenceLocation = ({ conference, countries, counties, cities }) => {
                     fullWidth
                     value={conference?.location?.country}
                     options={countries}
-                    onChange={() => { }}
+                    onChange={onLocationChange("country")}
                     isClearable={true}
                     isSearchable={true}
                     creatable={true}
@@ -47,7 +46,7 @@ const MyConferenceLocation = ({ conference, countries, counties, cities }) => {
                     fullWidth
                     value={conference?.location?.county}
                     options={counties}
-                    onChange={() => { }}
+                    onChange={onLocationChange("county")}
                     isClearable={true}
                     isSearchable={true}
                     creatable={true}
@@ -59,7 +58,7 @@ const MyConferenceLocation = ({ conference, countries, counties, cities }) => {
                     fullWidth
                     value={conference?.location?.city}
                     options={cities}
-                    onChange={() => { }}
+                    onChange={onLocationChange("city")}
                     isClearable={true}
                     isSearchable={true}
                     creatable={true}
@@ -72,6 +71,7 @@ const MyConferenceLocation = ({ conference, countries, counties, cities }) => {
                 <CustomTextField
                     label={t('Location.Latitude')}
                     value={conference?.location?.latitude}
+                    onChange={onTextBoxChange(onLocationChange("latitude"))}
                     fullWidth
                 />
             </Grid>
@@ -79,6 +79,7 @@ const MyConferenceLocation = ({ conference, countries, counties, cities }) => {
                 <CustomTextField
                     label={t('Location.Longitude')}
                     value={conference?.location?.longitude}
+                    onChange={onTextBoxChange(onLocationChange("longitude"))}
                     fullWidth
                 />
             </Grid>
@@ -87,6 +88,7 @@ const MyConferenceLocation = ({ conference, countries, counties, cities }) => {
 }
 
 MyConferenceLocation.propTypes = {
+    onLocationChange: PropTypes.func.isRequired,
     conference: PropTypes.object.isRequired,
     countries: PropTypes.array.isRequired,
     counties: PropTypes.array.isRequired,

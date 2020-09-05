@@ -26,6 +26,12 @@ const CommonFragments = {
       name
       code
     }`,
+  city: gql`
+    fragment city on City {
+      id 
+      name
+      code
+    }`,
   country: gql`
     fragment country on Country {
       id 

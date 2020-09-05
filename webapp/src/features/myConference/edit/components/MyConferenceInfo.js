@@ -1,17 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Grid } from "@material-ui/core";
 import DateTime from 'components/common/inputs/DateTime';
 import CustomTextField from 'components/common/inputs/CustomTextField';
 import { useTranslation } from 'react-i18next';
 import Autocomplete from 'components/common/select/Autocomplete';
-// import { emptyString } from 'utils/constants';
+import { onTextBoxChange } from 'utils/propertyChangeAdapters';
 
-const MyConferenceInfo = ({ conference, types, categories }) => {
+const MyConferenceInfo = ({ onPropertyChange, conference, types, categories }) => {
     const { t } = useTranslation();
-    // const [name, setName] = useState(conference?.name || emptyString)
-    // const [startDate, setStartDate] = useState()
-    // const [endDate, setEndDate] = useState()
 
     return <Grid container spacing={3}>
         <Grid item container lg={9} spacing={3}>
@@ -19,6 +16,7 @@ const MyConferenceInfo = ({ conference, types, categories }) => {
                 <CustomTextField
                     label={t('Conference.Name')}
                     value={conference?.name}
+                    onChange={onTextBoxChange(onPropertyChange("name"))}
                     fullWidth
                 />
             </Grid>
@@ -28,6 +26,7 @@ const MyConferenceInfo = ({ conference, types, categories }) => {
                 <DateTime
                     label={t('Conference.StartDate')}
                     value={conference?.startDate}
+                    onChange={onPropertyChange("startDate")}
                     showTime={true}
                 />
             </Grid>
@@ -35,6 +34,7 @@ const MyConferenceInfo = ({ conference, types, categories }) => {
                 <DateTime
                     label={t('Conference.EndDate')}
                     value={conference?.endDate}
+                    onChange={onPropertyChange("endDate")}
                     showTime={true}
                 />
             </Grid>
@@ -42,10 +42,8 @@ const MyConferenceInfo = ({ conference, types, categories }) => {
                 <Autocomplete
                     fullWidth
                     value={conference?.type}
-                    valueKey={"id"}
-                    labelKey={"name"}
                     options={types}
-                    onChange={() => { }}
+                    onChange={onPropertyChange('type')}
                     isClearable={true}
                     isSearchable={true}
                     creatable={true}
@@ -56,10 +54,8 @@ const MyConferenceInfo = ({ conference, types, categories }) => {
                 <Autocomplete
                     fullWidth
                     value={conference?.category}
-                    valueKey={"id"}
-                    labelKey={"name"}
                     options={categories}
-                    onChange={() => { }}
+                    onChange={onPropertyChange('category')}
                     isClearable={true}
                     isSearchable={true}
                     creatable={true}
@@ -72,6 +68,7 @@ const MyConferenceInfo = ({ conference, types, categories }) => {
 
 MyConferenceInfo.propTypes = {
     conference: PropTypes.object.isRequired,
+    onPropertyChange: PropTypes.func.isRequired,
     types: PropTypes.array.isRequired,
     categories: PropTypes.array.isRequired
 }

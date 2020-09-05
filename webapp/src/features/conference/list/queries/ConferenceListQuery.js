@@ -7,6 +7,12 @@ export const CONFERENCE_LIST_QUERY = gql`
         conferenceList(pager: $pager, filters: $filters) {
             values {
                 ...conference
+                type{
+                    ...type
+                }
+                category{
+                    ...category
+                }
                 location {
                     ...location
                     city {
@@ -42,6 +48,8 @@ ${CommonFragments.location}
 ${CommonFragments.city}
 ${CommonFragments.county}
 ${CommonFragments.country}
+${CommonFragments.type}
+${CommonFragments.category}
 ${Fragments.conference}
 ${Fragments.speaker}
 ${Fragments.status}
