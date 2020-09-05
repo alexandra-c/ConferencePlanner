@@ -45,10 +45,10 @@ const conferences = [
             id: 2,
             name: 'Dragos Rosca'
         },
-        status: 'Attend'
+        status: 'Attended'
     },
     {
-        id: 5,
+        id: 1,
         name: "Introduction in GraphQL",
         startDate: "17 / 10 / 2020",
         endDate: "18 / 10 / 2020",
@@ -69,10 +69,10 @@ const conferences = [
             id: 2,
             name: 'Capatina Alexandra'
         },
-        status: 'Joined'
+        status: 'Attended'
     },
     {
-        id: 6,
+        id: 2,
         name: "Introduction in Haskell",
         startDate: "22 / 10 / 2020",
         endDate: "23 / 10 / 2020",
@@ -93,7 +93,7 @@ const conferences = [
             id: 2,
             name: 'Radu Popovici'
         },
-        status: 'Withdraw'
+        status: 'Withdrawn'
     }
 ]
 

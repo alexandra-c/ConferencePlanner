@@ -43,9 +43,13 @@ const ConferenceListItem = ({ conference, onAttend }) => {
                 </Grid>
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
-                        <Button right color="success" size={"sm"}>{t('Conferences.Join')}</Button>
-                        <Button right color="danger" size={"sm"}>{t('Conferences.Withdraw')}</Button>
-                        <Button onClick={onAttend(conference)} right color="info" size={"sm"}>{t('Conferences.Attend')}</Button>
+                        {status === "Attended" 
+                            ? <>
+                                <Button right color="success" size={"sm"}>{t('Conferences.Join')}</Button>
+                                <Button right color="danger" size={"sm"}>{t('Conferences.Withdraw')}</Button>
+                            </>
+                            : <Button onClick={onAttend(conference)} right color="info" size={"sm"}>{t('Conferences.Attend')}</Button>
+                        }
                     </Grid>
                 </Grid>
             </>}
