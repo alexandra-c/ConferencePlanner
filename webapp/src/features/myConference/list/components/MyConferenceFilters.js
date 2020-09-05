@@ -7,11 +7,13 @@ import Button from 'components/common/buttons/Button';
 import IconCard from 'components/common/cards/IconCard';
 import { Search } from '@material-ui/icons';
 import { emptyObject } from 'utils/constants';
+import { curry } from 'lodash';
 
 const MyConferenceFilters = ({ filters, onApplyFilters }) => {
     const { t } = useTranslation();
     const [localFilters, setLocalFilters] = useState(filters);
 
+    const handleFilterPropertyChange = curry((prop, value) => setLocalFilters(prevFilters => ({ ...prevFilters, [prop]: value })));
     const handleApplyFilters = useCallback(() => onApplyFilters(localFilters), [localFilters, onApplyFilters]);
     const handleResetFilters = useCallback(() => setLocalFilters(emptyObject), []);
     const keyPressed = useCallback(({ keyCode }) => keyCode === 13 && handleApplyFilters(), [handleApplyFilters]);
@@ -27,7 +29,7 @@ const MyConferenceFilters = ({ filters, onApplyFilters }) => {
                             <DateTime
                                 label={t('MyConferences.Filters.StartDate')}
                                 value={localFilters?.startDate}
-                                onChange={() => { }}
+                                onChange={handleFilterPropertyChange('startDate')}
                                 clearable
                             />
                         </Grid>
@@ -35,7 +37,7 @@ const MyConferenceFilters = ({ filters, onApplyFilters }) => {
                             <DateTime
                                 label={t('MyConferences.Filters.EndDate')}
                                 value={localFilters?.endDate}
-                                onChange={() => { }}
+                                onChange={handleFilterPropertyChange('startDate')}
                                 clearable
                             />
                         </Grid>
@@ -45,7 +47,7 @@ const MyConferenceFilters = ({ filters, onApplyFilters }) => {
         <Button size={"sm"} color={"primary"} right={true} onClick={handleResetFilters}>
             {t("General.Buttons.ResetFilters")}
         </Button>
-        <Button size={"sm"} color={"primary"} right={true} onClick={() => { }}>
+        <Button size={"sm"} color={"primary"} right={true} onClick={handleApplyFilters}>
             {t("General.Buttons.ApplyFilters")}
         </Button>
     </>

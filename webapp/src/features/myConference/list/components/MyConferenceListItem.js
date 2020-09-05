@@ -32,7 +32,7 @@ const MyConferenceListItem = ({ conference, onEdit }) => {
             </Grid>}
         content={<>
             <Grid item xs={12}>
-                <Typography>{`${startDate} - ${endDate}`}</Typography>
+                <Typography>{`${t('DATE_FORMAT', { date: { value: startDate, format: 'DD-MM-YYYY HH:mm:ss' } })} - ${t('DATE_FORMAT', { date: { value: endDate, format: 'DD-MM-YYYY HH:mm:ss' } })}`}</Typography>
             </Grid>
             <Grid item xs={12}>
                 <Typography>{`${type}, ${category}`}</Typography>

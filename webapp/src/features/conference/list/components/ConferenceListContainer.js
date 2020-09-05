@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useLayoutEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import ConferenceList from './ConferenceList';
 import ConferenceFilters from './ConferenceFilters';
@@ -18,7 +18,7 @@ import ConferenceCodeModal from './ConferenceCodeModal';
 
 const defaultPager = {
     totalCount: 0,
-    pageSize: 5,
+    pageSize: 3,
     page: 0,
     direction: 1,
     afterId: 0
@@ -47,6 +47,12 @@ const ConferenceListContainer = () => {
         }
     });
 
+    useLayoutEffect(() => {
+        if (data && pager.totalCount !== data.conferenceList.pagination.totalCount) {
+            setPager(currentPager => ({ ...currentPager, totalCount: data.conferenceList.pagination.totalCount }));
+        }
+    }, [data, pager.totalCount, setPager]);
+
     const [attend] = useMutation(ATTEND_CONFERENCE_MUTATION, {
         onCompleted: (data) => {
             if (!data) {
@@ -66,21 +72,33 @@ const ConferenceListContainer = () => {
         onError: error => addToast(error, 'error', false)
     })
 
+    const handleChangePage = useCallback((page, direction) => {
+        const afterId = direction
+            ? data.conferenceList.pagination.nextPage.afterId
+            : data.conferenceList.pagination.prevPage.afterId;
+
+        setPager(currentPager => ({ ...currentPager, afterId, page }));
+    }, [data, setPager]);
+
+    const handleChangeRowsPerPage = useCallback((pageSize) =>
+        setPager({ ...defaultPager, pageSize: parseInt(pageSize, 10) })
+        , [setPager]);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => () => setFooter(null), []);
     useEffect(() => {
         setFooter(
             <Pagination
-                totalCount={10}
-                pageSize={5}
-                page={0}
-                rowsPerPageOptions={[5, 10, 15, 20]}
-                onChangeRowsPerPage={() => { }}
-                onChangePage={() => { }}
+                totalCount={pager.totalCount}
+                pageSize={pager.pageSize}
+                page={pager.page}
+                rowsPerPageOptions={[3, 5, 9, 12]}
+                onChangeRowsPerPage={handleChangeRowsPerPage}
+                onChangePage={handleChangePage}
                 onRefresh={refetch}
             />
         )
-    }, [setFooter, refetch])
+    }, [setFooter, refetch, handleChangeRowsPerPage, handleChangePage, pager.totalCount, pager.pageSize, pager.page])
 
     const handleAttend = useCallback((conference) => () => {
         const input = {
@@ -98,16 +116,21 @@ const ConferenceListContainer = () => {
         withdraw({ variables: { input } })
     }, [withdraw, userEmail]);
 
+    const handleApplyFilters = useCallback((value) => {
+        setPager(currentPager => ({ ...currentPager, afterId: 0, page: 0 })); // reset pager
+        setFilters(value);
+    }, [setFilters, setPager]);
+
     if (error) {
-        addToast(t('Conference.ConferenceListError', error, 'error'))
+        addToast(error, 'error', false)
     }
 
-    if (loading) {
+    if (loading || !data) {
         return <LoadingFakeText lines={10} />
     }
 
     return (<>
-        <ConferenceFilters filters={{}} onApplyFilters={() => { }} />
+        <ConferenceFilters filters={filters} onApplyFilters={handleApplyFilters} />
         <ConferenceList
             conferences={data?.conferenceList?.values}
             onAttend={handleAttend}
