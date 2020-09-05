@@ -1,5 +1,4 @@
 import { gql } from "@apollo/client";
-import { Fragment } from "react-flags";
 
 const CommonFragments = {
   paginationInfo: gql`

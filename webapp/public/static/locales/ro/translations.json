@@ -91,7 +91,8 @@
     "Filters": {
       "StartDate": "Data incepere",
       "EndDate": "Data terminare"
-    }
+    },
+    "StatusNotSet": "Nu participi"
   },
   "MyConferences": {
     "Speaker": "Orator: ",

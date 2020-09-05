@@ -1,27 +1,51 @@
-import React, { useEffect, useCallback, useState } from 'react';
-import { useFooter } from 'providers/AreasProvider';
-import { useToast } from 'hooks/toasts'
+import React, { useEffect, useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
+import ConferenceList from './ConferenceList';
+import ConferenceFilters from './ConferenceFilters';
+import { useFooter } from 'providers/AreasProvider';
 import Pagination from 'components/common/pagination/Pagination';
-import { useMutation } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client';
+import { CONFERENCE_LIST_QUERY } from '../queries/ConferenceListQuery';
+import { emptyObject } from 'utils/constants';
+import { useToast } from 'hooks/toasts';
+import LoadingFakeText from 'components/common/fakeText/LoadingFakeText';
 import { useEmail } from 'hooks/useEmail';
 import { ATTEND_CONFERENCE_MUTATION } from '../mutations/AttendConference';
 import { WITHDRAW_CONFERENCE_MUTATION } from '../mutations/WithdrawConference';
 
 import DialogDisplay from 'components/common/dialogBox/DialogDisplay';
-import ConferenceList from './ConferenceList';
-import ConferenceFilters from './ConferenceFilters';
-
-import conferences from 'utils/mocks/conferences';
 import ConferenceCodeModal from './ConferenceCodeModal';
 
+const defaultPager = {
+    totalCount: 0,
+    pageSize: 5,
+    page: 0,
+    direction: 1,
+    afterId: 0
+}
+
 const ConferenceListContainer = () => {
-    const [userEmail] = useEmail();
-    const [, setFooter] = useFooter();
-    const addToast = useToast()
     const { t } = useTranslation();
+    const addToast = useToast();
+    const [, setFooter] = useFooter();
+    const [pager, setPager] = useState(defaultPager);
+    const [filters, setFilters] = useState(emptyObject)
+    const [userEmail] = useEmail();
     const [code, setCode] = useState("")
     const [open, setOpenDialog] = useState(false)
+
+    const { data, error, loading, refetch } = useQuery(CONFERENCE_LIST_QUERY, {
+        variables: {
+            pager: {
+                pageSize: pager.pageSize,
+                afterId: pager.afterId,
+                sortBy: pager.sortBy,
+                direction: pager.direction,
+            },
+            filters,
+            userEmail
+        }
+    });
 
     const [attend] = useMutation(ATTEND_CONFERENCE_MUTATION, {
         onCompleted: (data) => {
@@ -44,7 +68,6 @@ const ConferenceListContainer = () => {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => () => setFooter(null), []);
-
     useEffect(() => {
         setFooter(
             <Pagination
@@ -54,10 +77,10 @@ const ConferenceListContainer = () => {
                 rowsPerPageOptions={[5, 10, 15, 20]}
                 onChangeRowsPerPage={() => { }}
                 onChangePage={() => { }}
-                onRefresh={() => { }}
+                onRefresh={refetch}
             />
         )
-    }, [setFooter])
+    }, [setFooter, refetch])
 
     const handleAttend = useCallback((conference) => () => {
         const input = {
@@ -75,10 +98,18 @@ const ConferenceListContainer = () => {
         withdraw({ variables: { input } })
     }, [withdraw, userEmail]);
 
+    if (error) {
+        addToast(t('Conference.ConferenceListError', error, 'error'))
+    }
+
+    if (loading) {
+        return <LoadingFakeText lines={10} />
+    }
+
     return (<>
         <ConferenceFilters filters={{}} onApplyFilters={() => { }} />
         <ConferenceList
-            conferences={conferences}
+            conferences={data?.conferenceList?.values}
             onAttend={handleAttend}
             onWithdraw={handleWithdraw}
         />

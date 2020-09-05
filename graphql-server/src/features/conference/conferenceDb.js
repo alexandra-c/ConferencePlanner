@@ -4,12 +4,13 @@ const { generateTopClause, getSortByValue, generateSortByPkClause, generatePrevP
 class ConferenceDb extends SQLDataSource {
 
     generateFromAndWhereClause(queryBuilder, { afterId, filters = {}, direction, sortBy, sortByValue }) {
-        const { startDate, endDate } = filters;
+        const { startDate, endDate, organizerEmail } = filters;
 
         queryBuilder.from("Conference");
 
         if (startDate) queryBuilder.whereRaw("StartDate", ">=", startDate);
         if (endDate) queryBuilder.whereRaw("EndDate", "<=", endDate);
+        if (organizerEmail) queryBuilder.whereRaw("OrganiserEmail", organizerEmail)
 
         if (afterId) {
             queryBuilder.modify(generateSortByPkClause, { sortBy, pk: "FlowId", direction, afterId, sortByValue })
@@ -47,59 +48,13 @@ class ConferenceDb extends SQLDataSource {
                 "CategoryId",
                 "StartDate",
                 "EndDate",
-                "OrganizerEmail"
+                "OrganiserEmail"
             )
             .from("Conference")
             .modify(this.generateFromAndWhereClause, { filters, afterId, direction, sortBy, sortByValue })
             .modify(generateOrderByClause, { sortBy, direction, pk: "Id" })
             .modify(generateTopClause, pageSize ? pageSize + 1 : null);
         return { values, sortByValue };
-    }
-
-    async getConferenceListByOrganizer(pager, filters, organizerEmail) {
-        const { pageSize, sortBy = "Name", direction = 0, afterId } = pager;
-        const sortByValue = await getSortByValue(this.knex, afterId, sortBy, "Conference", "Id");
-        const values = await this.knex
-            .select(
-                "Id",
-                "Name",
-                "ConferenceTypeId",
-                "LocationId",
-                "CategoryId",
-                "StartDate",
-                "EndDate",
-                "OrganizerEmail"
-            )
-            .from("Conference")
-            .where("OrganizerEmail", organizerEmail)
-            .modify(this.generateFromAndWhereClause, { filters, afterId, direction, sortBy, sortByValue })
-            .modify(generateOrderByClause, { sortBy, direction, pk: "Id" })
-            .modify(generateTopClause, pageSize ? pageSize + 1 : null);
-        return { values, sortByValue };
-    }
-
-    async getSpeaker() {
-        const data = await this.knex
-            .select(
-                "SpeakerId",
-                "s.Name",
-                "s.Nationality",
-                "s.Rating"
-            )
-            .from("ConferenceXSpeaker")
-            .innerJoin("Speaker AS s", "ConferenceXSpeaker.SpeakerId", "=", "s.Id")
-        return data;
-    }
-
-    async getStatus() {
-        const data = await this.knex
-            .select(
-                "StatusId",
-                "dS.Name"
-            )
-            .from("ConferenceXAttendee")
-            .innerJoin("DictionaryStatus AS dS", "ConferenceXAttendee.StatusId", "=", "dS.Id")
-        return data
     }
 
     async updateConferenceXAttendee({ attendeeEmail, conferenceId, statusId }) {
