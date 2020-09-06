@@ -27,7 +27,7 @@ const MyConferenceSpeakers = ({ conference, dispatch }) => {
             <Tbody>
                 {speakers?.map((speaker, index) => (
                     <MyConferenceSpeakerData
-                        key={speaker.id}
+                        key={speaker?.id}
                         speaker={speaker}
                         dispatch={dispatch}
                         index={index}

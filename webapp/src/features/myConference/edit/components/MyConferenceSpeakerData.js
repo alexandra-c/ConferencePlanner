@@ -35,8 +35,9 @@ const MyConferenceSpeakerData = ({ speaker, dispatch, index }) => {
         <Td className={classes.tableContent}>
             <CustomTextField
                 fullWidth
+                isNumeric
                 value={speaker?.rating}
-                onChange={onTextBoxChange(handleDispatch("rating"))}
+                onChange={handleDispatch("rating")}
             />
         </Td>
         <Td className={classes.tableContent}>

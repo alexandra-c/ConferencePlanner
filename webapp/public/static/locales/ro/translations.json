@@ -73,12 +73,14 @@
   },
   "General": {
     "Congratulations": "Felicitari!",
+    "Saving": "Se salveaza",
     "Buttons": {
       "ApplyFilters": "Aplica filtre",
       "ResetFilters": "Reseteaza filtre",
       "AddConference": "Adauga Conferinta",
       "DeleteSpeaker": "Sterge orator",
-      "AddSpeaker": "Adauga orator"
+      "AddSpeaker": "Adauga orator",
+      "Save": "Salveaza"
     },
     "DeleteWarning": "Sunteti sigur ca doriti sa stergeti aceasta conferinta?",
     "Warning": "Atentie!",
@@ -106,7 +108,8 @@
       "StartDate": "Data incepere",
       "EndDate": "Data terminare"
     },
-    "QueryError": "Error"
+    "QueryError": "Error",
+    "SavingSucceeded": "S-a salvat cu succes"
   },
   "LandingPage": {
     "Title": "Bun venit!",

@@ -62,7 +62,7 @@ NumberFormatCustom.defaultProps = {
 
 // TODO: this is for backwards compatibility (onTextBoxChange) ... remove onTextBoxChange and keep only value
 const setValueToDesiredFormat = curry((isNumeric, value) => isNumeric ? value : ({ target: { value } }))
-const getValueFromDesiredFormat = curry((isNumeric, e) => isNumeric ? e : e?.target.value)
+const getValueFromDesiredFormat = curry((isNumeric, e) => isNumeric ? e : e?.target?.value)
 
 function CustomTextField({ isNumeric, customInputProps, endAdornment, InputLabelProps, className, value, onChange, debounceBy, ...rest }) {
   const classes = useStyles();

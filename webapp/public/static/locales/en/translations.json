@@ -80,12 +80,14 @@
   },
   "General": {
     "Congratulations": "Congratulations!",
+    "Saving": "Saving",
     "Buttons": {
       "ApplyFilters": "Apply filters",
       "ResetFilters": "Reset filters",
       "AddConference": "Add conference",
       "DeleteSpeaker": "Delete speaker",
-      "AddSpeaker": "Add speaker"
+      "AddSpeaker": "Add speaker",
+      "Save": "Save"
     },
     "DeleteWarning": "Are you sure do you want to delete this conference?",
     "Warning": "Warning!"
@@ -113,7 +115,8 @@
       "StartDate": "Start date",
       "EndDate": "End date"
     },
-    "QueryError": "Error"
+    "QueryError": "Error",
+    "SavingSucceeded": "Save succeeded"
   },
   "LandingPage": {
     "Title": "Welcome!",
