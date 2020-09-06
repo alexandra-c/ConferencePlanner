@@ -53,11 +53,19 @@ const conferenceResolvers = {
             return country;
         }
     },
+    ConferenceResult: {
+        conference: async ({ conferenceId }, _arguments, { dataLoaders }, _info) => {
+            const result = await dataLoaders.conferenceById.load(conferenceId);
+            return result;
+        }
+    },
     Mutation: {
         attend: async (_parent, { input }, { dataSources }, _info) => {
             const updateInput = { ...input, statusId: 3 /* Attended */ }
-            const statusId = await dataSources.conferenceDb.updateConferenceXAttendee(updateInput);
-            return statusId ? randomCharacters(10) : null
+            const { statusId, conferenceId } = await dataSources.conferenceDb.updateConferenceXAttendee(updateInput);
+
+            const joinCode = statusId ? randomCharacters(10) : null
+            return { joinCode, conferenceId }
         },
         withdraw: async (_parent, { input }, { dataSources }, _info) => {
             const updateInput = { ...input, statusId: 2 /* Withdrawn */ }

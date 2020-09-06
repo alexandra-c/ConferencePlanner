@@ -44,6 +44,11 @@ const conferenceTypeDefs = gql`
     name: String!
   }
 
+  type ConferenceResult {
+    conference: Conference!
+    joinCode: String
+  }
+
   input ConferenceFilterInput {
     startDate: DateTime
     endDate: DateTime
@@ -93,8 +98,8 @@ const conferenceTypeDefs = gql`
   }
 
   extend type Mutation {
-    attend(input: Attendee!): String    
-    withdraw(input: Attendee!): String
+    attend(input: Attendee!): ConferenceResult    
+    withdraw(input: Attendee!): Conference
     updateConference(input: ConferenceInput): Conference!
   }
 `

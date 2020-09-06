@@ -51,10 +51,11 @@ class ConferenceDb extends SQLDataSource {
             ConferenceId: conferenceId,
             StatusId: statusId
         }
+
         let result
         if (current && current.id) {
             result = await this.knex("ConferenceXAttendee")
-                .update(attendeeInfo, "StatusId")
+                .update(attendeeInfo, ["StatusId", "ConferenceId"])
                 .where("Id", current.id)
         } else {
             result = await this.knex("ConferenceXAttendee")

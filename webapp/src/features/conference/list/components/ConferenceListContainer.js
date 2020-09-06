@@ -44,12 +44,6 @@ const ConferenceListContainer = () => {
         onError: error => addToast(error, 'error', false)
     });
 
-    useLayoutEffect(() => {
-        if (data && pager.totalCount !== data?.conferenceList?.pagination?.totalCount) {
-            setPager(currentPager => ({ ...currentPager, totalCount: data?.conferenceList?.pagination?.totalCount }));
-        }
-    }, [data, pager.totalCount, setPager]);
-
     const [attend] = useMutation(ATTEND_CONFERENCE_MUTATION, {
         onCompleted: (data) => {
             if (!data) {
@@ -76,6 +70,12 @@ const ConferenceListContainer = () => {
     const handleChangeRowsPerPage = useCallback((pageSize) =>
         setPager({ ...defaultPager, pageSize: parseInt(pageSize, 10) })
         , [setPager]);
+
+    useLayoutEffect(() => {
+        if (data && pager.totalCount !== data?.conferenceList?.pagination?.totalCount) {
+            setPager(currentPager => ({ ...currentPager, totalCount: data?.conferenceList?.pagination?.totalCount }));
+        }
+    }, [data, pager.totalCount, setPager]);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => () => setFooter(null), []);

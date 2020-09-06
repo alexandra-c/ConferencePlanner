@@ -29,21 +29,6 @@ const MyConferenceListContainer = () => {
     const [userEmail] = useEmail();
     const [filters, setFilters] = useState(emptyObject)
 
-    const handleEdit = useCallback(id => () => history.push(`/myConferences/${id}`), [history]);
-    const handleAdd = useCallback(() => history.push(`/myConferences/new`), [history]);
-
-    // eslint-disable-next-line 
-    useEffect(() => () => (setFooter(null), setHeader(null)), []);
-
-    useEffect(() => {
-        setHeader(
-            <MyConferenceHeader
-                headerText={t('NavBar.MyConferences')}
-                onAdd={handleAdd}
-            />
-        )
-    }, [handleAdd, setHeader, t])
-
     const { data, error, loading, refetch } = useQuery(CONFERENCE_LIST_QUERY, {
         variables: {
             pager: {
@@ -58,12 +43,8 @@ const MyConferenceListContainer = () => {
         }
     });
 
-    useLayoutEffect(() => {
-        if (data && pager.totalCount !== data?.conferenceList?.pagination?.totalCount) {
-            setPager(currentPager => ({ ...currentPager, totalCount: data?.conferenceList?.pagination?.totalCount }));
-        }
-    }, [data, pager.totalCount, setPager]);
-
+    const handleEdit = useCallback(id => () => history.push(`/myConferences/${id}`), [history]);
+    const handleAdd = useCallback(() => history.push(`/myConferences/new`), [history]);
 
     const handleChangePage = useCallback((page) =>
         setPager(currentPager => ({ ...currentPager, page }))
@@ -72,6 +53,24 @@ const MyConferenceListContainer = () => {
     const handleChangeRowsPerPage = useCallback((pageSize) =>
         setPager({ ...defaultPager, pageSize: parseInt(pageSize, 10) })
         , [setPager]);
+
+    useLayoutEffect(() => {
+        if (data && pager.totalCount !== data?.conferenceList?.pagination?.totalCount) {
+            setPager(currentPager => ({ ...currentPager, totalCount: data?.conferenceList?.pagination?.totalCount }));
+        }
+    }, [data, pager.totalCount, setPager]);
+
+    // eslint-disable-next-line 
+    useEffect(() => () => (setFooter(null), setHeader(null)), []);
+
+    useEffect(() => {
+        setHeader(
+            <MyConferenceHeader
+                headerText={t('NavBar.MyConferences')}
+                onAdd={handleAdd}
+            />
+        )
+    }, [handleAdd, setHeader, t])
 
     useEffect(() => {
         setFooter(
