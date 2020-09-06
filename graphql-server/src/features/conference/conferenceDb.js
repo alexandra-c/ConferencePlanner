@@ -7,7 +7,7 @@ class ConferenceDb extends SQLDataSource {
 
         if (startDate) queryBuilder.andWhere("StartDate", ">=", startDate);
         if (endDate) queryBuilder.andWhere("EndDate", "<=", endDate);
-        if (organizerEmail) queryBuilder.andWhere("OrganiserEmail", organizerEmail)
+        if (organizerEmail) queryBuilder.andWhere("OrganizerEmail", organizerEmail)
     }
 
     async getConferenceList(pager, filters) {
@@ -21,7 +21,7 @@ class ConferenceDb extends SQLDataSource {
                 "CategoryId",
                 "StartDate",
                 "EndDate",
-                "OrganiserEmail"
+                "OrganizerEmail"
             )
             .from("Conference")
             .modify(this.generateWhereClause, filters)
