@@ -12,6 +12,7 @@ const conferenceTypeDefs = gql`
     name: String!
     startDate: DateTime!
     endDate: DateTime!
+    organizerEmail: String
     type: Type
     category: Category
     location: Location!
@@ -56,10 +57,11 @@ const conferenceTypeDefs = gql`
   }
 
   input ConferenceInput {
-    id: ID!
+    id: ID
     name: String!
     startDate: DateTime!
     endDate: DateTime!
+    organizerEmail: String!
     type: TypeInput
     category: CategoryInput
     location: LocationInput!
@@ -68,7 +70,7 @@ const conferenceTypeDefs = gql`
   }
 
   input LocationInput {
-    id: ID!
+    id: ID
     name: String
     code: String
     address: String
@@ -80,7 +82,7 @@ const conferenceTypeDefs = gql`
   }
 
   input SpeakerInput {
-    id: ID!
+    id: ID
     name: String
     isMainSpeaker: Boolean
     nationality: String
@@ -94,8 +96,8 @@ const conferenceTypeDefs = gql`
 
   extend type Mutation {
     attend(input: Attendee!): String    
-    withdraw(input: Attendee!): ID
-    updateConference(input: ConferenceInput): Conference!
+    withdraw(input: Attendee!): String
+    saveConference(input: ConferenceInput!): Conference!
   }
 `
 

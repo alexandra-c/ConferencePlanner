@@ -64,8 +64,24 @@ const conferenceResolvers = {
             const statusId = await dataSources.conferenceDb.updateConferenceXAttendee(updateInput);
             return statusId
         },
-        updateConference: async (_parent, { input }, { dataSources }, _info) => {
+        saveConference: async (_parent, { input }, { dataSources }, _info) => {
+            const typeId = input.type.id || await dataSources.conferenceDb.insertTypeDictionary(input.type);
+            const categoryId = input.category.id || await dataSources.conferenceDb.insertCategoryDictionary(input.category);
+            const location = await dataSources.conferenceDb.updateLocation(input.location);
 
+            const updatedConference = await dataSources.conferenceDb.updateConference({
+                ...input,
+                categoryId,
+                typeId,
+                locationId: location.id
+            })
+
+            const speakers = await Promise.all(input.speakers.map(async speaker => {
+                const updatedSpeaker = await dataSources.conferenceDb.updateSpeaker({ speaker, conferenceId: updatedConference.id });
+                return updatedSpeaker
+            }))
+
+            return { ...updatedConference, location, speakers }
         }
     }
 };

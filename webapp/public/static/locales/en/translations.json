@@ -13,7 +13,7 @@
   "MyProfile": "My Profile",
   "Forbidden": "Not allowed to see this page!",
   "NavBar": {
-    "MyFirstMenu":"My First Menu",
+    "MyFirstMenu": "My First Menu",
     "Welcome": "Welcome",
     "Settings": "Settings",
     "Conferences": "Conferences",
@@ -80,12 +80,14 @@
   },
   "General": {
     "Congratulations": "Congratulations!",
+    "Saving": "Saving",
     "Buttons": {
       "ApplyFilters": "Apply filters",
       "ResetFilters": "Reset filters",
       "AddConference": "Add conference",
       "DeleteSpeaker": "Delete speaker",
-      "AddSpeaker": "Add speaker"
+      "AddSpeaker": "Add speaker",
+      "Save": "Save"
     }
   },
   "Conferences": {
@@ -110,7 +112,8 @@
       "StartDate": "Start date",
       "EndDate": "End date"
     },
-    "QueryError": "Error"
+    "QueryError": "Error",
+    "SavingSucceeded": "Save succeeded"
   },
   "LandingPage": {
     "Title": "Welcome!",

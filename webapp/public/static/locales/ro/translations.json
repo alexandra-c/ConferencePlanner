@@ -5,7 +5,7 @@
   "MyProfile": "Profilul meu",
   "Forbidden": "Nu aveti dreptul sa vedeti aceasta pagina!",
   "NavBar": {
-    "MyFirstMenu":"Primul meu meniu",
+    "MyFirstMenu": "Primul meu meniu",
     "Welcome": "Bun venit",
     "Settings": "Setari",
     "User": "Profil",
@@ -73,12 +73,14 @@
   },
   "General": {
     "Congratulations": "Felicitari!",
+    "Saving": "Se salveaza",
     "Buttons": {
       "ApplyFilters": "Aplica filtre",
       "ResetFilters": "Reseteaza filtre",
       "AddConference": "Adauga Conferinta",
       "DeleteSpeaker": "Sterge orator",
-      "AddSpeaker": "Adauga orator"
+      "AddSpeaker": "Adauga orator",
+      "Save": "Salveaza"
     }
   },
   "Conferences": {
@@ -103,7 +105,8 @@
       "StartDate": "Data incepere",
       "EndDate": "Data terminare"
     },
-    "QueryError": "Error"
+    "QueryError": "Error",
+    "SavingSucceeded": "S-a salvat cu succes"
   },
   "LandingPage": {
     "Title": "Bun venit!",
