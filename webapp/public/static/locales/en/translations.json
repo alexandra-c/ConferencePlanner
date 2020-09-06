@@ -109,7 +109,8 @@
     "Filters": {
       "StartDate": "Start date",
       "EndDate": "End date"
-    }
+    },
+    "QueryError": "Error"
   },
   "LandingPage": {
     "Title": "Welcome!",

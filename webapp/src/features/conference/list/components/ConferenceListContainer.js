@@ -32,7 +32,7 @@ const ConferenceListContainer = () => {
     const [code, setCode] = useState("")
     const [open, setOpenDialog] = useState(false)
 
-    const { data, error, loading, refetch } = useQuery(CONFERENCE_LIST_QUERY, {
+    const { data, loading, refetch } = useQuery(CONFERENCE_LIST_QUERY, {
         variables: {
             pager: {
                 page: pager.page,
@@ -40,7 +40,8 @@ const ConferenceListContainer = () => {
             },
             filters,
             userEmail
-        }
+        },
+        onError: error => addToast(error, 'error', false)
     });
 
     useLayoutEffect(() => {
@@ -112,10 +113,6 @@ const ConferenceListContainer = () => {
         setPager(currentPager => ({ ...currentPager, page: 0 })); // reset pager
         setFilters(value);
     }, [setFilters, setPager]);
-
-    if (error) {
-        addToast(error, 'error', false)
-    }
 
     if (loading || !data) {
         return <LoadingFakeText lines={10} />

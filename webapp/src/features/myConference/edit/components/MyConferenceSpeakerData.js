@@ -7,50 +7,55 @@ import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css"
 import tableStyle from 'assets/jss/components/common/tableStyle';
 import CustomTextField from 'components/common/inputs/CustomTextField';
 import DeleteButton from 'components/common/buttons/DeleteButton';
+import { onTextBoxChange, onCheckBoxChange } from 'utils/propertyChangeAdapters';
 
 const useStyles = makeStyles(tableStyle);
 
-const ConferenceSpeakerData = ({ speaker }) => {
+const MyConferenceSpeakerData = ({ speaker, dispatch, index }) => {
     const { t } = useTranslation();
     const classes = useStyles();
+
+    const handleDispatch = actionType => value => dispatch({ type: actionType, payload: value, index })
 
     return <Tr>
         <Td className={classes.tableContent}>
             <CustomTextField
                 fullWidth
                 value={speaker?.name}
-                onChange={() => { }}
+                onChange={onTextBoxChange(handleDispatch("speakerName"))}
             />
         </Td>
         <Td className={classes.tableContent}>
             <CustomTextField
                 fullWidth
                 value={speaker?.nationality}
-                onChange={() => { }}
+                onChange={onTextBoxChange(handleDispatch("nationality"))}
             />
         </Td>
         <Td className={classes.tableContent}>
             <CustomTextField
                 fullWidth
                 value={speaker?.rating}
-                onChange={() => { }}
+                onChange={onTextBoxChange(handleDispatch("rating"))}
             />
         </Td>
         <Td className={classes.tableContent}>
             <Checkbox
                 color='secondary'
                 checked={Boolean(speaker?.isMainSpeaker)}
-                onChange={() => { }}
+                onChange={onCheckBoxChange(handleDispatch("isMainSpeaker"))}
             />
         </Td>
         <Td className={classes.tableContent}>
-            <DeleteButton onClick={() => { }} title={t('General.Buttons.DeleteSpeaker')} />
+            <DeleteButton onClick={handleDispatch('deleteSpeaker')} title={t('General.Buttons.DeleteSpeaker')} />
         </Td>
     </Tr>
 };
 
-ConferenceSpeakerData.propTypes = {
-    speaker: PropTypes.object.isRequired
+MyConferenceSpeakerData.propTypes = {
+    speaker: PropTypes.object.isRequired,
+    dispatch: PropTypes.func.isRequired,
+    index: PropTypes.number.isRequired
 }
 
-export default ConferenceSpeakerData;
+export default MyConferenceSpeakerData;

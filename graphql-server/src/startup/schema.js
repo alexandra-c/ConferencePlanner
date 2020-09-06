@@ -13,8 +13,11 @@ const helloWorldResolvers = require('../features/helloWorld/resolvers');
 const conferenceTypeDefs = require('../features/conference/schema');
 const conferenceResolvers = require('../features/conference/resolvers')
 
-const typeDefs = [rootTypeDefs, paginationTypeDefs, userTypeDefs, helloWorldTypeDefs, conferenceTypeDefs]
-const resolvers = merge(userResolvers, helloWorldResolvers, conferenceResolvers)
+const dictionariesResolvers = require('../features/dictionaries/resolvers');
+const dictionariesTypeDefs = require('../features/dictionaries/schema');
+
+const typeDefs = [rootTypeDefs, paginationTypeDefs, userTypeDefs, helloWorldTypeDefs, conferenceTypeDefs, dictionariesTypeDefs]
+const resolvers = merge(userResolvers, helloWorldResolvers, conferenceResolvers, dictionariesResolvers)
 
 module.exports = makeExecutableSchema({ typeDefs, resolvers });
 module.exports.tests = { typeDefs, resolvers }

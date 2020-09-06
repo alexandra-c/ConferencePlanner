@@ -17,12 +17,7 @@ const Fragments = {
         nationality
         rating
     }
-  `,
-  status: gql`
-    fragment status on Status {
-      id
-      name
-    }
-  `}
+  `
+};
 
 export default Fragments;

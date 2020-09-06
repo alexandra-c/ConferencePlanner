@@ -51,13 +51,13 @@ const retryLink = new RetryLink({
 });
 
 const myAppLink = (token) => {
-  return ApolloLink.from([omitTypenameLink, retryLink, authLink(token).concat( httpLink )])
+  return ApolloLink.from([omitTypenameLink, retryLink, authLink(token).concat(httpLink)])
 }
 
 const cache = new InMemoryCache({
   typePolicies: {
     Page: {
-      keyFields: ["afterId", "sortBy", "direction", "pageSize"]
+      keyFields: ["page", "pageSize"]
     }
   }
 })

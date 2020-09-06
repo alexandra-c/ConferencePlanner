@@ -5,16 +5,21 @@ import DateTime from 'components/common/inputs/DateTime';
 import CustomTextField from 'components/common/inputs/CustomTextField';
 import { useTranslation } from 'react-i18next';
 import Autocomplete from 'components/common/select/Autocomplete';
+import { onTextBoxChange } from 'utils/propertyChangeAdapters';
+import { emptyString } from 'utils/constants';
 
-const ConferenceInfo = ({ conference, types, categories }) => {
+const MyConferenceInfo = ({ dispatch, conference, types, categories }) => {
     const { t } = useTranslation();
+
+    const handleDispatch = actionType => value => dispatch({ type: actionType, payload: value })
 
     return <Grid container spacing={3}>
         <Grid item container lg={9} spacing={3}>
             <Grid item xs={12} sm={6} lg={4}>
                 <CustomTextField
                     label={t('Conference.Name')}
-                    value={conference?.name}
+                    value={conference?.name || emptyString}
+                    onChange={onTextBoxChange(handleDispatch("name"))}
                     fullWidth
                 />
             </Grid>
@@ -24,6 +29,7 @@ const ConferenceInfo = ({ conference, types, categories }) => {
                 <DateTime
                     label={t('Conference.StartDate')}
                     value={conference?.startDate}
+                    onChange={handleDispatch("startDate")}
                     showTime={true}
                 />
             </Grid>
@@ -31,34 +37,33 @@ const ConferenceInfo = ({ conference, types, categories }) => {
                 <DateTime
                     label={t('Conference.EndDate')}
                     value={conference?.endDate}
+                    onChange={handleDispatch("endDate")}
                     showTime={true}
                 />
             </Grid>
             <Grid item xs={12} sm={6} lg={3}>
                 <Autocomplete
+                    label={t('Conference.Type')}
                     fullWidth
                     value={conference?.type}
-                    valueKey={"id"}
-                    labelKey={"name"}
                     options={types}
-                    onChange={() => { }}
-                    isClearable={true}
-                    isSearchable={true}
-                    creatable={true}
+                    onChange={handleDispatch('type')}
+                    isClearable
+                    isSearchable
+                    creatable
                     createdLabel='Conference.Type'
                 />
             </Grid>
             <Grid item xs={12} sm={6} lg={3}>
                 <Autocomplete
+                    label={t('Conference.Category')}
                     fullWidth
                     value={conference?.category}
-                    valueKey={"id"}
-                    labelKey={"name"}
                     options={categories}
-                    onChange={() => { }}
-                    isClearable={true}
-                    isSearchable={true}
-                    creatable={true}
+                    onChange={handleDispatch('category')}
+                    isClearable
+                    isSearchable
+                    creatable
                     createdLabel='Conference.Category'
                 />
             </Grid>
@@ -66,14 +71,11 @@ const ConferenceInfo = ({ conference, types, categories }) => {
     </Grid >
 }
 
-ConferenceInfo.propTypes = {
+MyConferenceInfo.propTypes = {
     conference: PropTypes.object.isRequired,
+    dispatch: PropTypes.func.isRequired,
     types: PropTypes.array.isRequired,
-    categories: PropTypes.array.isRequired,
-    countries: PropTypes.array.isRequired,
-    counties: PropTypes.array.isRequired,
-    cities: PropTypes.array.isRequired,
-    handleAddFile: PropTypes.func.isRequired
+    categories: PropTypes.array.isRequired
 }
 
-export default ConferenceInfo;
+export default MyConferenceInfo;

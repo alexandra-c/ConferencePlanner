@@ -5,11 +5,11 @@ import { Table, Thead, Tbody, Tr, Th } from 'react-super-responsive-table';
 import { useTranslation } from 'react-i18next';
 import tableStyle from 'assets/jss/components/common/tableStyle';
 import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css"
-import ConferenceSpeakerData from './ConferenceSpeakerData';
+import MyConferenceSpeakerData from './MyConferenceSpeakerData';
 const useStyles = makeStyles(tableStyle);
 
-const ConferenceSpeakers = ({ conference }) => {
-    const speakers = conference.speakers;
+const MyConferenceSpeakers = ({ conference, dispatch }) => {
+    const speakers = conference?.speakers;
     const { t } = useTranslation();
     const classes = useStyles();
 
@@ -25,10 +25,12 @@ const ConferenceSpeakers = ({ conference }) => {
                 </Tr>
             </Thead>
             <Tbody>
-                {speakers?.map(speaker => (
-                    <ConferenceSpeakerData
+                {speakers?.map((speaker, index) => (
+                    <MyConferenceSpeakerData
                         key={speaker.id}
                         speaker={speaker}
+                        dispatch={dispatch}
+                        index={index}
                     />
                 ))}
             </Tbody>
@@ -36,8 +38,9 @@ const ConferenceSpeakers = ({ conference }) => {
     </Grid>
 }
 
-ConferenceSpeakers.propTypes = {
-    conference: PropTypes.object.isRequired
+MyConferenceSpeakers.propTypes = {
+    conference: PropTypes.object.isRequired,
+    dispatch: PropTypes.func.isRequired
 }
 
-export default ConferenceSpeakers;
+export default MyConferenceSpeakers;

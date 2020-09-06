@@ -5,6 +5,10 @@ const conferenceResolvers = {
         conferenceList: async (_parent, { pager, filters }, { dataSources }, _info) => {
             const data = await dataSources.conferenceDb.getConferenceList(pager, filters);
             return data
+        },
+        myConference: async (_parent, { id }, { dataLoaders }, _info) => {
+            const result = await dataLoaders.conferenceById.load(id);
+            return result;
         }
     },
     ConferenceList: {
@@ -19,12 +23,12 @@ const conferenceResolvers = {
             return speakers;
         },
         type: async ({ conferenceTypeId }, _params, { dataLoaders }, _info) => {
-            const conferenceType = await dataLoaders.conferenceById.load(conferenceTypeId);
-            return conferenceType.name;
+            const conferenceType = await dataLoaders.conferenceTypeById.load(conferenceTypeId);
+            return conferenceType;
         },
         category: async ({ categoryId }, _params, { dataLoaders }, _info) => {
             const category = await dataLoaders.categoryById.load(categoryId);
-            return category.name;
+            return category;
         },
         status: async ({ id }, { userEmail }, { dataLoaders }, _info) => {
             const status = await dataLoaders.statusByConferenceId.load({ id, userEmail })
@@ -59,6 +63,9 @@ const conferenceResolvers = {
             const updateInput = { ...input, statusId: 2 /* Withdrawn */ }
             const statusId = await dataSources.conferenceDb.updateConferenceXAttendee(updateInput);
             return statusId
+        },
+        updateConference: async (_parent, { input }, { dataSources }, _info) => {
+
         }
     }
 };
