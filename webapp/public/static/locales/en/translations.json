@@ -13,7 +13,7 @@
   "MyProfile": "My Profile",
   "Forbidden": "Not allowed to see this page!",
   "NavBar": {
-    "MyFirstMenu":"My First Menu",
+    "MyFirstMenu": "My First Menu",
     "Welcome": "Welcome",
     "Settings": "Settings",
     "Conferences": "Conferences",
@@ -86,7 +86,9 @@
       "AddConference": "Add conference",
       "DeleteSpeaker": "Delete speaker",
       "AddSpeaker": "Add speaker"
-    }
+    },
+    "DeleteWarning": "Are you sure do you want to delete this conference?",
+    "Warning": "Warning!"
   },
   "Conferences": {
     "Speaker": "Speaker: ",
@@ -100,7 +102,8 @@
       "StartDate": "Start date",
       "EndDate": "End date"
     },
-    "StatusNotSet": "Not attending"
+    "StatusNotSet": "Not attending",
+    "SuccessfullyDeleted": "Successfully deleted"
   },
   "MyConferences": {
     "Speaker": "Speaker: ",

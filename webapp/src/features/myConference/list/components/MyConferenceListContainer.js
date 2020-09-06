@@ -49,16 +49,17 @@ const MyConferenceListContainer = () => {
             if (!data) {
                 return
             }
-            addToast(t("Conferences.SuccessfullyDeleted", { name: data.deleteConference }), 'success')   //TO_DO: translation +test
+            addToast(t("Conferences.SuccessfullyDeleted"), 'success')
+            refetch()
         },
         onError: error => addToast(error, 'error', false)
     })
 
     const handleEdit = useCallback(id => () => history.push(`/myConferences/${id}`), [history]);
     const handleAdd = useCallback(() => history.push(`/myConferences/new`), [history]);
-    const handleDelete = useCallback((id) => () => {
+    const handleDelete = useCallback((id) => {
         deleteConference({ variables: { id } })
-    }, [deleteConference]);  //TO_DO: nu stiu daca e bine
+    }, [deleteConference]);
 
     const handleChangePage = useCallback((page) =>
         setPager(currentPager => ({ ...currentPager, page }))

@@ -5,7 +5,7 @@
   "MyProfile": "Profilul meu",
   "Forbidden": "Nu aveti dreptul sa vedeti aceasta pagina!",
   "NavBar": {
-    "MyFirstMenu":"Primul meu meniu",
+    "MyFirstMenu": "Primul meu meniu",
     "Welcome": "Bun venit",
     "Settings": "Setari",
     "User": "Profil",
@@ -79,7 +79,10 @@
       "AddConference": "Adauga Conferinta",
       "DeleteSpeaker": "Sterge orator",
       "AddSpeaker": "Adauga orator"
-    }
+    },
+    "DeleteWarning": "Sunteti sigur ca doriti sa stergeti aceasta conferinta?",
+    "Warning": "Atentie!",
+    "SuccessfullyDeleted": "S-a sters cu succes"
   },
   "Conferences": {
     "Speaker": "Orator: ",
