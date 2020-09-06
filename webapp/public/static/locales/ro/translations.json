@@ -88,6 +88,8 @@
   },
   "Conferences": {
     "Speaker": "Orator: ",
+    "Rating": "Nota: ",
+    "Nationality": "Nationalitate: ",
     "Attend": "Participa",
     "Join": "Inscrie-te",
     "Withdraw": "Retrage-te",

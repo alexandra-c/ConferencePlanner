@@ -23,7 +23,7 @@ Typography.defaultProps = {
 }
 
 Typography.propTypes = {
-    tooltip: PropTypes.string,
+    tooltip: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
     variant: PropTypes.oneOf([
         'inherit',
         'h1',

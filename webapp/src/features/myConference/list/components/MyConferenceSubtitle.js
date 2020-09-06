@@ -5,6 +5,7 @@ import { Grid } from '@material-ui/core';
 import RoomIcon from '@material-ui/icons/Room';
 import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 import Typography from 'components/common/inputs/Typography';
+import ConferenceSpeakerInfo from 'features/conference/list/components/ConferenceSpeakerInfo';
 
 const MyConferenceSubtitle = ({ speaker, location }) => {
     const { t } = useTranslation();
@@ -16,7 +17,7 @@ const MyConferenceSubtitle = ({ speaker, location }) => {
             </Grid>
             <Grid item lg={11}>
                 <Typography>{t('Conferences.Speaker')}</Typography>
-                <Typography>{speaker?.name}</Typography>
+                <Typography tooltip={<ConferenceSpeakerInfo speaker={speaker} />}>{speaker?.name}</Typography>
             </Grid>
             <Grid item lg={1}>
                 <RoomIcon />

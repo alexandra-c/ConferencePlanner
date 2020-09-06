@@ -94,6 +94,8 @@
   },
   "Conferences": {
     "Speaker": "Speaker: ",
+    "Rating": "Rating: ",
+    "Nationality": "Nationality: ",
     "Attend": "Attend",
     "Join": "Join",
     "Withdraw": "Withdraw",
