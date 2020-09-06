@@ -16,9 +16,7 @@ import { CONFERENCE_LIST_QUERY } from 'features/conference/list/queries/Conferen
 const defaultPager = {
     totalCount: 0,
     pageSize: 5,
-    page: 0,
-    direction: 1,
-    afterId: 0
+    page: 0
 }
 
 const MyConferenceListContainer = () => {
@@ -49,10 +47,8 @@ const MyConferenceListContainer = () => {
     const { data, error, loading, refetch } = useQuery(CONFERENCE_LIST_QUERY, {
         variables: {
             pager: {
-                pageSize: pager.pageSize,
-                afterId: pager.afterId,
-                sortBy: pager.sortBy,
-                direction: pager.direction,
+                page: pager.page,
+                pageSize: pager.pageSize
             },
             filters: {
                 ...filters,
@@ -63,19 +59,15 @@ const MyConferenceListContainer = () => {
     });
 
     useLayoutEffect(() => {
-        if (data && pager.totalCount !== data.conferenceList.pagination.totalCount) {
-            setPager(currentPager => ({ ...currentPager, totalCount: data.conferenceList.pagination.totalCount }));
+        if (data && pager.totalCount !== data?.conferenceList?.pagination?.totalCount) {
+            setPager(currentPager => ({ ...currentPager, totalCount: data?.conferenceList?.pagination?.totalCount }));
         }
     }, [data, pager.totalCount, setPager]);
 
 
-    const handleChangePage = useCallback((page, direction) => {
-        const afterId = direction
-            ? data.conferenceList.pagination.nextPage.afterId
-            : data.conferenceList.pagination.prevPage.afterId;
-
-        setPager(currentPager => ({ ...currentPager, afterId, page }));
-    }, [data, setPager]);
+    const handleChangePage = useCallback((page) =>
+        setPager(currentPager => ({ ...currentPager, page }))
+        , [setPager]);
 
     const handleChangeRowsPerPage = useCallback((pageSize) =>
         setPager({ ...defaultPager, pageSize: parseInt(pageSize, 10) })
@@ -96,7 +88,7 @@ const MyConferenceListContainer = () => {
     }, [handleChangePage, handleChangeRowsPerPage, pager.page, pager.pageSize, pager.totalCount, refetch, setFooter])
 
     const handleApplyFilters = useCallback((value) => {
-        setPager(currentPager => ({ ...currentPager, afterId: 0, page: 0 })); // reset pager
+        setPager(currentPager => ({ ...currentPager, page: 0 })); // reset pager
         setFilters(value);
     }, [setFilters, setPager]);
 
