@@ -8,7 +8,7 @@ const getConferenceLoaders = dbInstance => {
                     "Id",
                     "ConferenceTypeId",
                     "LocationId",
-                    "OrganiserEmail",
+                    "OrganizerEmail",
                     "CategoryId",
                     "StartDate",
                     "EndDate",
