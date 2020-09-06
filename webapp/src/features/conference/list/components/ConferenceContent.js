@@ -28,12 +28,9 @@ const ConferenceContent = ({ onAttend, conference, onWithdraw }) => {
                         <Button right color="success" size={"sm"}>{t('Conferences.Join')}</Button>
                         <Button onClick={onWithdraw(conference)} right color="danger" size={"sm"}>{t('Conferences.Withdraw')}</Button>
                     </>
-                    :
-                    status?.id === attendeeStatus.Joined
-                        ?
-                        < Button onClick={onWithdraw(conference)} right color="danger" size={"sm"}>{t('Conferences.Withdraw')}</Button>
-                        :
-                        <Button onClick={onAttend(conference)} right color="info" size={"sm"}>{t('Conferences.Attend')}</Button>
+                    : status?.id === attendeeStatus.Joined
+                        ? < Button onClick={onWithdraw(conference)} right color="danger" size={"sm"}>{t('Conferences.Withdraw')}</Button>
+                        : <Button onClick={onAttend(conference)} right color="info" size={"sm"}>{t('Conferences.Attend')}</Button>
                 }
             </Grid>
         </Grid>

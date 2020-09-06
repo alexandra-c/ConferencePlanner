@@ -59,6 +59,7 @@ const ConferenceListContainer = () => {
     const [withdraw] = useMutation(WITHDRAW_CONFERENCE_MUTATION, {
         onCompleted: () => {
             addToast(t("Conferences.SuccessfullyWithdrawn"), 'success')
+            refetch()
         },
         onError: error => addToast(error, 'error', false)
     })
@@ -130,7 +131,7 @@ const ConferenceListContainer = () => {
             open={open}
             title={t("General.Congratulations")}
             content={<ConferenceCodeModal code={code} />}
-            onClose={() => { setOpenDialog(false); setCode("") }}
+            onClose={() => { setOpenDialog(false); setCode(""); refetch() }}
         />
     </>)
 }
