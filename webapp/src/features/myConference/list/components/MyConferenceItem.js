@@ -5,7 +5,7 @@ import { find } from 'ramda';
 import MyConferenceSubtitle from './MyConferenceSubtitle';
 import MyConferenceContent from './MyConferenceContent';
 
-const MyConferenceItem = ({ conference, onEdit }) => {
+const MyConferenceItem = ({ conference, onEdit, onDelete }) => {
     const { name, speakers, location } = conference;
     const speaker = find(speaker => speaker.isMainSpeaker, speakers)
 
@@ -19,6 +19,7 @@ const MyConferenceItem = ({ conference, onEdit }) => {
         content={
             <MyConferenceContent
                 onEdit={onEdit}
+                onDelete={onDelete}
                 conference={conference}
             />}
     />
@@ -26,7 +27,8 @@ const MyConferenceItem = ({ conference, onEdit }) => {
 
 MyConferenceItem.propTypes = {
     conference: PropTypes.object.isRequired,
-    onEdit: PropTypes.func.isRequired
+    onEdit: PropTypes.func.isRequired,
+    onDelete: PropTypes.func.isRequired
 }
 
 export default MyConferenceItem;

@@ -1,13 +1,20 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { Grid } from '@material-ui/core';
 import Typography from 'components/common/inputs/Typography';
 import Button from 'components/common/buttons/Button';
+import CustomDialog from 'components/common/dialogBox/CustomDialog';
 
-const MyConferenceContent = ({ onEdit, conference }) => {
+const MyConferenceContent = ({ onEdit, conference, onDelete }) => {
     const { id, startDate, endDate, type, category } = conference;
     const { t } = useTranslation();
+    const [warning, showWarning] = useState(false);
+    const closeDialog = useCallback(() => showWarning(false), []);
+    const handleDialogYes = () => {
+        showWarning(false);
+        onDelete(id);
+    }
 
     return (<>
         <Grid item xs={12}>
@@ -18,15 +25,25 @@ const MyConferenceContent = ({ onEdit, conference }) => {
         </Grid>
         <Grid container spacing={2}>
             <Grid item xs={12}>
-                <Button right color="danger" size={"sm"}>{t('MyConferences.Delete')}</Button>
+                <Button onClick={showWarning(true)} right color="danger" size={"sm"}>{t('MyConferences.Delete')}</Button>
                 <Button onClick={onEdit(id)} right color="info" size={"sm"}>{t('MyConferences.Edit')}</Button>
             </Grid>
         </Grid>
+        <CustomDialog
+            id="showWarning"
+            open={warning}
+            title={t("General.Warning")}
+            content={t("General.DeleteWarning")}
+            onYes={handleDialogYes}
+            showActions={true}
+            onClose={closeDialog}
+        />
     </>)
 }
 
 MyConferenceContent.propTypes = {
     onEdit: PropTypes.func.isRequired,
+    onDelete: PropTypes.func.isRequired,
     conference: PropTypes.object.isRequired
 }
 

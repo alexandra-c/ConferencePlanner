@@ -31,6 +31,7 @@ const MyConferenceListContainer = () => {
 
     const handleEdit = useCallback(id => () => history.push(`/myConferences/${id}`), [history]);
     const handleAdd = useCallback(() => history.push(`/myConferences/new`), [history]);
+    const handleDelete = () => {}
 
     // eslint-disable-next-line 
     useEffect(() => () => (setFooter(null), setHeader(null)), []);
@@ -105,6 +106,7 @@ const MyConferenceListContainer = () => {
         <MyConferenceList
             conferences={data?.conferenceList?.values}
             onEdit={handleEdit}
+            onDelete={handleDelete}
         />
     </>
 }
