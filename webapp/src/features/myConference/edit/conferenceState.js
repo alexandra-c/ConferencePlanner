@@ -2,7 +2,7 @@ import { emptyString, emptyArray, emptyObject } from 'utils/constants';
 import { remove } from 'ramda';
 
 export const initialConference = {
-    id: 0,
+    id: null,
     name: emptyString,
     startDate: null,
     endDate: null,
@@ -19,7 +19,7 @@ export const reducer = (state, action) => {
         case 'resetData':
             return { deletedSpeakers: emptyArray, ...action.payload }
         case 'addSpeaker':
-            return { ...state, speakers: [...state.speakers, { id: minSpeakerId - 1 }] }
+            return { ...state, speakers: [...state.speakers, { id: minSpeakerId - 1, name: emptyString, nationality: emptyString, rating: emptyString }] }
         case 'name':
         case 'startDate':
         case 'endDate':

@@ -64,7 +64,7 @@ const conferenceResolvers = {
             const statusId = await dataSources.conferenceDb.updateConferenceXAttendee(updateInput);
             return statusId
         },
-        updateConference: async (_parent, { input }, { dataSources }, _info) => {
+        saveConference: async (_parent, { input }, { dataSources }, _info) => {
 
             const typeId = input.type.id || await dataSources.conferenceDb.insertTypeDictionary(input.type);
             const categoryId = input.category.id || await dataSources.conferenceDb.insertCategoryDictionary(input.category);

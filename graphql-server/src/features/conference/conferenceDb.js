@@ -87,7 +87,7 @@ class ConferenceDb extends SQLDataSource {
             OrganizerEmail: organizerEmail,
             StartDate: startDate,
             EndDate: endDate,
-            LocationId: location.id,
+            LocationId: location,
             ConferenceTypeId: typeId,
             CategoryId: categoryId
         }
@@ -129,25 +129,29 @@ class ConferenceDb extends SQLDataSource {
             "Rating"
         ]
         const outputSpeakerX = [
-            "Id",
             "isMainSpeaker"
         ]
         let result
-        if (id) {
-            result = await this.knex('Speaker')
+        if (id > 0) {
+            const resultSpeaker = await this.knex('Speaker')
                 .update(content, outputSpeaker)
                 .where("Id", id)
+                .first()
+            const resultSpeakerX = await this.knex('ConferenceXSpeaker')
+                .update({ IsMainSpeaker: isMainSpeaker }, outputSpeakerX)
+                .where("SpeakerId", id)
+                .andWhere("ConferenceId", conferenceId)
+            result = { ...resultSpeaker, ...resultSpeakerX }
         }
         else {
             const insertedSpeaker = await this.knex('Speaker')
                 .returning(outputSpeaker)
                 .insert(content)
 
-            const insertedSpeakerinX = await this.knex('ConferenceXSpeaker')
+            const insertedSpeakerX = await this.knex('ConferenceXSpeaker')
                 .returning(outputSpeakerX)
-                .insert({ SpeakerId: insertedSpeaker.id, isMainSpeaker })
-                .where("ConferenceId", conferenceId)
-            result = { ...insertedSpeaker, ...insertedSpeakerinX }
+                .insert({ SpeakerId: insertedSpeaker[0].id, IsMainSpeaker: isMainSpeaker, ConferenceId: conferenceId })
+            result = { ...insertedSpeaker[0], ...insertedSpeakerX }
         }
         return result[0]
     }
