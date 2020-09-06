@@ -3,10 +3,8 @@ const { randomCharacters } = require("../../utils/functions");
 const conferenceResolvers = {
     Query: {
         conferenceList: async (_parent, { pager, filters }, { dataSources }, _info) => {
-            const { pageSize } = pager;
             const data = await dataSources.conferenceDb.getConferenceList(pager, filters);
-            const { values, sortByValue } = data;
-            return { values: values.slice(0, pageSize), nextAfterId: values[pageSize], sortByValue }
+            return data
         },
         myConference: async (_parent, { id }, { dataLoaders }, _info) => {
             const result = await dataLoaders.conferenceById.load(id);
@@ -14,12 +12,9 @@ const conferenceResolvers = {
         }
     },
     ConferenceList: {
-        pagination: async ({ nextAfterId, sortByValue }, { pager, filters }, { dataSources }, _info) => {
+        pagination: async (_parent, { pager, filters }, { dataSources }, _info) => {
             const { totalCount } = await dataSources.conferenceDb.getConferenceListTotalCount(filters);
-            const prevPageId = await dataSources.conferenceDb.getConferenceListPreviousPageAfterId(pager, filters, sortByValue);
-            const prevPage = { ...pager, afterId: prevPageId && prevPageId.id };
-            const nextPage = { ...pager, afterId: nextAfterId ? nextAfterId.id : null };
-            return { totalCount, prevPage, nextPage };
+            return { currentPage: pager, totalCount };
         }
     },
     Conference: {
@@ -70,7 +65,7 @@ const conferenceResolvers = {
             return statusId
         },
         updateConference: async (_parent, { input }, { dataSources }, _info) => {
-            
+
         }
     }
 };

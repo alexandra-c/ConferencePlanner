@@ -1,44 +1,17 @@
 const { SQLDataSource } = require("../../utils/sqlDataSource");
-const { generateTopClause, getSortByValue, generateSortByPkClause, generatePrevPageWhereClause, generateOrderByClause } = require("../common/dbGenerators");
 
 class ConferenceDb extends SQLDataSource {
 
-    generateFromAndWhereClause(queryBuilder, { afterId, filters = {}, direction = 0, sortBy, sortByValue }) {
+    generateWhereClause(queryBuilder, filters = {}) {
         const { startDate, endDate, organizerEmail } = filters;
-
-        queryBuilder.from("Conference");
 
         if (startDate) queryBuilder.andWhere("StartDate", ">=", startDate);
         if (endDate) queryBuilder.andWhere("EndDate", "<=", endDate);
         if (organizerEmail) queryBuilder.andWhere("OrganiserEmail", organizerEmail)
-
-        if (afterId) {
-            queryBuilder.modify(generateSortByPkClause, { sortBy, pk: "Id", direction, afterId, sortByValue })
-        }
-    }
-
-    async getConferenceListTotalCount(filters = {}) {
-        return await this.knex
-            .count("Id", { as: "TotalCount" })
-            .modify(this.generateFromAndWhereClause, { filters })
-            .first();
-    }
-
-    async getConferenceListPreviousPageAfterId(pager, filters, sortByValue) {
-        const { pageSize, afterId, sortBy = "Name", direction = 0 } = pager;
-        const prevPage = await this.knex
-            .select("Id")
-            .modify(this.generateFromAndWhereClause, { filters })
-            .modify(generateOrderByClause, { sortBy, direction: !direction, pk: "Id" })
-            .modify(generatePrevPageWhereClause, { afterId, direction, sortBy, sortByValue, pk: "Id" })
-            .modify(generateTopClause, pageSize);
-
-        return prevPage[pageSize - 1];
     }
 
     async getConferenceList(pager, filters) {
-        const { pageSize, sortBy = "Name", direction = 0, afterId } = pager;
-        const sortByValue = await getSortByValue(this.knex, afterId, sortBy, "Conference", "Id");
+        const { pageNumber, pageSize } = pager;
         const values = await this.knex
             .select(
                 "Id",
@@ -51,10 +24,18 @@ class ConferenceDb extends SQLDataSource {
                 "OrganiserEmail"
             )
             .from("Conference")
-            .modify(this.generateFromAndWhereClause, { filters, afterId, direction, sortBy, sortByValue })
-            .modify(generateOrderByClause, { sortBy, direction, pk: "Id" })
-            .modify(generateTopClause, pageSize ? pageSize + 1 : null);
-        return { values, sortByValue };
+            .modify(this.generateWhereClause, filters)
+            .orderBy("Id")
+            .offset(pageNumber * pageSize)
+            .limit(pageSize)
+        return { values };
+    }
+
+    async getConferenceListTotalCount(filters = {}) {
+        return await this.knex("Conference")
+            .count("Id", { as: "TotalCount" })
+            .modify(this.generateWhereClause, filters)
+            .first();
     }
 
     async updateConferenceXAttendee({ attendeeEmail, conferenceId, statusId }) {
