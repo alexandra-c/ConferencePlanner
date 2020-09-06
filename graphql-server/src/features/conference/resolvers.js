@@ -82,6 +82,10 @@ const conferenceResolvers = {
             }))
 
             return { ...updatedConference, location, speakers }
+        },
+        deleteConference: async (_parent, { id }, { dataSources }, _info) => {
+            const name = await dataSources.conferenceDb.deleteConference(id);
+            return name
         }
     }
 };

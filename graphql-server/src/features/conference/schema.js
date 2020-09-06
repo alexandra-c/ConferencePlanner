@@ -96,7 +96,8 @@ const conferenceTypeDefs = gql`
 
   extend type Mutation {
     attend(input: Attendee!): String    
-    withdraw(input: Attendee!): String
+    withdraw(input: Attendee!): ID
+    deleteConference(id: ID!): String
     saveConference(input: ConferenceInput!): Conference!
   }
 `

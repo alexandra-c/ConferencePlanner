@@ -9,9 +9,10 @@ import MyConferenceHeader from 'features/myConference/list/components/MyConferen
 import { useToast } from 'hooks/toasts';
 import { emptyObject } from 'utils/constants';
 import { useEmail } from 'hooks/useEmail';
-import { useQuery } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client';
 import LoadingFakeText from 'components/common/fakeText/LoadingFakeText';
 import { CONFERENCE_LIST_QUERY } from 'features/conference/list/queries/ConferenceListQuery';
+import { DELETE_CONFERENCE_MUTATION } from '../mutations/DeleteConference';
 
 const defaultPager = {
     totalCount: 0,
@@ -43,8 +44,22 @@ const MyConferenceListContainer = () => {
         }
     });
 
+    const [deleteConference] = useMutation(DELETE_CONFERENCE_MUTATION, {
+        onCompleted: (data) => {
+            if (!data) {
+                return
+            }
+            addToast(t("Conferences.SuccessfullyDeleted"), 'success')
+            refetch()
+        },
+        onError: error => addToast(error, 'error', false)
+    })
+
     const handleEdit = useCallback(id => () => history.push(`/myConferences/${id}`), [history]);
     const handleAdd = useCallback(() => history.push(`/myConferences/new`), [history]);
+    const handleDelete = useCallback((id) => {
+        deleteConference({ variables: { id } })
+    }, [deleteConference]);
 
     const handleChangePage = useCallback((page) =>
         setPager(currentPager => ({ ...currentPager, page }))
@@ -104,6 +119,7 @@ const MyConferenceListContainer = () => {
         <MyConferenceList
             conferences={data?.conferenceList?.values}
             onEdit={handleEdit}
+            onDelete={handleDelete}
         />
     </>
 }

@@ -81,7 +81,10 @@
       "DeleteSpeaker": "Sterge orator",
       "AddSpeaker": "Adauga orator",
       "Save": "Salveaza"
-    }
+    },
+    "DeleteWarning": "Sunteti sigur ca doriti sa stergeti aceasta conferinta?",
+    "Warning": "Atentie!",
+    "SuccessfullyDeleted": "S-a sters cu succes"
   },
   "Conferences": {
     "Speaker": "Orator: ",

@@ -88,7 +88,9 @@
       "DeleteSpeaker": "Delete speaker",
       "AddSpeaker": "Add speaker",
       "Save": "Save"
-    }
+    },
+    "DeleteWarning": "Are you sure do you want to delete this conference?",
+    "Warning": "Warning!"
   },
   "Conferences": {
     "Speaker": "Speaker: ",
@@ -102,7 +104,8 @@
       "StartDate": "Start date",
       "EndDate": "End date"
     },
-    "StatusNotSet": "Not attending"
+    "StatusNotSet": "Not attending",
+    "SuccessfullyDeleted": "Successfully deleted"
   },
   "MyConferences": {
     "Speaker": "Speaker: ",
