@@ -3,43 +3,43 @@ const { gql } = require("apollo-server-koa");
 const dictionaryTypeDefs = gql`
 
   type Category {
-    id: Int!
+    id: ID!
     name: String!
     code: String
   }
 
   input CategoryInput {
-    id: Int!
+    id: ID!
     name: String!
     code: String
   }
 
   type Type {
-    id: Int!
+    id: ID!
     name: String!
     code: String
   }
 
   input TypeInput {
-    id: Int!
+    id: ID!
     name: String!
     code: String
   }
 
   type Country {
-    id: Int!
+    id: ID!
     name: String!
     code: String    
   }
 
   type County {
-    id: Int!
+    id: ID!
     name: String!
     code: String    
   }
 
   type City {
-    id: Int!
+    id: ID!
     name: String!
     code: String    
   }
