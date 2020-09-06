@@ -44,16 +44,21 @@ const MyConferenceListContainer = () => {
         }
     });
 
-    const [deleted] = useMutation(DELETE_CONFERENCE_MUTATION, {
-        onCompleted: () => {
-            addToast(t("Conferences.SuccessfullyDeleted"), 'success')   //TO_DO: translation + deleted
+    const [deleteConference] = useMutation(DELETE_CONFERENCE_MUTATION, {
+        onCompleted: (data) => {
+            if (!data) {
+                return
+            }
+            addToast(t("Conferences.SuccessfullyDeleted", { name: data.deleteConference }), 'success')   //TO_DO: translation +test
         },
         onError: error => addToast(error, 'error', false)
     })
 
     const handleEdit = useCallback(id => () => history.push(`/myConferences/${id}`), [history]);
     const handleAdd = useCallback(() => history.push(`/myConferences/new`), [history]);
-    const handleDelete = () => {}  //TO_DO:
+    const handleDelete = useCallback((id) => () => {
+        deleteConference({ variables: { id } })
+    }, [deleteConference]);  //TO_DO: nu stiu daca e bine
 
     const handleChangePage = useCallback((page) =>
         setPager(currentPager => ({ ...currentPager, page }))

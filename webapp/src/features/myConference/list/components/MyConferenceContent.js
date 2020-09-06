@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { Grid } from '@material-ui/core';
@@ -10,8 +10,8 @@ const MyConferenceContent = ({ onEdit, conference, onDelete }) => {
     const { id, startDate, endDate, type, category } = conference;
     const { t } = useTranslation();
     const [warning, showWarning] = useState(false);
-    const closeDialog = useCallback(() => showWarning(false), []);   
-    const handleDialogYes = () => {    //TO_DO: check
+
+    const handleDialogYes = () => {    //TO_DO: check customDialog
         showWarning(false);
         onDelete(id);
     }
@@ -33,10 +33,10 @@ const MyConferenceContent = ({ onEdit, conference, onDelete }) => {
             id="showWarning"
             open={warning}
             title={t("General.Warning")}
-            content={t("General.DeleteWarning")}
+            content={t("General.DeleteWarning")}  //TO_DO: in translation
             onYes={handleDialogYes}
             showActions={true}
-            onClose={closeDialog}
+            onClose={showWarning(false)}
         />
     </>)
 }
