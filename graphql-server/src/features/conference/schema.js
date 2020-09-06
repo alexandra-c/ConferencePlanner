@@ -74,9 +74,9 @@ const conferenceTypeDefs = gql`
     address: String
     latitude: String
     longitude: String
-    city: CityInput!
-    county: CountyInput!
-    country: CountryInput!
+    cityId: ID!
+    countyId: ID!
+    countryId: ID!
   }
 
   input SpeakerInput {
