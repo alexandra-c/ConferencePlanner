@@ -28,10 +28,7 @@ export const CONFERENCE_LIST_QUERY = gql`
             }
             pagination(pager: $pager, filters: $filters) {
                 totalCount
-                prevPage {
-                    ...paginationInfo
-                }
-                nextPage {
+                currentPage {
                     ...paginationInfo
                 }
             }

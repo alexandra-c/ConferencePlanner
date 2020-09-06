@@ -11,7 +11,7 @@ class ConferenceDb extends SQLDataSource {
     }
 
     async getConferenceList(pager, filters) {
-        const { pageNumber, pageSize } = pager;
+        const { page, pageSize } = pager;
         const values = await this.knex
             .select(
                 "Id",
@@ -26,7 +26,7 @@ class ConferenceDb extends SQLDataSource {
             .from("Conference")
             .modify(this.generateWhereClause, filters)
             .orderBy("Id")
-            .offset(pageNumber * pageSize)
+            .offset(page * pageSize)
             .limit(pageSize)
         return { values };
     }
