@@ -14,7 +14,7 @@ const MyConferenceContent = ({ onEdit, conference }) => {
             <Typography>{`${t('DATE_FORMAT', { date: { value: startDate, format: 'DD-MM-YYYY HH:mm:ss' } })} - ${t('DATE_FORMAT', { date: { value: endDate, format: 'DD-MM-YYYY HH:mm:ss' } })}`}</Typography>
         </Grid>
         <Grid item xs={12}>
-            <Typography>{`${type}, ${category}`}</Typography>
+            <Typography>{`${type?.name}, ${category?.name}`}</Typography>
         </Grid>
         <Grid container spacing={2}>
             <Grid item xs={12}>

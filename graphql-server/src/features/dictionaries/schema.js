@@ -8,7 +8,19 @@ const dictionaryTypeDefs = gql`
     code: String
   }
 
+  input CategoryInput {
+    id: Int!
+    name: String!
+    code: String
+  }
+
   type Type {
+    id: Int!
+    name: String!
+    code: String
+  }
+
+  input TypeInput {
     id: Int!
     name: String!
     code: String
@@ -20,16 +32,34 @@ const dictionaryTypeDefs = gql`
     code: String    
   }
 
+  input CountryInput {
+    id: Int!
+    name: String!
+    code: String 
+  }
+
   type County {
     id: Int!
     name: String!
     code: String    
   }
 
+  input CountyInput {
+    id: Int!
+    name: String!
+    code: String
+  }
+
   type City {
     id: Int!
     name: String!
     code: String    
+  }
+
+  input CityInput {
+    id: Int!
+    name: String!
+    code: String
   }
 
   extend type Query {

@@ -11,48 +11,51 @@ import { onTextBoxChange, onCheckBoxChange } from 'utils/propertyChangeAdapters'
 
 const useStyles = makeStyles(tableStyle);
 
-const MyConferenceSpeakerData = ({ speaker, onPropertyChange, onRemoveSpeaker }) => {
+const MyConferenceSpeakerData = ({ speaker, dispatch, index }) => {
     const { t } = useTranslation();
     const classes = useStyles();
-    const handleRemoveSpeaker = () => onRemoveSpeaker(speaker.id)
+
+    const handleDispatch = actionType => value => dispatch({ type: actionType, payload: value, index })
 
     return <Tr>
         <Td className={classes.tableContent}>
             <CustomTextField
                 fullWidth
                 value={speaker?.name}
-                onChange={onTextBoxChange(onPropertyChange("name"))}
+                onChange={onTextBoxChange(handleDispatch("speakerName"))}
             />
         </Td>
         <Td className={classes.tableContent}>
             <CustomTextField
                 fullWidth
                 value={speaker?.nationality}
-                onChange={onTextBoxChange(onPropertyChange("nationality"))}
+                onChange={onTextBoxChange(handleDispatch("nationality"))}
             />
         </Td>
         <Td className={classes.tableContent}>
             <CustomTextField
                 fullWidth
                 value={speaker?.rating}
-                onChange={onTextBoxChange(onPropertyChange("rating"))}
+                onChange={onTextBoxChange(handleDispatch("rating"))}
             />
         </Td>
         <Td className={classes.tableContent}>
             <Checkbox
                 color='secondary'
                 checked={Boolean(speaker?.isMainSpeaker)}
-                onChange={onCheckBoxChange(onPropertyChange("isMainSpeaker"))}
+                onChange={onCheckBoxChange(handleDispatch("isMainSpeaker"))}
             />
         </Td>
         <Td className={classes.tableContent}>
-            <DeleteButton onClick={handleRemoveSpeaker} title={t('General.Buttons.DeleteSpeaker')} />
+            <DeleteButton onClick={handleDispatch('deleteSpeaker')} title={t('General.Buttons.DeleteSpeaker')} />
         </Td>
     </Tr>
 };
 
 MyConferenceSpeakerData.propTypes = {
-    speaker: PropTypes.object.isRequired
+    speaker: PropTypes.object.isRequired,
+    dispatch: PropTypes.func.isRequired,
+    index: PropTypes.number.isRequired
 }
 
 export default MyConferenceSpeakerData;

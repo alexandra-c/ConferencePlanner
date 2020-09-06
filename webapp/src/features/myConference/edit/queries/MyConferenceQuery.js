@@ -3,8 +3,8 @@ import Fragments from "../fragments";
 import CommonFragments from "features/common/fragments";
 
 export const MY_CONFERENCE_QUERY = gql`
-query myConferenceData($id: ID!) {
-  myConference(id: $id){
+query myConferenceData($id: ID!, $isNew: Boolean!) {
+  myConference(id: $id)@skip(if: $isNew){
     ...conference
     type {
       ...type
@@ -24,7 +24,7 @@ query myConferenceData($id: ID!) {
         ...country
       }
     }
-    speaker {
+    speakers {
       ...speaker
     }
   }
@@ -51,4 +51,5 @@ ${CommonFragments.category}
 ${CommonFragments.city}
 ${CommonFragments.county}
 ${CommonFragments.country}
+${CommonFragments.location}
 `

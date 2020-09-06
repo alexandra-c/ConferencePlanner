@@ -8,7 +8,7 @@ const conferenceResolvers = {
             const { values, sortByValue } = data;
             return { values: values.slice(0, pageSize), nextAfterId: values[pageSize], sortByValue }
         },
-        myConference: async ({ id }, _params, { dataLoaders }, _info) => {
+        myConference: async (_parent, { id }, { dataLoaders }, _info) => {
             const result = await dataLoaders.conferenceById.load(id);
             return result;
         }
@@ -68,6 +68,9 @@ const conferenceResolvers = {
             const updateInput = { ...input, statusId: 2 /* Withdrawn */ }
             const statusId = await dataSources.conferenceDb.updateConferenceXAttendee(updateInput);
             return statusId
+        },
+        updateConference: async (_parent, { input }, { dataSources }, _info) => {
+            
         }
     }
 };

@@ -16,7 +16,7 @@ const getConferenceLoaders = dbInstance => {
                 )
                 .from("Conference")
                 .whereIn("Id", ids)
-                .then(rows => ids.map(id => rows.find(x => x.id === id)))
+                .then(rows => ids.map(id => rows.find(x => x.id === parseInt(id))))
         ),
         categoryById: new DataLoader(ids =>
             dbInstance
@@ -33,7 +33,7 @@ const getConferenceLoaders = dbInstance => {
             dbInstance
                 .select(
                     "Id",
-                    "Name", 
+                    "Name",
                     "Code"
                 )
                 .from("DictionaryConferenceType")
