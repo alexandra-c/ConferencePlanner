@@ -10,8 +10,8 @@ const MyConferenceContent = ({ onEdit, conference, onDelete }) => {
     const { id, startDate, endDate, type, category } = conference;
     const { t } = useTranslation();
     const [warning, showWarning] = useState(false);
-    const closeDialog = useCallback(() => showWarning(false), []);
-    const handleDialogYes = () => {
+    const closeDialog = useCallback(() => showWarning(false), []);   
+    const handleDialogYes = () => {    //TO_DO: check
         showWarning(false);
         onDelete(id);
     }

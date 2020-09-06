@@ -64,6 +64,22 @@ class ConferenceDb extends SQLDataSource {
         }
         return result[0]
     }
+
+    async deleteConference(id) {
+        let result
+        await this.knex("ConferenceXAttendee")
+            .where("ConferenceId", id)
+            .del()
+        await this.knex("ConferenceXSpeaker")
+            .where("ConferenceId", id)
+            .del()
+
+        result = await this.knex("Conference")
+            .where("Id", id)
+            .returning("Name")
+            .del()
+        return result[0]
+    }
 }
 
 module.exports = ConferenceDb;

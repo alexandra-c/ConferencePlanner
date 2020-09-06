@@ -9,9 +9,10 @@ import MyConferenceHeader from 'features/myConference/list/components/MyConferen
 import { useToast } from 'hooks/toasts';
 import { emptyObject } from 'utils/constants';
 import { useEmail } from 'hooks/useEmail';
-import { useQuery } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client';
 import LoadingFakeText from 'components/common/fakeText/LoadingFakeText';
 import { CONFERENCE_LIST_QUERY } from 'features/conference/list/queries/ConferenceListQuery';
+import { DELETE_CONFERENCE_MUTATION } from '../mutations/DeleteConference';
 
 const defaultPager = {
     totalCount: 0,
@@ -31,7 +32,7 @@ const MyConferenceListContainer = () => {
 
     const handleEdit = useCallback(id => () => history.push(`/myConferences/${id}`), [history]);
     const handleAdd = useCallback(() => history.push(`/myConferences/new`), [history]);
-    const handleDelete = () => {}
+    const handleDelete = () => {}  //TO_DO:
 
     // eslint-disable-next-line 
     useEffect(() => () => (setFooter(null), setHeader(null)), []);
@@ -58,6 +59,13 @@ const MyConferenceListContainer = () => {
             userEmail
         }
     });
+
+    const [deleted] = useMutation(DELETE_CONFERENCE_MUTATION, {
+        onCompleted: () => {
+            addToast(t("Conferences.SuccessfullyDeleted"), 'success')   //TO_DO: translation + deleted
+        },
+        onError: error => addToast(error, 'error', false)
+    })
 
     useLayoutEffect(() => {
         if (data && pager.totalCount !== data?.conferenceList?.pagination?.totalCount) {

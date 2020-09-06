@@ -66,6 +66,10 @@ const conferenceResolvers = {
         },
         updateConference: async (_parent, { input }, { dataSources }, _info) => {
 
+        },
+        deleteConference: async (_parent, { id }, { dataSources }, _info) => {
+            const name = await dataSources.conferenceDb.deleteConference(id);
+            return name
         }
     }
 };

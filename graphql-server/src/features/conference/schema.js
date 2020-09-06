@@ -96,6 +96,7 @@ const conferenceTypeDefs = gql`
     attend(input: Attendee!): String    
     withdraw(input: Attendee!): String
     updateConference(input: ConferenceInput): Conference!
+    deleteConference(id: ID!): String
   }
 `
 
