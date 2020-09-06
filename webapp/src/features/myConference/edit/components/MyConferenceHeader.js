@@ -28,8 +28,6 @@ const MyConferenceHeader = ({ headerText, onSave, saving }) => {
 
 MyConferenceHeader.propTypes = {
     headerText: PropTypes.string,
-    onAdd: PropTypes.func.isRequired,
-    path: PropTypes.string,
     onSave: PropTypes.func,
     saving: PropTypes.bool
 };
