@@ -29,7 +29,7 @@ const ConferenceSubtitle = ({ speaker, location }) => {
 }
 
 ConferenceSubtitle.propTypes = {
-    speaker: PropTypes.object.isRequired,
+    speaker: PropTypes.object,
     location: PropTypes.object.isRequired
 }
 
