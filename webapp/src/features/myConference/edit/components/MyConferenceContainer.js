@@ -12,19 +12,6 @@ import MyConferenceHeader from './MyConferenceHeader';
 import { UPDATE_CONFERENCE } from '../mutations/UpdateConference'
 import { useEmail } from 'hooks/useEmail';
 
-const transformLocationForSaving = ({ city, county, country, ...rest }) => (
-    { ...rest, cityId: city.id, countyId: county.id, countryId: country.id }
-)
-
-const generateModelForSaving = conference => {
-    const { id, name, startDate, endDate, deletedSpeakers, type, category, location, speakers } = conference;
-    return {
-        id, name, startDate, endDate, deletedSpeakers, type, category,
-        location: transformLocationForSaving(location),
-        speakers: speakers.map(({ id, name, isMainSpeaker, nationality, rating }) => ({ id, name, isMainSpeaker, nationality, rating: parseFloat(rating) }))
-    }
-}
-
 const MyConferenceContainer = () => {
     const { t } = useTranslation();
     const history = useHistory();
@@ -59,8 +46,20 @@ const MyConferenceContainer = () => {
     useEffect(() => () => setHeader(null), []);
 
     const handleSave = useCallback(() => {
-        const input = generateModelForSaving(localConference);
-        updateConference({ variables: { input: { ...input, organizerEmail } } })
+        const { id, name, startDate, endDate, deletedSpeakers, type, category, location, speakers } = localConference;
+        const { city, county, country, ...locationData } = location
+        const input = {
+            id, name, startDate, endDate, deletedSpeakers, type, category,
+            location: {
+                ...locationData,
+                cityId: city.id,
+                countyId: county.id,
+                countryId: country.id
+            },
+            speakers,
+            organizerEmail
+        }
+        updateConference({ variables: { input } })
     }, [localConference, organizerEmail, updateConference])
 
     useEffect(() => {

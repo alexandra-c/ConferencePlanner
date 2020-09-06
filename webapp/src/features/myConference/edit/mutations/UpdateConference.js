@@ -7,13 +7,13 @@ mutation saveConference($input: ConferenceInput!) {
     saveConference(input: $input){
         ...conference
         type {
-        ...type
+            ...type
         }
         category {
-        ...category
+            ...category
         }
         location {
-        ...location
+            ...location
             city {
                 ...city
             }
@@ -25,7 +25,7 @@ mutation saveConference($input: ConferenceInput!) {
             }
         }
         speakers {
-        ...speaker
+            ...speaker
         }
     }
 },

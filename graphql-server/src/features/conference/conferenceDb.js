@@ -1,5 +1,4 @@
 const { SQLDataSource } = require("../../utils/sqlDataSource");
-const { inputFieldToFieldConfig } = require("graphql-tools");
 
 class ConferenceDb extends SQLDataSource {
 
@@ -74,20 +73,31 @@ class ConferenceDb extends SQLDataSource {
             CountyId: location.countyId,
             CountryId: location.countyId
         }
+        const output = [
+            "Id",
+            "Name",
+            "Code",
+            "Address",
+            "Latitude",
+            "Longitude",
+            "CityId",
+            "CountyId",
+            "CountryId"
+        ]
 
         const result = await this.knex('Location')
-            .returning("Id")
+            .returning(output)
             .insert(content)
         return result[0]
     }
 
-    async updateConference({ id, name, organizerEmail, startDate, endDate, location, categoryId, typeId }) {
+    async updateConference({ id, name, organizerEmail, startDate, endDate, locationId, categoryId, typeId }) {
         const content = {
             Name: name,
             OrganizerEmail: organizerEmail,
             StartDate: startDate,
             EndDate: endDate,
-            LocationId: location,
+            LocationId: locationId,
             ConferenceTypeId: typeId,
             CategoryId: categoryId
         }
@@ -128,17 +138,13 @@ class ConferenceDb extends SQLDataSource {
             "Nationality",
             "Rating"
         ]
-        const outputSpeakerX = [
-            "isMainSpeaker"
-        ]
         let result
         if (id > 0) {
             const resultSpeaker = await this.knex('Speaker')
                 .update(content, outputSpeaker)
                 .where("Id", id)
-                .first()
             const resultSpeakerX = await this.knex('ConferenceXSpeaker')
-                .update({ IsMainSpeaker: isMainSpeaker }, outputSpeakerX)
+                .update({ IsMainSpeaker: isMainSpeaker }, "IsMainSpeaker")
                 .where("SpeakerId", id)
                 .andWhere("ConferenceId", conferenceId)
             result = { ...resultSpeaker, ...resultSpeakerX }
@@ -149,11 +155,11 @@ class ConferenceDb extends SQLDataSource {
                 .insert(content)
 
             const insertedSpeakerX = await this.knex('ConferenceXSpeaker')
-                .returning(outputSpeakerX)
+                .returning("IsMainSpeaker")
                 .insert({ SpeakerId: insertedSpeaker[0].id, IsMainSpeaker: isMainSpeaker, ConferenceId: conferenceId })
             result = { ...insertedSpeaker[0], ...insertedSpeakerX }
         }
-        return result[0]
+        return result
     }
 
     async updateConferenceXAttendee({ attendeeEmail, conferenceId, statusId }) {

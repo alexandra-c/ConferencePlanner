@@ -65,7 +65,6 @@ const conferenceResolvers = {
             return statusId
         },
         saveConference: async (_parent, { input }, { dataSources }, _info) => {
-
             const typeId = input.type.id || await dataSources.conferenceDb.insertTypeDictionary(input.type);
             const categoryId = input.category.id || await dataSources.conferenceDb.insertCategoryDictionary(input.category);
             const location = await dataSources.conferenceDb.updateLocation(input.location);
@@ -74,7 +73,7 @@ const conferenceResolvers = {
                 ...input,
                 categoryId,
                 typeId,
-                location
+                locationId: location.id
             })
 
             const speakers = await Promise.all(input.speakers.map(async speaker => {
@@ -82,7 +81,7 @@ const conferenceResolvers = {
                 return updatedSpeaker
             }))
 
-            return { ...updatedConference, speakers }
+            return { ...updatedConference, location, speakers }
         }
     }
 };
