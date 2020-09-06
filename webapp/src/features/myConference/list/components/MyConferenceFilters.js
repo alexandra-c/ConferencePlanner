@@ -37,7 +37,7 @@ const MyConferenceFilters = ({ filters, onApplyFilters }) => {
                             <DateTime
                                 label={t('MyConferences.Filters.EndDate')}
                                 value={localFilters?.endDate}
-                                onChange={handleFilterPropertyChange('startDate')}
+                                onChange={handleFilterPropertyChange('endDate')}
                                 clearable
                             />
                         </Grid>
