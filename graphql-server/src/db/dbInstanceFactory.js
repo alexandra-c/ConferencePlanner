@@ -14,24 +14,34 @@ const logger = (_format, duration, query) => {
 let cachedDbInstance
 const dbInstanceFactory = async () => {
 
-    const dbInstance = await  dbInstanceGetOrAdd()
+    return await dbInstanceGetOrAdd(() => {
+        const {
+            DB_HOST: server,
+            DB_PORT: port,
+            DB_USER: userId,
+            DB_PASSWORD: password,
+            DB_DATABASE: database
+        } = process.env;
+        const dbConfig = generateKnexConfig({ server, port, userId, password, database })
+        let dbInstance = new Knex(dbConfig)
+        
+        if (!dbInstance) {
+            throw new TypeError("Could not create dbInstance. Check the database configuration info and restart the server.")
+        }
 
-    if (!dbInstance) {
-        throw new TypeError("Could not create dbInstance. Check the database configuration info and restart the server.")
-    }
+        if (JSON.parse(KNEX_DEBUG)) {
+            initializeTarnLogging(dbInstance.client.pool)
+        }
 
-    if (JSON.parse(KNEX_DEBUG)) {
-        initializeTarnLogging(dbInstance.client.pool)
-    }
+        if (JSON.parse(KNEX_LOGGING)) {
+            knexTinyLogger(dbInstance, { logger });
+        }
 
-    if (JSON.parse(KNEX_LOGGING)) {
-        knexTinyLogger(dbInstance, { logger });
-    }
-    return dbInstance
+        return dbInstance
+    })
 }
 
-
-async function dbInstanceGetOrAdd() {
+async function dbInstanceGetOrAdd(factory) {
     if (cachedDbInstance) {
         return cachedDbInstance
     }
@@ -42,15 +52,8 @@ async function dbInstanceGetOrAdd() {
             return cachedDbInstance
         }
 
-        const {
-            DB_HOST: server,
-            DB_PORT: port,
-            DB_USER: userId,
-            DB_PASSWORD: password,
-            DB_DATABASE: database
-        } = process.env;
-        const dbConfig = generateKnexConfig({ server, port, userId, password, database })
-        cachedDbInstance = new Knex(dbConfig)
+        cachedDbInstance = factory()
+      
         return cachedDbInstance
     }
     finally {

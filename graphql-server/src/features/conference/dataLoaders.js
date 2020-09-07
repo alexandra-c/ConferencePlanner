@@ -18,28 +18,6 @@ const getConferenceLoaders = dbInstance => {
                 .whereIn("Id", ids)
                 .then(rows => ids.map(id => rows.find(x => x.id === parseInt(id))))
         ),
-        categoryById: new DataLoader(ids =>
-            dbInstance
-                .select(
-                    "Id",
-                    "Name",
-                    "Code"
-                )
-                .from("DictionaryCategory")
-                .whereIn("Id", ids)
-                .then(rows => ids.map(id => rows.find(x => x.id === id)))
-        ),
-        conferenceTypeById: new DataLoader(ids =>
-            dbInstance
-                .select(
-                    "Id",
-                    "Name",
-                    "Code"
-                )
-                .from("DictionaryConferenceType")
-                .whereIn("Id", ids)
-                .then(rows => ids.map(id => rows.find(x => x.id === id)))
-        ),
         locationById: new DataLoader(ids =>
             dbInstance
                 .select(
@@ -54,39 +32,6 @@ const getConferenceLoaders = dbInstance => {
                     "CountryId"
                 )
                 .from("Location")
-                .whereIn("Id", ids)
-                .then(rows => ids.map(id => rows.find(x => x.id === id)))
-        ),
-        cityById: new DataLoader(ids =>
-            dbInstance
-                .select(
-                    "Id",
-                    "Name",
-                    "Code"
-                )
-                .from("DictionaryCity")
-                .whereIn("Id", ids)
-                .then(rows => ids.map(id => rows.find(x => x.id === id)))
-        ),
-        countyById: new DataLoader(ids =>
-            dbInstance
-                .select(
-                    "Id",
-                    "Name",
-                    "Code"
-                )
-                .from("DictionaryCounty")
-                .whereIn("Id", ids)
-                .then(rows => ids.map(id => rows.find(x => x.id === id)))
-        ),
-        countryById: new DataLoader(ids =>
-            dbInstance
-                .select(
-                    "Id",
-                    "Name",
-                    "Code"
-                )
-                .from("DictionaryCountry")
                 .whereIn("Id", ids)
                 .then(rows => ids.map(id => rows.find(x => x.id === id)))
         ),

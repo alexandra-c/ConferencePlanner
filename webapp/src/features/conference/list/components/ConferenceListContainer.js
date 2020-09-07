@@ -18,7 +18,7 @@ import ConferenceCodeModal from './ConferenceCodeModal';
 
 const defaultPager = {
     totalCount: 0,
-    pageSize: 5,
+    pageSize: 2,
     page: 0
 }
 
@@ -86,7 +86,7 @@ const ConferenceListContainer = () => {
                 totalCount={pager.totalCount}
                 pageSize={pager.pageSize}
                 page={pager.page}
-                rowsPerPageOptions={[5, 10, 15, 20]}
+                rowsPerPageOptions={[2, 5, 10, 15, 20]}
                 onChangeRowsPerPage={handleChangeRowsPerPage}
                 onChangePage={handleChangePage}
                 onRefresh={refetch}

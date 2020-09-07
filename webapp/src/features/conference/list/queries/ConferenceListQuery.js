@@ -14,7 +14,9 @@ export const CONFERENCE_LIST_QUERY = gql`
                     ...category
                 }
                 location {
-                    ...location
+                    id
+                    name
+                    address
                     city {
                         ...city
                     }
@@ -41,7 +43,6 @@ export const CONFERENCE_LIST_QUERY = gql`
         }
     }
 ${CommonFragments.paginationInfo}
-${CommonFragments.location}
 ${CommonFragments.city}
 ${CommonFragments.county}
 ${CommonFragments.country}

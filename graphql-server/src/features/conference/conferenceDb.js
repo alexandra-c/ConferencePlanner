@@ -85,9 +85,19 @@ class ConferenceDb extends SQLDataSource {
             "CountryId"
         ]
 
-        const result = await this.knex('Location')
-            .returning(output)
-            .insert(content)
+        let result
+        if (location.id) {
+            result = await this.knex('Location')
+                .update(content, output)
+                .insert(content)
+                .where("Id", location.id)
+        }
+        else {
+            result = await this.knex('Location')
+                .returning(output)
+                .insert(content)
+        }
+
         return result[0]
     }
 
@@ -203,6 +213,15 @@ class ConferenceDb extends SQLDataSource {
             .returning("Name")
             .del()
         return result[0]
+    }
+
+    async deleteSpeaker(speakerIds) {
+        await this.knex("ConferenceXSpeaker")
+            .whereIn("SpeakerId", speakerIds)
+            .del()
+        await this.knex("Speaker")
+            .whereIn("Id", speakerIds)
+            .del()
     }
 }
 
