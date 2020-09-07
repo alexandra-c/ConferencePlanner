@@ -81,6 +81,8 @@ const conferenceResolvers = {
                 return updatedSpeaker
             }))
 
+            input.deletedSpeakers && await dataSources.conferenceDb.deleteSpeaker(input.deletedSpeakers)
+
             return { ...updatedConference, location, speakers }
         },
         deleteConference: async (_parent, { id }, { dataSources }, _info) => {
