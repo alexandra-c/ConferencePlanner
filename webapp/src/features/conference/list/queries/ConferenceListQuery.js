@@ -43,7 +43,6 @@ export const CONFERENCE_LIST_QUERY = gql`
         }
     }
 ${CommonFragments.paginationInfo}
-${CommonFragments.location}
 ${CommonFragments.city}
 ${CommonFragments.county}
 ${CommonFragments.country}
