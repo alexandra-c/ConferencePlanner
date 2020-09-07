@@ -53,3 +53,12 @@ ${CommonFragments.county}
 ${CommonFragments.country}
 ${CommonFragments.location}
 `
+
+export const CONFERENCE_TYPE_QUERY = gql`
+  query typeList{
+      typeList{
+      ...type
+      }
+  },
+  ${CommonFragments.type}
+`

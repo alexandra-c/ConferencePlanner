@@ -7,8 +7,9 @@ import { useTranslation } from 'react-i18next';
 import Autocomplete from 'components/common/select/Autocomplete';
 import { onTextBoxChange } from 'utils/propertyChangeAdapters';
 import { emptyString } from 'utils/constants';
+import ConferenceType from './ConferenceType';
 
-const MyConferenceInfo = ({ dispatch, conference, types, categories }) => {
+const MyConferenceInfo = ({ dispatch, conference, categories }) => {
     const { t } = useTranslation();
 
     const handleDispatch = actionType => value => dispatch({ type: actionType, payload: value })
@@ -42,16 +43,9 @@ const MyConferenceInfo = ({ dispatch, conference, types, categories }) => {
                 />
             </Grid>
             <Grid item xs={12} sm={6} lg={3}>
-                <Autocomplete
-                    label={t('Conference.Type')}
-                    fullWidth
-                    value={conference?.type}
-                    options={types}
-                    onChange={handleDispatch('type')}
-                    isClearable
-                    isSearchable
-                    creatable
-                    createdLabel='Conference.Type'
+                <ConferenceType
+                    dispatch={dispatch}
+                    type={conference?.type}
                 />
             </Grid>
             <Grid item xs={12} sm={6} lg={3}>
@@ -74,7 +68,6 @@ const MyConferenceInfo = ({ dispatch, conference, types, categories }) => {
 MyConferenceInfo.propTypes = {
     conference: PropTypes.object.isRequired,
     dispatch: PropTypes.func.isRequired,
-    types: PropTypes.array.isRequired,
     categories: PropTypes.array.isRequired
 }
 
