@@ -1,5 +1,5 @@
 import { gql } from '@apollo/client';
-import Fragments from "../fragments";
+import ConferenceFragments from "features/conference/list/fragments";
 import CommonFragments from "features/common/fragments";
 
 export const UPDATE_CONFERENCE = gql`
@@ -29,8 +29,8 @@ mutation saveConference($input: ConferenceInput!) {
         }
     }
 },
-${Fragments.conference}
-${Fragments.speaker}
+${ConferenceFragments.conference}
+${ConferenceFragments.speaker}
 ${CommonFragments.type}
 ${CommonFragments.category}
 ${CommonFragments.city}

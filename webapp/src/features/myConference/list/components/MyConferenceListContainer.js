@@ -16,7 +16,7 @@ import { DELETE_CONFERENCE_MUTATION } from '../mutations/DeleteConference';
 
 const defaultPager = {
     totalCount: 0,
-    pageSize: 5,
+    pageSize: 3,
     page: 0
 }
 
@@ -93,7 +93,7 @@ const MyConferenceListContainer = () => {
                 totalCount={pager.totalCount}
                 pageSize={pager.pageSize}
                 page={pager.page}
-                rowsPerPageOptions={[5, 10, 15, 20]}
+                rowsPerPageOptions={[3, 6, 9, 12, 21]}
                 onChangeRowsPerPage={handleChangeRowsPerPage}
                 onChangePage={handleChangePage}
                 onRefresh={refetch}
