@@ -18,23 +18,20 @@ const ConferenceType = ({ type, dispatch }) => {
             return [];
         }
 
-        return data.typeList;
+        return data.typeList
     }, [client])
 
-    return (
-        <Autocomplete
-            label={t('Conference.Type')}
-            fullWidth
-            value={type}
-            loadOptions={loadOptions}
-            onChange={handleDispatch('type')}
-            isClearable
-            isSearchable
-            creatable
-            createdLabel='Conference.Type'
-        />
-    )
-
+    return <Autocomplete
+        fullWidth
+        creatable
+        label={t('Conference.Type')}
+        loadOptions={loadOptions}
+        isClearable
+        isSearchable
+        onChange={handleDispatch('type')}
+        value={type}
+        createdLabel='Conference.Type'
+    />
 }
 
 ConferenceType.propTypes = {

@@ -49,7 +49,15 @@ const MyConferenceContainer = () => {
         const { id, name, startDate, endDate, deletedSpeakers, type, category, location, speakers } = localConference;
         const { city, county, country, ...locationData } = location
         const input = {
-            id, name, startDate, endDate, deletedSpeakers, type, category,
+            id, name, startDate, endDate, deletedSpeakers,
+            type: {
+                ...type,
+                code: type.code ? type.code : type.name.slice(0, 2)
+            },
+            category: {
+                ...category,
+                code: category.code ? category.code : type.name.slice(0, 2)
+            },
             location: {
                 ...locationData,
                 cityId: city.id,

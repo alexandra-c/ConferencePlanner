@@ -28,9 +28,6 @@ query myConferenceData($id: ID!, $isNew: Boolean!) {
       ...speaker
     }
   }
-  typeList {
-    ...type
-  }
   categoryList {
     ...category
   }
