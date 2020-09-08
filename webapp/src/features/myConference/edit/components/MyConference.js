@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 import AddButton from 'components/common/buttons/AddButton';
 import CardTitle from 'components/common/cards/CardTitle';
 
-const MyConference = ({ conference, types, categories, countries, counties, cities, dispatch }) => {
+const MyConference = ({ conference, countries, counties, cities, dispatch }) => {
     const { t } = useTranslation();
 
     const handleAddButton = useCallback(
@@ -25,8 +25,6 @@ const MyConference = ({ conference, types, categories, countries, counties, citi
             content={
                 <MyConferenceInfo
                     conference={conference}
-                    types={types}
-                    categories={categories}
                     dispatch={dispatch}
                 />
             }
@@ -65,8 +63,6 @@ const MyConference = ({ conference, types, categories, countries, counties, citi
 MyConference.propTypes = {
     conference: PropTypes.object.isRequired,
     dispatch: PropTypes.func.isRequired,
-    types: PropTypes.array.isRequired,
-    categories: PropTypes.array.isRequired,
     countries: PropTypes.array.isRequired,
     counties: PropTypes.array.isRequired,
     cities: PropTypes.array.isRequired

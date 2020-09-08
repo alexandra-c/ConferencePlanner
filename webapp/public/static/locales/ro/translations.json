@@ -30,6 +30,8 @@
     "Location": "Locatie",
     "Name": "Nume conferinta",
     "Type": "Tipul conferintei",
+    "CreateType": "Creeaza conferinta de tipul {{text}}",
+    "CreateCategory": "Creeaza categoria {{text}}",
     "Category": "Categorie",
     "StartDate": "Data inceput",
     "EndDate": "Data sfarsit"

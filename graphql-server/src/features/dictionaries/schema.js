@@ -9,7 +9,7 @@ const dictionaryTypeDefs = gql`
   }
 
   input CategoryInput {
-    id: ID!
+    id: ID
     name: String!
     code: String
   }
@@ -21,7 +21,7 @@ const dictionaryTypeDefs = gql`
   }
 
   input TypeInput {
-    id: ID!
+    id: ID
     name: String!
     code: String
   }
