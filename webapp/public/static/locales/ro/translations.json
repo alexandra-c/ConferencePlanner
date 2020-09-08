@@ -29,7 +29,8 @@
     "Info": "Informatii conferinta",
     "Location": "Locatie",
     "Name": "Nume conferinta",
-    "Type": "Creeaza conferinta de tipul {{text}}",
+    "Type": "Tipul conferintei",
+    "CreateType": "Creeaza conferinta de tipul {{text}}",
     "Category": "Categorie",
     "StartDate": "Data inceput",
     "EndDate": "Data sfarsit"

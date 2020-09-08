@@ -12,7 +12,7 @@ const ConferenceType = ({ type, dispatch }) => {
     const handleDispatch = actionType => value => dispatch({ type: actionType, payload: value })
 
     const loadOptions = useCallback(async () => {
-        const { data } = await client.query({query: CONFERENCE_TYPE_QUERY, fetchPolicy: 'network-only' })
+        const { data } = await client.query({ query: CONFERENCE_TYPE_QUERY, fetchPolicy: 'network-only' })
 
         if (!data) {
             return [];
@@ -28,9 +28,10 @@ const ConferenceType = ({ type, dispatch }) => {
         loadOptions={loadOptions}
         isClearable
         isSearchable
+        defaultOptions
         onChange={handleDispatch('type')}
         value={type}
-        createdLabel='Conference.Type'
+        createdLabel='Conference.CreateType'
     />
 }
 

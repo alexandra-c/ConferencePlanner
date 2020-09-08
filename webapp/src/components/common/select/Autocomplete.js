@@ -186,7 +186,7 @@ function DropdownIndicator() {
 
 const formatCreateLabel = curry((createdLabel, text) => i18next.t(createdLabel, { text }))
 
-function Autocomplete({ options, loadOptions, onChange, creatable, onMenuOpen, value, isMultiSelection, isClearable, isSearchable, disabled, simpleValue, label, valueKey, labelKey, error, helperText, createdLabel, ...other }) {
+function Autocomplete({ options, defaultOptions, loadOptions, onChange, creatable, onMenuOpen, value, isMultiSelection, isClearable, isSearchable, disabled, simpleValue, label, valueKey, labelKey, error, helperText, createdLabel, ...other }) {
     const classes = useStyles();
 
     const handleOnChange = useCallback(inputValue => {
@@ -208,10 +208,6 @@ function Autocomplete({ options, loadOptions, onChange, creatable, onMenuOpen, v
 
     const Comp = loadOptions ? creatable ? AsyncCreatableSelect : AsyncSelect : Select;
     const loadOptionsAsync = useCallback(input => {
-        if (!input) {
-            return [];
-        }
-
         return loadOptions(input)
     }, [loadOptions])
 
@@ -238,6 +234,7 @@ function Autocomplete({ options, loadOptions, onChange, creatable, onMenuOpen, v
             styles={classes.selectStyles}
             options={options}
             loadOptions={loadOptionsAsync}
+            defaultOptions={defaultOptions}
             components={components}
             closeMenuOnSelect={isMultiSelection ? false : true}
             value={simpleValue ? getSimpleValue(options, value, valueKey, isMultiSelection) : value}
@@ -300,7 +297,8 @@ Autocomplete.propTypes = {
     valueKey: PropTypes.string,
     labelKey: PropTypes.string,
     error: PropTypes.bool,
-    createdLabel: PropTypes.string
+    createdLabel: PropTypes.string,
+    defaultOptions: PropTypes.bool
 };
 
 export default Autocomplete;
