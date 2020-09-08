@@ -88,8 +88,6 @@ const MyConferenceContainer = () => {
         <MyConference
             conference={localConference}
             dispatch={dispatch}
-            types={data?.typeList}
-            categories={data?.categoryList}
             countries={data?.countryList}
             counties={data?.countyList}
             cities={data?.cityList}

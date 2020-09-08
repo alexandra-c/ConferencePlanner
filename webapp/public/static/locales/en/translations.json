@@ -39,6 +39,7 @@
     "Category": "Category",
     "Type": "Conference type",
     "CreateType": "Create conference type {{text}}",
+    "CreateCategory": "Create category {{text}}",
     "StartDate": "Start date",
     "EndDate": "End date"
   },

@@ -4,12 +4,12 @@ import { Grid } from "@material-ui/core";
 import DateTime from 'components/common/inputs/DateTime';
 import CustomTextField from 'components/common/inputs/CustomTextField';
 import { useTranslation } from 'react-i18next';
-import Autocomplete from 'components/common/select/Autocomplete';
 import { onTextBoxChange } from 'utils/propertyChangeAdapters';
 import { emptyString } from 'utils/constants';
 import ConferenceType from './ConferenceType';
+import CategoryType from './CategoryType';
 
-const MyConferenceInfo = ({ dispatch, conference, categories }) => {
+const MyConferenceInfo = ({ dispatch, conference }) => {
     const { t } = useTranslation();
 
     const handleDispatch = actionType => value => dispatch({ type: actionType, payload: value })
@@ -49,16 +49,9 @@ const MyConferenceInfo = ({ dispatch, conference, categories }) => {
                 />
             </Grid>
             <Grid item xs={12} sm={6} lg={3}>
-                <Autocomplete
-                    label={t('Conference.Category')}
-                    fullWidth
-                    value={conference?.category}
-                    options={categories}
-                    onChange={handleDispatch('category')}
-                    isClearable
-                    isSearchable
-                    creatable
-                    createdLabel='Conference.Category'
+                <CategoryType
+                    dispatch={dispatch}
+                    category={conference?.category}
                 />
             </Grid>
         </Grid>
@@ -67,8 +60,7 @@ const MyConferenceInfo = ({ dispatch, conference, categories }) => {
 
 MyConferenceInfo.propTypes = {
     conference: PropTypes.object.isRequired,
-    dispatch: PropTypes.func.isRequired,
-    categories: PropTypes.array.isRequired
+    dispatch: PropTypes.func.isRequired
 }
 
 export default MyConferenceInfo;

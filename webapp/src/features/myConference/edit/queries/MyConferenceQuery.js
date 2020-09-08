@@ -28,9 +28,6 @@ query myConferenceData($id: ID!, $isNew: Boolean!) {
       ...speaker
     }
   }
-  categoryList {
-    ...category
-  }
   cityList {
     ...city
   }
@@ -58,4 +55,13 @@ export const CONFERENCE_TYPE_QUERY = gql`
       }
   },
   ${CommonFragments.type}
+`
+
+export const CATEGORY_TYPE_QUERY = gql`
+  query categoryList{
+    categoryList {
+      ...category
+    }
+  },
+  ${CommonFragments.category}
 `
