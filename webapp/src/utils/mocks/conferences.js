@@ -2,10 +2,10 @@ const conferences = [
     {
         id: 5,
         name: "TotalMed",
-        startDate: "12 / 10 / 2020",
-        endDate: "14 / 10 / 2020",
-        type: 'Remote',
-        category: 'Medical',
+        startDate: "2020-09-07 14:00:00.000",
+        endDate: "2020-09-07 15:30:00.000",
+        type: { name: 'Remote' },
+        category: { name: 'Medical' },
         location: {
             id: 1,
             county: {
@@ -15,21 +15,26 @@ const conferences = [
             country: {
                 id: 2,
                 name: 'Romania'
+            },
+            city: {
+                id: 7,
+                name: "Bucharest"
             }
         },
-        speaker: {
+        speakers: [{
             id: 1,
-            name: 'Mark Sloan'
-        },
-        status: 'Joined'
+            name: 'Mark Sloan',
+            isMainSpeaker: true
+        }],
+        status: { id: "1", name: 'Joined' }
     },
     {
         id: 6,
         name: "Introduction in React",
-        startDate: "15 / 10 / 2020",
-        endDate: "16 / 10 / 2020",
-        type: 'Remote',
-        category: 'IT Software',
+        startDate: "2020-09-07 16:00:00.000",
+        endDate: "2020-09-07 17:00:00.000",
+        type: { name: 'Remote' },
+        category: { name: 'IT Software' },
         location: {
             id: 2,
             county: {
@@ -39,21 +44,26 @@ const conferences = [
             country: {
                 id: 4,
                 name: 'Romania'
+            },
+            city: {
+                id: 7,
+                name: "Bucharest"
             }
         },
-        speaker: {
+        speakers: [{
             id: 2,
-            name: 'Dragos Rosca'
-        },
-        status: 'Attended'
+            name: 'Dragos Rosca',
+            isMainSpeaker: true
+        }],
+        status: { id: "3", name: 'Attended' }
     },
     {
         id: 1,
         name: "Introduction in GraphQL",
-        startDate: "17 / 10 / 2020",
-        endDate: "18 / 10 / 2020",
-        type: 'Remote',
-        category: 'IT Software',
+        startDate: "2020-09-07 17:15:00.000",
+        endDate: "2020-09-07 18:00:00.000",
+        type: { name: 'Remote' },
+        category: { name: 'IT Software' },
         location: {
             id: 3,
             county: {
@@ -63,21 +73,26 @@ const conferences = [
             country: {
                 id: 6,
                 name: 'Romania'
+            },
+            city: {
+                id: 7,
+                name: "Bucharest"
             }
         },
-        speaker: {
+        speakers: [{
             id: 2,
-            name: 'Capatina Alexandra'
-        },
-        status: 'Attended'
+            name: 'Capatina Alexandra',
+            isMainSpeaker: true
+        }],
+        status: { id: "3", name: 'Attended' }
     },
     {
         id: 2,
         name: "Introduction in Haskell",
-        startDate: "22 / 10 / 2020",
-        endDate: "23 / 10 / 2020",
-        type: 'Remote',
-        category: 'IT Software',
+        startDate: "2020-09-08 09:30:00.000",
+        endDate: "2020-09-07 12:00:00.000",
+        type: { name: 'Remote' },
+        category: { name: 'IT Software' },
         location: {
             id: 4,
             county: {
@@ -87,13 +102,18 @@ const conferences = [
             country: {
                 id: 8,
                 name: 'Romania'
+            },
+            city: {
+                id: 7,
+                name: "Bucharest"
             }
         },
-        speaker: {
+        speakers: [{
             id: 2,
-            name: 'Radu Popovici'
-        },
-        status: 'Withdrawn'
+            name: 'Radu Popovici',
+            isMainSpeaker: true
+        }],
+        status: { id: "2", name: 'Withdrawn' }
     }
 ]
 

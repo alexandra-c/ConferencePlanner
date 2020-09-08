@@ -5,7 +5,7 @@ import ConferenceItem from "./ConferenceItem";
 
 const ConferenceList = ({ conferences, onAttend, onWithdraw }) => {
 
-    return (<>
+    return (
         <Grid container spacing={2}>
             {conferences?.map(conference =>
                 <Grid item xs={12} lg={4} key={conference.id}>
@@ -16,8 +16,8 @@ const ConferenceList = ({ conferences, onAttend, onWithdraw }) => {
                     />
                 </Grid>
             )}
-        </Grid >
-    </>)
+        </Grid>
+    )
 }
 
 ConferenceList.propTypes = {
