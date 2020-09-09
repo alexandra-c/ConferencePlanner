@@ -20,8 +20,7 @@ class ConferenceDb extends SQLDataSource {
                 "LocationId",
                 "CategoryId",
                 "StartDate",
-                "EndDate",
-                "OrganizerEmail"
+                "EndDate"
             )
             .from("Conference")
             .modify(this.generateWhereClause, filters)
@@ -65,7 +64,6 @@ class ConferenceDb extends SQLDataSource {
     async updateLocation(location) {
         const content = {
             Name: location.name,
-            Code: location.code,
             Address: location.address,
             Latitude: location.latitude,
             Longitude: location.longitude,
@@ -76,7 +74,6 @@ class ConferenceDb extends SQLDataSource {
         const output = [
             "Id",
             "Name",
-            "Code",
             "Address",
             "Latitude",
             "Longitude",

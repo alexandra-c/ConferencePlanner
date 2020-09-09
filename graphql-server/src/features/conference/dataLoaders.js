@@ -8,7 +8,6 @@ const getConferenceLoaders = dbInstance => {
                     "Id",
                     "ConferenceTypeId",
                     "LocationId",
-                    "OrganizerEmail",
                     "CategoryId",
                     "StartDate",
                     "EndDate",
@@ -23,7 +22,6 @@ const getConferenceLoaders = dbInstance => {
                 .select(
                     "Id",
                     "Name",
-                    "Code",
                     "Address",
                     "Latitude",
                     "Longitude",

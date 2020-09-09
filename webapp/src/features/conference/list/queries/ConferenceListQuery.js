@@ -15,7 +15,6 @@ export const CONFERENCE_LIST_QUERY = gql`
                 }
                 location {
                     id
-                    name
                     address
                     city {
                         ...city

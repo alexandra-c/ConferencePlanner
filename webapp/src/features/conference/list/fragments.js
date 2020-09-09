@@ -7,7 +7,16 @@ const Fragments = {
       name
       startDate
       endDate
-      organizerEmail
+    }
+  `,
+  location: gql`
+    fragment location on Location {
+      id
+      name
+      code
+      address
+      latitude
+      longitude
     }
   `,
   speaker: gql`

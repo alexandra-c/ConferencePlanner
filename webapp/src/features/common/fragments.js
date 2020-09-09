@@ -35,17 +35,7 @@ const CommonFragments = {
       id 
       name
       code
-    }`,
-  location: gql`
-    fragment location on Location {
-      id
-      name
-      code
-      address
-      latitude
-      longitude
-    }
-  `
+    }`
 }
 
 export default CommonFragments;

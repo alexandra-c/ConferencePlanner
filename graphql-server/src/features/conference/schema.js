@@ -12,7 +12,6 @@ const conferenceTypeDefs = gql`
     name: String!
     startDate: DateTime!
     endDate: DateTime!
-    organizerEmail: String
     type: Type
     category: Category
     location: Location!
@@ -23,7 +22,6 @@ const conferenceTypeDefs = gql`
   type Location {
     id: ID!
     name: String
-    code: String
     address: String
     latitude: String
     longitude: String
@@ -72,7 +70,6 @@ const conferenceTypeDefs = gql`
   input LocationInput {
     id: ID
     name: String
-    code: String
     address: String
     latitude: String
     longitude: String

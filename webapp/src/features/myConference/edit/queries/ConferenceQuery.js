@@ -46,10 +46,10 @@ query conferenceData($id: ID!, $isNew: Boolean!) {
 },
 ${ConferenceFragments.conference}
 ${ConferenceFragments.speaker}
+${ConferenceFragments.location}
 ${CommonFragments.type}
 ${CommonFragments.category}
 ${CommonFragments.city}
 ${CommonFragments.county}
 ${CommonFragments.country}
-${CommonFragments.location}
 `
