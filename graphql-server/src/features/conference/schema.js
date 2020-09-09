@@ -90,7 +90,7 @@ const conferenceTypeDefs = gql`
   }
 
   extend type Query {
-    myConference(id: ID!): Conference!
+    conference(id: ID!): Conference!
     conferenceList(pager: PagerInput!, filters: ConferenceFilterInput): ConferenceList
   }
 

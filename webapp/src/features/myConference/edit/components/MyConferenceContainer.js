@@ -1,16 +1,17 @@
 import React, { useReducer, useEffect, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import MyConference from './MyConference';
 import { useRouteMatch, useHistory } from 'react-router-dom';
-import { MY_CONFERENCE_QUERY } from '../queries/MyConferenceQuery';
 import { useQuery, useMutation } from '@apollo/client';
-import LoadingFakeText from 'components/common/fakeText/LoadingFakeText';
 import { useToast } from 'hooks/toasts';
 import { useHeader } from 'providers/AreasProvider';
 import { reducer, initialConference } from '../conferenceState';
-import MyConferenceHeader from './MyConferenceHeader';
-import { UPDATE_CONFERENCE } from '../mutations/UpdateConference'
 import { useEmail } from 'hooks/useEmail';
+import LoadingFakeText from 'components/common/fakeText/LoadingFakeText';
+import MyConferenceHeader from './MyConferenceHeader';
+import MyConference from './MyConference';
+
+import { CONFERENCE_QUERY } from '../queries/ConferenceQuery';
+import { UPDATE_CONFERENCE } from '../mutations/UpdateConference'
 
 const MyConferenceContainer = () => {
     const { t } = useTranslation();
@@ -23,9 +24,9 @@ const MyConferenceContainer = () => {
     const [organizerEmail] = useEmail();
     const [localConference, dispatch] = useReducer(reducer, initialConference)
 
-    const { loading, data } = useQuery(MY_CONFERENCE_QUERY, {
+    const { loading, data } = useQuery(CONFERENCE_QUERY, {
         variables: { id: conferenceId, isNew },
-        onCompleted: data => data?.myConference && dispatch({ type: 'resetData', payload: data?.myConference }),
+        onCompleted: data => data?.conference && dispatch({ type: 'resetData', payload: data?.conference }),
         onError: error => addToast(error, 'error', false)
     });
 

@@ -2,9 +2,9 @@ import { gql } from '@apollo/client';
 import ConferenceFragments from "features/conference/list/fragments";
 import CommonFragments from "features/common/fragments";
 
-export const MY_CONFERENCE_QUERY = gql`
-query myConferenceData($id: ID!, $isNew: Boolean!) {
-  myConference(id: $id)@skip(if: $isNew){
+export const CONFERENCE_QUERY = gql`
+query conferenceData($id: ID!, $isNew: Boolean!) {
+  conference(id: $id)@skip(if: $isNew){
     ...conference
     type {
       ...type

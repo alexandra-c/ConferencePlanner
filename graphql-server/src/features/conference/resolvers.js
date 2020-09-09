@@ -6,7 +6,7 @@ const conferenceResolvers = {
             const data = await dataSources.conferenceDb.getConferenceList(pager, filters);
             return data
         },
-        myConference: async (_parent, { id }, { dataLoaders }, _info) => {
+        conference: async (_parent, { id }, { dataLoaders }, _info) => {
             const result = await dataLoaders.conferenceById.load(id);
             return result;
         }
