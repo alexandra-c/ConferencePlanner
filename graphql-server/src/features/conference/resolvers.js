@@ -65,23 +65,23 @@ const conferenceResolvers = {
             return statusId
         },
         saveConference: async (_parent, { input }, { dataSources }, _info) => {
-            const typeId = input.type.id || await dataSources.conferenceDb.insertTypeDictionary(input.type);
-            const categoryId = input.category.id || await dataSources.conferenceDb.insertCategoryDictionary(input.category);
             const location = await dataSources.conferenceDb.updateLocation(input.location);
 
-            const updatedConference = await dataSources.conferenceDb.updateConference({
-                ...input,
-                categoryId,
-                typeId,
-                locationId: location.id
-            })
+            const updatedConference = await dataSources.conferenceDb.updateConference({ ...input, location })
 
             const speakers = await Promise.all(input.speakers.map(async speaker => {
-                const updatedSpeaker = await dataSources.conferenceDb.updateSpeaker({ speaker, conferenceId: updatedConference.id });
-                return updatedSpeaker
+                const updatedSpeaker = await dataSources.conferenceDb.updateSpeaker(speaker);
+                const isMainSpeaker = await dataSources.conferenceDb.updateConferenceXSpeaker(
+                    {
+                        speakerId: updatedSpeaker.id,
+                        isMainSpeaker: speaker.isMainSpeaker,
+                        conferenceId: updatedConference.id
+                    }
+                );
+                return { ...updatedSpeaker, isMainSpeaker }
             }))
 
-            input.deletedSpeakers && await dataSources.conferenceDb.deleteSpeaker(input.deletedSpeakers)
+            input.deletedSpeakers.length > 0 && await dataSources.conferenceDb.deleteSpeaker(input.deletedSpeakers)
 
             return { ...updatedConference, location, speakers }
         },

@@ -34,12 +34,13 @@ const MyConferenceContainer = () => {
         {
             onCompleted: result => {
                 addToast(t('MyConferences.SavingSucceeded'), 'success')
-                result?.saveConference && dispatch({ type: 'resetData', payload: result?.saveConference })
 
                 if (isNew) {
                     history.push(`/myConferences/${result?.saveConference?.id}`);
                     return;
                 }
+
+                result?.saveConference && dispatch({ type: 'resetData', payload: result?.saveConference })
             }
         })
 

@@ -86,7 +86,6 @@ class ConferenceDb extends SQLDataSource {
         if (location.id) {
             result = await this.knex('Location')
                 .update(content, output)
-                .insert(content)
                 .where("Id", location.id)
         }
         else {
@@ -98,15 +97,15 @@ class ConferenceDb extends SQLDataSource {
         return result[0]
     }
 
-    async updateConference({ id, name, organizerEmail, startDate, endDate, locationId, categoryId, typeId }) {
+    async updateConference({ id, name, organizerEmail, startDate, endDate, location, category, type }) {
         const content = {
             Name: name,
             OrganizerEmail: organizerEmail,
             StartDate: startDate,
             EndDate: endDate,
-            LocationId: locationId,
-            ConferenceTypeId: typeId,
-            CategoryId: categoryId
+            LocationId: location.id,
+            ConferenceTypeId: type.id,
+            CategoryId: category.id
         }
         const output = [
             "Id",
@@ -132,8 +131,7 @@ class ConferenceDb extends SQLDataSource {
         return result[0]
     }
 
-    async updateSpeaker({ speaker, conferenceId }) {
-        const { id, name, nationality, rating, isMainSpeaker } = speaker
+    async updateSpeaker({ id, name, nationality, rating }) {
         const content = {
             Name: name,
             Nationality: nationality,
@@ -147,26 +145,47 @@ class ConferenceDb extends SQLDataSource {
         ]
         let result
         if (id > 0) {
-            const resultSpeaker = await this.knex('Speaker')
+            result = await this.knex('Speaker')
                 .update(content, outputSpeaker)
                 .where("Id", id)
-            const resultSpeakerX = await this.knex('ConferenceXSpeaker')
-                .update({ IsMainSpeaker: isMainSpeaker }, "IsMainSpeaker")
-                .where("SpeakerId", id)
-                .andWhere("ConferenceId", conferenceId)
-            result = { ...resultSpeaker, ...resultSpeakerX }
         }
         else {
-            const insertedSpeaker = await this.knex('Speaker')
+            result = await this.knex('Speaker')
                 .returning(outputSpeaker)
                 .insert(content)
-
-            const insertedSpeakerX = await this.knex('ConferenceXSpeaker')
-                .returning("IsMainSpeaker")
-                .insert({ SpeakerId: insertedSpeaker[0].id, IsMainSpeaker: isMainSpeaker, ConferenceId: conferenceId })
-            result = { ...insertedSpeaker[0], ...insertedSpeakerX }
         }
-        return result
+        return result[0]
+    }
+
+    async updateConferenceXSpeaker({ speakerId, isMainSpeaker, conferenceId }) {
+        const current = await this.knex
+            .select("Id")
+            .from("ConferenceXSpeaker")
+            .where("SpeakerId", speakerId)
+            .andWhere("ConferenceId", conferenceId)
+            .first()
+            
+        let result
+        if (current.id) {
+            result = await this.knex('ConferenceXSpeaker')
+                .update({ IsMainSpeaker: Boolean(isMainSpeaker) }, "IsMainSpeaker")
+                .where("Id", current.id)
+        }
+        else {
+            result = await this.knex('ConferenceXSpeaker')
+                .returning("IsMainSpeaker")
+                .insert({ SpeakerId: speakerId, IsMainSpeaker: Boolean(isMainSpeaker), ConferenceId: conferenceId })
+        }
+        return result[0]
+    }
+
+    async deleteSpeaker(speakerIds) {
+        await this.knex("ConferenceXSpeaker")
+            .whereIn("SpeakerId", speakerIds)
+            .del()
+        await this.knex("Speaker")
+            .whereIn("Id", speakerIds)
+            .del()
     }
 
     async updateConferenceXAttendee({ attendeeEmail, conferenceId, statusId }) {
@@ -210,15 +229,6 @@ class ConferenceDb extends SQLDataSource {
             .returning("Name")
             .del()
         return result[0]
-    }
-
-    async deleteSpeaker(speakerIds) {
-        await this.knex("ConferenceXSpeaker")
-            .whereIn("SpeakerId", speakerIds)
-            .del()
-        await this.knex("Speaker")
-            .whereIn("Id", speakerIds)
-            .del()
     }
 }
 
