@@ -13,7 +13,6 @@ const Fragments = {
     fragment location on Location {
       id
       name
-      code
       address
       latitude
       longitude
