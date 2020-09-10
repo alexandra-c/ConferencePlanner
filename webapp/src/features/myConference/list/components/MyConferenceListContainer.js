@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useState, useLayoutEffect } from 'react';
+import React, { useEffect, useCallback, useState } from 'react';
 import { useHistory } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 import MyConferenceList from './MyConferenceList';
@@ -69,7 +69,7 @@ const MyConferenceListContainer = () => {
         setPager({ ...defaultPager, pageSize: parseInt(pageSize, 10) })
         , [setPager]);
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         if (data && pager.totalCount !== data?.conferenceList?.pagination?.totalCount) {
             setPager(currentPager => ({ ...currentPager, totalCount: data?.conferenceList?.pagination?.totalCount }));
         }

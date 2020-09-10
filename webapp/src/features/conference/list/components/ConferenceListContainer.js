@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, useLayoutEffect } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import ConferenceList from './ConferenceList';
 import ConferenceFilters from './ConferenceFilters';
@@ -72,7 +72,7 @@ const ConferenceListContainer = () => {
         setPager({ ...defaultPager, pageSize: parseInt(pageSize, 10) })
         , [setPager]);
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         if (data && pager.totalCount !== data?.conferenceList?.pagination?.totalCount) {
             setPager(currentPager => ({ ...currentPager, totalCount: data?.conferenceList?.pagination?.totalCount }));
         }
