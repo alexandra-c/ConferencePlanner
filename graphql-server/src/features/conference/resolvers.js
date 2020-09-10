@@ -81,7 +81,7 @@ const conferenceResolvers = {
                 return { ...updatedSpeaker, isMainSpeaker }
             }))
 
-            input.deletedSpeakers.length > 0 && await dataSources.conferenceDb.deleteSpeaker(input.deletedSpeakers)
+            input.deletedSpeakers && input.deletedSpeakers.length > 0 && await dataSources.conferenceDb.deleteSpeaker(input.deletedSpeakers)
 
             return { ...updatedConference, location, speakers }
         },
