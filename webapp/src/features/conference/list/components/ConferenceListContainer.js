@@ -119,7 +119,7 @@ const ConferenceListContainer = () => {
         return <LoadingFakeText lines={10} />
     }
 
-    return (<>
+    return <>
         <ConferenceFilters filters={filters} onApplyFilters={handleApplyFilters} />
         <ConferenceList
             conferences={data?.conferenceList?.values}
@@ -133,7 +133,7 @@ const ConferenceListContainer = () => {
             content={<ConferenceCodeModal code={code} />}
             onClose={() => { setOpenDialog(false); setCode(""); refetch() }}
         />
-    </>)
+    </>
 }
 
 export default ConferenceListContainer;
