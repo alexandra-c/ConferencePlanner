@@ -1,4 +1,4 @@
-const runtimeEnv = window.env;
-const compileEnv = process.env;
+const runtimeEnv = window.env
+const compileEnv = process.env
 
-export const env = {...compileEnv, ...runtimeEnv}
+export const env = { ...compileEnv, ...runtimeEnv }

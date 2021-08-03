@@ -1,5 +1,5 @@
 import React from 'react';
-import LoadingFakeText from 'components/common/fakeText/LoadingFakeText';
+import { LoadingFakeText } from '@bit/totalsoft_oss.react-mui.kit.core';
 import { useQuery } from '@apollo/client';
 import { MY_FIRST_QUERY } from './queries/MyFirstQuery';
 

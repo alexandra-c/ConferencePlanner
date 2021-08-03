@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
-import AddButton from 'components/common/buttons/AddButton';
+import { AddButton, Typography } from '@bit/totalsoft_oss.react-mui.kit.core';
 import { Grid, makeStyles } from '@material-ui/core';
-import Typography from 'components/common/inputs/Typography';
 import { emptyString } from 'utils/constants';
 
 const useStyles = makeStyles((theme) => ({ title: { ...theme.header.title, width: '100%' } }));

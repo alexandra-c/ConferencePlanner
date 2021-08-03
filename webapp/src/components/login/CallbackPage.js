@@ -1,5 +1,3 @@
-import React from 'react';
+import React from 'react'
 
-export const CallbackPage = () => (
-    <span>Loading web application</span>
-)
+export const CallbackPage = () => <span>Loading web application</span>

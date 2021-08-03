@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import RegularCard from 'components/common/cards/RegularCard';
+import { RegularCard } from '@bit/totalsoft_oss.react-mui.kit.core';
 import { find } from 'ramda';
 import ConferenceSubtitle from './ConferenceSubtitle';
 import ConferenceContent from './ConferenceContent';

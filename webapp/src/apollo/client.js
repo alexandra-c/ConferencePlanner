@@ -1,35 +1,34 @@
-import { ApolloClient, ApolloLink, InMemoryCache } from "@apollo/client"
-import { onError } from "@apollo/client/link/error"
-import { RetryLink } from '@apollo/client/link/retry';
-import { setContext } from "@apollo/client/link/context"
-import { env } from "../utils/env"
+import { ApolloClient, ApolloLink, InMemoryCache } from '@apollo/client'
+import { onError } from '@apollo/client/link/error'
+import { RetryLink } from '@apollo/client/link/retry'
+import { setContext } from '@apollo/client/link/context'
+import { env } from '../utils/env'
 import { createUploadLink } from 'apollo-upload-client'
 import omitDeep from 'omit-deep-lodash'
-
+import { getUserManager } from '@axa-fr/react-oidc-core'
 
 const httpLink = createUploadLink({
   uri: `${env.REACT_APP_GQL_HTTP_PROTOCOL}://${env.REACT_APP_GQL}/graphql`,
   onError: onError(({ graphQLErrors, networkError }) => {
     if (graphQLErrors)
       graphQLErrors.map(({ message, locations, path }) =>
-        console.log(
-          `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
-        )
+        console.log(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`)
       )
     if (networkError) console.log(`[Network error]: ${networkError}`)
-  }),
+  })
 })
 
-const authLink = (token) => {
-  return setContext((_, { headers }) => {
-    return {
-      headers: {
-        ...headers,
-        authorization: token ? `Bearer ${token}` : "",
-      },
+const authLink = setContext(async (_, { headers }) => {
+  const userManager = getUserManager()
+  const { access_token } = await userManager.getUser()
+
+  return {
+    headers: {
+      ...headers,
+      authorization: access_token ? `Bearer ${access_token}` : ''
     }
-  })
-}
+  }
+})
 
 const omitTypenameLink = new ApolloLink((operation, forward) => {
   if (operation.variables) {
@@ -37,7 +36,6 @@ const omitTypenameLink = new ApolloLink((operation, forward) => {
   }
   return forward(operation)
 })
-
 
 const retryLink = new RetryLink({
   delay: {
@@ -48,11 +46,9 @@ const retryLink = new RetryLink({
   attempts: {
     max: 3
   }
-});
+})
 
-const myAppLink = (token) => {
-  return ApolloLink.from([omitTypenameLink, retryLink, authLink(token).concat(httpLink)])
-}
+const myAppLink = () => ApolloLink.from([omitTypenameLink, retryLink, authLink.concat(httpLink)])
 
 const cache = new InMemoryCache({
   typePolicies: {
@@ -62,10 +58,13 @@ const cache = new InMemoryCache({
   }
 })
 
-export const client = (oidcUser) => {
-  const token = oidcUser?.access_token || '';
-  return new ApolloClient({
-    link: myAppLink(token),
-    cache
-  })
+let apolloClient
+export const getApolloClient = () => {
+  if (!apolloClient) {
+    apolloClient = new ApolloClient({
+      link: myAppLink(),
+      cache
+    })
+  }
+  return apolloClient
 }

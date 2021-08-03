@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Grid, makeStyles } from '@material-ui/core';
 import { Table, Thead, Tbody, Tr, Th } from 'react-super-responsive-table';
 import { useTranslation } from 'react-i18next';
-import tableStyle from 'assets/jss/components/common/tableStyle';
+import tableStyle from 'assets/jss/components/tableStyle';
 import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css"
 import MyConferenceSpeakerData from './MyConferenceSpeakerData';
 const useStyles = makeStyles(tableStyle);

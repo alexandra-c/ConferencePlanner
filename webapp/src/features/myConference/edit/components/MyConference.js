@@ -1,13 +1,11 @@
 import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
-import IconCard from 'components/common/cards/IconCard';
+import { IconCard, AddButton, CardTitle } from '@bit/totalsoft_oss.react-mui.kit.core';
 import MyConferenceInfo from './MyConferenceInfo';
 import MyConferenceLocation from './MyConferenceLocation';
 import MyConferenceSpeakers from './MyConferenceSpeakers';
 import { Info, Face, LocationOn } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
-import AddButton from 'components/common/buttons/AddButton';
-import CardTitle from 'components/common/cards/CardTitle';
 
 const MyConference = ({ conference, types, categories, countries, counties, cities, dispatch }) => {
     const { t } = useTranslation();

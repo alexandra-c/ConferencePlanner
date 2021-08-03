@@ -2,9 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { Grid, makeStyles } from '@material-ui/core';
-import Typography from 'components/common/inputs/Typography';
+import { Typography, SaveButton } from '@bit/totalsoft_oss.react-mui.kit.core';
 import { emptyString } from 'utils/constants';
-import SaveButton from 'components/common/buttons/SaveButton';
 
 const useStyles = makeStyles((theme) => ({ title: { ...theme.header.title, width: '100%' } }));
 

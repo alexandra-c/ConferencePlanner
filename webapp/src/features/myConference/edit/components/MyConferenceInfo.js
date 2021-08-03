@@ -1,10 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Grid } from "@material-ui/core";
-import DateTime from 'components/common/inputs/DateTime';
-import CustomTextField from 'components/common/inputs/CustomTextField';
+import { DateTime, CustomTextField, Autocomplete } from '@bit/totalsoft_oss.react-mui.kit.core';
 import { useTranslation } from 'react-i18next';
-import Autocomplete from 'components/common/select/Autocomplete';
 import { onTextBoxChange } from 'utils/propertyChangeAdapters';
 import { emptyString } from 'utils/constants';
 

@@ -2,8 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { Grid } from '@material-ui/core';
-import Typography from 'components/common/inputs/Typography';
-import Button from 'components/common/buttons/Button';
+import { Button, Typography } from '@bit/totalsoft_oss.react-mui.kit.core';
 import attendeeStatus from 'constants/attendeeStatus';
 
 const ConferenceContent = ({ onAttend, conference, onWithdraw }) => {

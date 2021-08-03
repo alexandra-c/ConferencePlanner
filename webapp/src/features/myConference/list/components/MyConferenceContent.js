@@ -2,9 +2,7 @@ import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { Grid } from '@material-ui/core';
-import Typography from 'components/common/inputs/Typography';
-import Button from 'components/common/buttons/Button';
-import CustomDialog from 'components/common/dialogBox/CustomDialog';
+import { CustomDialog, Typography, Button } from '@bit/totalsoft_oss.react-mui.kit.core';
 
 const MyConferenceContent = ({ onEdit, conference, onDelete }) => {
     const { id, startDate, endDate, type, category } = conference;

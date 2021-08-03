@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Grid } from '@material-ui/core';
-import Autocomplete from 'components/common/select/Autocomplete';
-import CustomTextField from 'components/common/inputs/CustomTextField';
+import { Autocomplete, CustomTextField } from '@bit/totalsoft_oss.react-mui.kit.core';
 import { useTranslation } from 'react-i18next';
 import { onTextBoxChange } from 'utils/propertyChangeAdapters';
 import { emptyString } from 'utils/constants';

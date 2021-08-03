@@ -4,13 +4,12 @@ import { useTranslation } from 'react-i18next';
 import MyConferenceList from './MyConferenceList';
 import MyConferenceFilters from './MyConferenceFilters';
 import { useFooter, useHeader } from 'providers/AreasProvider';
-import Pagination from 'components/common/pagination/Pagination';
+import { Pagination, LoadingFakeText } from '@bit/totalsoft_oss.react-mui.kit.core';
 import MyConferenceHeader from 'features/myConference/list/components/MyConferenceHeader'
 import { useToast } from 'hooks/toasts';
 import { emptyObject } from 'utils/constants';
 import { useEmail } from 'hooks/useEmail';
 import { useQuery, useMutation } from '@apollo/client';
-import LoadingFakeText from 'components/common/fakeText/LoadingFakeText';
 import { CONFERENCE_LIST_QUERY } from 'features/conference/list/queries/ConferenceListQuery';
 import { DELETE_CONFERENCE_MUTATION } from '../mutations/DeleteConference';
 

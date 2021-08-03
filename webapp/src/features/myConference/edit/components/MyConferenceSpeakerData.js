@@ -4,9 +4,8 @@ import { useTranslation } from 'react-i18next';
 import { makeStyles, Checkbox } from '@material-ui/core';
 import { Tr, Td } from 'react-super-responsive-table'
 import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css"
-import tableStyle from 'assets/jss/components/common/tableStyle';
-import CustomTextField from 'components/common/inputs/CustomTextField';
-import DeleteButton from 'components/common/buttons/DeleteButton';
+import tableStyle from 'assets/jss/components/tableStyle';
+import { CustomTextField, DeleteButton } from '@bit/totalsoft_oss.react-mui.kit.core';
 import { onTextBoxChange, onCheckBoxChange } from 'utils/propertyChangeAdapters';
 
 const useStyles = makeStyles(tableStyle);

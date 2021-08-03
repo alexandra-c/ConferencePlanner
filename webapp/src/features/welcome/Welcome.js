@@ -1,8 +1,7 @@
 import React, { useCallback, useState, useEffect } from 'react';
 import { Typography, Grid } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import CustomTextField from 'components/common/inputs/CustomTextField';
-import CustomIconButton from 'components/common/buttons/IconButton';
+import { CustomTextField, IconButton } from '@bit/totalsoft_oss.react-mui.kit.core';
 import KeyboardReturnIcon from '@material-ui/icons/KeyboardReturn';
 import { onTextBoxChange } from 'utils/propertyChangeAdapters';
 import { useHistory } from 'react-router-dom';
@@ -59,9 +58,9 @@ function Welcome() {
                         onKeyDown={keyPressed}
                         fullWidth
                         endAdornment={
-                            <CustomIconButton size="small" color="theme" aria-label="go" onClick={handleSubmit}>
+                            <IconButton size="small" color="theme" aria-label="go" onClick={handleSubmit}>
                                 <KeyboardReturnIcon fontSize="small" />
-                            </CustomIconButton>
+                            </IconButton>
                         }
                         value={textFieldValue}
                         onChange={onTextBoxChange(setTextFieldValue)}

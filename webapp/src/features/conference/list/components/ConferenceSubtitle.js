@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Grid } from '@material-ui/core';
 import RoomIcon from '@material-ui/icons/Room';
 import PermIdentityIcon from '@material-ui/icons/PermIdentity';
-import Typography from 'components/common/inputs/Typography';
+import { Typography } from '@bit/totalsoft_oss.react-mui.kit.core';
 import ConferenceSpeakerInfo from './ConferenceSpeakerInfo';
 
 const ConferenceSubtitle = ({ speaker, location }) => {

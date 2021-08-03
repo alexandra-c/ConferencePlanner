@@ -1,26 +1,27 @@
-import { useApolloClient, useQuery } from '@apollo/client';
-import { useCallback } from 'react';
-import { emptyFunction } from 'utils/constants';
-import { useToast } from './toasts';
+import { useApolloClient, useQuery } from '@apollo/client'
+import { useCallback } from 'react'
+import { emptyFunction } from 'utils/constants'
+import { useToast } from '@bit/totalsoft_oss.react-mui.kit.core'
 
 export function useQueryWithErrorHandling(query, { onError = emptyFunction, ...props } = {}) {
-  const showError = useError();
-  const errorHandler = useCallback((error) => {
-    onError()
-    showError(error);
-  }, [onError, showError])
+  const showError = useError()
+  const errorHandler = useCallback(
+    error => {
+      onError()
+      showError(error)
+    },
+    [onError, showError]
+  )
 
-  return useQuery(query,
-    {
-      ...props,
-      onError: errorHandler
-    }
-  );
+  return useQuery(query, {
+    ...props,
+    onError: errorHandler
+  })
 }
 
 export function useClientQueryWithErrorHandling() {
-  const client = useApolloClient();
-  const showError = useError();
+  const client = useApolloClient()
+  const showError = useError()
   return async (query, props) => {
     try {
       return await client.query({
@@ -28,30 +29,35 @@ export function useClientQueryWithErrorHandling() {
         ...props
       })
     } catch (error) {
-      showError(error);
-      return { loading: false, error };
+      showError(error)
+      return { loading: false, error }
     }
   }
 }
 
 export const useError = () => {
-  const addToast = useToast();
-  const generateErrorMessage = (error) => `${error.extensions.code} - ${error.message}`;
-  const generateSimpleErrorMessage = (message) => `There is a problem communicating with the server. ${message}`;
-  const addErrorToast = useCallback((message) => addToast(generateSimpleErrorMessage(message), 'error', false), [addToast]);
+  const addToast = useToast()
+  const generateErrorMessage = error => `${error.extensions.code} - ${error.message}`
+  const generateSimpleErrorMessage = message => `There is a problem communicating with the server. ${message}`
+  const addErrorToast = useCallback(message => addToast(generateSimpleErrorMessage(message), 'error', false), [addToast])
 
-  return useCallback(error => {
-    if (!error?.graphQLErrors && !error?.networkError?.result?.errors) {
-      addErrorToast(generateSimpleErrorMessage(error.message));
-      return
-    }
+  return useCallback(
+    error => {
+      if (!error?.graphQLErrors && !error?.networkError?.result?.errors) {
+        addErrorToast(generateSimpleErrorMessage(error.message))
+        return
+      }
 
-    (error?.graphQLErrors || []).forEach(err => {
-      err?.extensions?.code
-        ? addErrorToast(generateErrorMessage(err))
-        : addErrorToast(generateSimpleErrorMessage(err.message));
-    });
+      const graphQLErrors = error?.graphQLErrors ?? []
+      graphQLErrors.forEach(err => {
+        err?.extensions?.code
+          ? addErrorToast(generateErrorMessage(err))
+          : addErrorToast(generateSimpleErrorMessage(err.message))
+      })
 
-    (error?.networkError?.result?.errors || []).forEach(err => addErrorToast(generateErrorMessage(err)));
-  }, [addErrorToast])
+      const networkErrors = error?.networkError?.result?.errors ?? []
+      networkErrors.forEach(err => addErrorToast(generateErrorMessage(err)))
+    },
+    [addErrorToast]
+  )
 }

@@ -6,7 +6,7 @@ import { useToast } from 'hooks/toasts';
 import { useHeader } from 'providers/AreasProvider';
 import { reducer, initialConference } from '../conferenceState';
 import { useEmail } from 'hooks/useEmail';
-import LoadingFakeText from 'components/common/fakeText/LoadingFakeText';
+import { LoadingFakeText } from '@bit/totalsoft_oss.react-mui.kit.core';
 import MyConferenceHeader from './MyConferenceHeader';
 import MyConference from './MyConference';
 

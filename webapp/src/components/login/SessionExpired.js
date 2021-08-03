@@ -1,5 +1,3 @@
-import React from 'react';
+import React from 'react'
 
-export const SessionExpired = () => (
-    <span>Session expired</span>
-);
+export const SessionExpired = () => <span>Session expired</span>

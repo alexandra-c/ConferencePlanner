@@ -3,17 +3,15 @@ import { useTranslation } from 'react-i18next';
 import ConferenceList from './ConferenceList';
 import ConferenceFilters from './ConferenceFilters';
 import { useFooter } from 'providers/AreasProvider';
-import Pagination from 'components/common/pagination/Pagination';
+import { Pagination, LoadingFakeText, DialogDisplay } from '@bit/totalsoft_oss.react-mui.kit.core';
 import { useQuery, useMutation } from '@apollo/client';
 import { CONFERENCE_LIST_QUERY } from '../queries/ConferenceListQuery';
 import { emptyObject } from 'utils/constants';
 import { useToast } from 'hooks/toasts';
-import LoadingFakeText from 'components/common/fakeText/LoadingFakeText';
 import { useEmail } from 'hooks/useEmail';
 import { ATTEND_CONFERENCE_MUTATION } from '../mutations/AttendConference';
 import { WITHDRAW_CONFERENCE_MUTATION } from '../mutations/WithdrawConference';
 
-import DialogDisplay from 'components/common/dialogBox/DialogDisplay';
 import ConferenceCodeModal from './ConferenceCodeModal';
 
 const defaultPager = {
