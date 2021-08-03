@@ -1,3 +1,3 @@
-const dbInstanceFactory = require("./dbInstanceFactory")
+const dbInstanceFactory = require('./dbInstanceFactory')
 
 module.exports = { dbInstanceFactory }

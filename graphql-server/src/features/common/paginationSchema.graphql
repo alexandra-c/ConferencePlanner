@@ -1,6 +1,3 @@
-const { gql } = require("apollo-server-koa");
-
-const paginationTypes = gql`
   input PagerInput {
     page: Int!
     pageSize: Int!
@@ -15,6 +12,3 @@ const paginationTypes = gql`
     currentPage: Page
     totalCount: Int
   }
-`;
-
-module.exports = paginationTypes;

@@ -1,11 +1,10 @@
-const { dbInstanceFactory } = require("../../db");
+const { dbInstanceFactory } = require('../../db')
 
 const contextDbInstance = () => async (ctx, next) => {
-    const dbInstance = await dbInstanceFactory()
-    ctx.dbInstance = dbInstance
+  const dbInstance = await dbInstanceFactory()
+  ctx.dbInstance = dbInstance
 
-  await next();
-};
-
+  await next()
+}
 
 module.exports = contextDbInstance
