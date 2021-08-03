@@ -166,10 +166,10 @@ class ConferenceDb extends SQLDataSource {
             .first()
             
         let result
-        if (current.id) {
+        if (current?.id) {
             result = await this.knex('ConferenceXSpeaker')
                 .update({ IsMainSpeaker: Boolean(isMainSpeaker) }, "IsMainSpeaker")
-                .where("Id", current.id)
+                .where("Id", current?.id)
         }
         else {
             result = await this.knex('ConferenceXSpeaker')

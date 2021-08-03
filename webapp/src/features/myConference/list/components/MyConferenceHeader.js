@@ -12,11 +12,11 @@ const MyConferenceHeader = ({ headerText, onAdd }) => {
     const classes = useStyles();
 
     return (
-        <Grid container justify="flex-start" alignItems="center" >
-            <Grid item xs={6} sm={9} lg={9} container justify="flex-start">
+        <Grid container justifyContent="flex-start" alignItems="center" >
+            <Grid item xs={6} sm={9} lg={9} container justifyContent="flex-start">
                 <Typography variant='subtitle1' className={classes.title}>{headerText || emptyString}</Typography>
             </Grid>
-            <Grid item xs={6} sm={3} lg={3} container justify="flex-end">
+            <Grid item xs={6} sm={3} lg={3} container justifyContent="flex-end">
                 <AddButton key='addButton' title={t("General.Buttons.AddConference")} onClick={onAdd} />
             </Grid>
         </Grid>

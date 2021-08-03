@@ -7,7 +7,7 @@ import qr from "assets/img/qr.png";
 const ConferenceCodeModal = ({ code }) => {
     const { t } = useTranslation();
 
-    return <Grid container justify={"center"}>
+    return <Grid container justifyContent={"center"}>
         <Grid item>
             <img src={qr} alt="QR" />
         </Grid>

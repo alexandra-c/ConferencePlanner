@@ -12,11 +12,11 @@ const MyConferenceHeader = ({ headerText, onSave, saving }) => {
     const classes = useStyles();
 
     return (
-        <Grid container justify="flex-start" alignItems="center" >
-            <Grid item xs={6} sm={9} lg={9} container justify="flex-start">
+        <Grid container justifyContent="flex-start" alignItems="center" >
+            <Grid item xs={6} sm={9} lg={9} container justifyContent="flex-start">
                 <Typography variant='subtitle1' className={classes.title}>{headerText || emptyString}</Typography>
             </Grid>
-            <Grid item xs={3} sm={3} lg={3} container justify="flex-end" spacing={1}>
+            <Grid item xs={3} sm={3} lg={3} container justifyContent="flex-end" spacing={1}>
                 <Grid item  >
                     {<SaveButton title={saving ? t("General.Saving") : t("General.Buttons.Save")} onClick={onSave} disabled={saving} />}
                 </Grid>

@@ -6,6 +6,7 @@ import { env } from '../utils/env'
 import { createUploadLink } from 'apollo-upload-client'
 import omitDeep from 'omit-deep-lodash'
 import { getUserManager } from '@axa-fr/react-oidc-core'
+import { emptyObject } from 'utils/constants'
 
 const httpLink = createUploadLink({
   uri: `${env.REACT_APP_GQL_HTTP_PROTOCOL}://${env.REACT_APP_GQL}/graphql`,
@@ -20,7 +21,7 @@ const httpLink = createUploadLink({
 
 const authLink = setContext(async (_, { headers }) => {
   const userManager = getUserManager()
-  const { access_token } = await userManager.getUser()
+  const { access_token } = await userManager.getUser() ?? emptyObject
 
   return {
     headers: {

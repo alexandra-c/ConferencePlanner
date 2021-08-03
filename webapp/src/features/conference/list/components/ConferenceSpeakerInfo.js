@@ -11,19 +11,19 @@ const ConferenceSpeakerInfo = ({ speaker }) => {
 
     return (
         <Grid container item lg={12}>
-            <Grid container justify="center" alignItems="center" item lg={1}>
+            <Grid container justifyContent="center" alignItems="center" item lg={1}>
                 <StarBorderIcon />
             </Grid>
             <Grid item lg={1}></Grid>
-            <Grid container justify="flex-start" alignItems="center" item lg={10}>
+            <Grid container justifyContent="flex-start" alignItems="center" item lg={10}>
                 <Typography>{t('Conferences.Rating')}</Typography>
                 <Typography>{speaker?.rating}</Typography>
             </Grid>
-            <Grid container justify="center" alignItems="center" item lg={1}>
+            <Grid container justifyContent="center" alignItems="center" item lg={1}>
                 <AccountBoxIcon />
             </Grid>
             <Grid item lg={1}></Grid>
-            <Grid container justify="flex-start" alignItems="center" item lg={10}>
+            <Grid container justifyContent="flex-start" alignItems="center" item lg={10}>
                 <Typography>{t('Conferences.Nationality')}</Typography>
                 <Typography>{speaker?.nationality}</Typography>
             </Grid>
