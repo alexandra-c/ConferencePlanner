@@ -113,6 +113,12 @@ const ConferenceListContainer = () => {
         setFilters(value);
     }, [setFilters, setPager]);
 
+    const handleClose = useCallback(() => {
+        setOpenDialog(false)
+        setCode("")
+        refetch()
+    }, [refetch])
+
     if (loading) {
         return <LoadingFakeText lines={10} />
     }
@@ -129,7 +135,7 @@ const ConferenceListContainer = () => {
             open={open}
             title={t("General.Congratulations")}
             content={<ConferenceCodeModal code={code} />}
-            onClose={() => { setOpenDialog(false); setCode(""); refetch() }}
+            onClose={handleClose}
         />
     </>
 }

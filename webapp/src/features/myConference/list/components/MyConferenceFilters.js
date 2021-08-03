@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { Grid } from '@material-ui/core';
-import { DateTime, Button, IconCard } from '@bit/totalsoft_oss.react-mui.kit.core/DateTime';
+import { DateTime, Button, IconCard } from '@bit/totalsoft_oss.react-mui.kit.core';
 import { Search } from '@material-ui/icons';
 import { emptyObject } from 'utils/constants';
 import { curry } from 'lodash';

@@ -17,7 +17,7 @@ const AppRoutes = (_props) => {
 
   if (!email) {
     return <Switch>
-      <Route exact path="/welcome" component={Welcome} />
+      <CustomRoute isPrivate={false} exact path="/welcome" component={Welcome} />
       <Redirect to="/welcome" />
     </Switch>
   }
