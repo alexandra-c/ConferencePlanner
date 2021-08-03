@@ -2,6 +2,12 @@
 ## Workshop
 [Creating a Web Application with GraphQL and React](https://www.notion.so/acapatina/Creating-a-Web-Application-with-GraphQL-and-React-6051df7bf1fa42b2ab21b56268f46de4) 
 
+**Welcome to our Web Application Workshop! 👋**
+
+As we all now, the web is a constantly growing universe, interconnecting a high variety of  web applications and services. Over the years, web developing technologies have evolved, allowing developers to create new generation web applications and services, bringing major improvements to users's experiences. 
+
+Our goal is to show you how newer technologies like React and GraphQL can make you fall in love with designing Web Applications.
+
 ## Prerequisites
 In order to successfully complete the tasks in the workshop, you should have:
 
