@@ -1,5 +1,10 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
+cd graphql-server
+npx lint-staged
+npm run test:ci
+
+cd ../webapp
 npx lint-staged
 npm run test:ci
