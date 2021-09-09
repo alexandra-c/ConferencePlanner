@@ -1,8 +1,6 @@
 import { env } from 'utils/env'
 
-const root = `${window.location.protocol}//${window.location.hostname}${
-  window.location.port ? `:${window.location.port}` : ''
-}`
+const root = `${window.location.protocol}//${window.location.hostname}${window.location.port ? `:${window.location.port}` : ''}`
 const AUTH = {
   CALLBACK: '/authentication/callback',
   SILENT_CALLBACK: '/authentication/silent_callback'
