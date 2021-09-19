@@ -6,7 +6,7 @@ import { useFooter } from 'providers/AreasProvider'
 import { useToast, Pagination, LoadingFakeText, DialogDisplay } from '@bit/totalsoft_oss.react-mui.kit.core'
 import { useQuery, useMutation } from '@apollo/client'
 import { CONFERENCE_LIST_QUERY } from '../queries/ConferenceListQuery'
-import { emptyObject } from 'utils/constants'
+import { emptyObject, emptyArray } from 'utils/constants'
 import { useEmail } from 'hooks/useEmail'
 import { ATTEND_CONFERENCE_MUTATION } from '../mutations/AttendConference'
 import { WITHDRAW_CONFERENCE_MUTATION } from '../mutations/WithdrawConference'
@@ -30,6 +30,7 @@ const ConferenceListContainer = () => {
   const [userEmail] = useEmail()
   const [code, setCode] = useState('')
   const [open, setOpenDialog] = useState(false)
+  const [suggestedConferences, setSuggestedConferences] = useState(emptyArray)
 
   const { data, loading, refetch } = useQuery(CONFERENCE_LIST_QUERY, {
     variables: {
@@ -48,7 +49,8 @@ const ConferenceListContainer = () => {
       if (!data) {
         return
       }
-      setCode(data.attend)
+      setCode(data?.attend?.code)
+      setSuggestedConferences(data?.attend?.suggestedConferences)
       setOpenDialog(true)
       addToast(t('Conferences.SuccessfullyAttended'), 'success')
     },
@@ -136,7 +138,14 @@ const ConferenceListContainer = () => {
         id='showQRCode'
         open={open}
         title={t('General.Congratulations')}
-        content={<ConferenceCodeModal code={code} />}
+        content={
+          <ConferenceCodeModal
+            code={code}
+            suggestedConferences={suggestedConferences}
+            onAttend={handleAttend}
+            onWithdraw={handleWithdraw}
+          />
+        }
         onClose={handleClose}
       />
     </>

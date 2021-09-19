@@ -93,7 +93,7 @@ extend type Query {
 }
 
 extend type Mutation {
-  attend(input: Attendee!): String
+  attend(input: Attendee!): AttendConference
   withdraw(input: Attendee!): ID
   deleteConference(id: ID!): String
   saveConference(input: ConferenceInput!): Conference!

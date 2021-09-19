@@ -90,7 +90,8 @@
       "Save": "Save"
     },
     "DeleteWarning": "Are you sure do you want to delete this conference?",
-    "Warning": "Warning!"
+    "Warning": "Warning!",
+    "SuggestedConferences": "Based on your choice, we suggest the following conferences:"
   },
   "Conferences": {
     "Speaker": "Speaker: ",

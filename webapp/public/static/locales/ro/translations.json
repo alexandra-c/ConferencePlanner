@@ -84,7 +84,8 @@
     },
     "DeleteWarning": "Sunteti sigur ca doriti sa stergeti aceasta conferinta?",
     "Warning": "Atentie!",
-    "SuccessfullyDeleted": "S-a sters cu succes"
+    "SuccessfullyDeleted": "S-a sters cu succes",
+    "SuggestedConferences": "Pe baza alegerii facute, va sugeram urmatoarele conferinte"
   },
   "Conferences": {
     "Speaker": "Orator: ",
@@ -94,7 +95,7 @@
     "Join": "Inscrie-te",
     "Withdraw": "Retrage-te",
     "SuccessfullyAttended": "Felicitari! Te-ai inscris cu succes la conferinta! Vei fi notificat cu 5 minute inainte sa inceapa.",
-    "SuccessfullyWithdrawn": "Te-ai retras cu succes de la acesta conferinta.",
+    "SuccessfullyWithdrawn": "Te-ai retras cu succes de la aceasta conferinta.",
     "QRCodeMessage": "Te-ai inscris cu succes la conferinta! Vei fi notificat cu 5 minute inainte sa inceapa. Foloseste urmatorul cod pentru a accesa conferinta: {{code}}",
     "Filters": {
       "StartDate": "Data incepere",
