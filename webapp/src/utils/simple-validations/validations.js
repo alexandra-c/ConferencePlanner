@@ -88,9 +88,7 @@ export const requiredFile = Validator(x =>
   x && x.fileId && x.fileName ? Success : 'Validations.FileIsMandatory' |> i18next.t |> ValidationError |> Failure
 )
 
-export const integer = Validator(x =>
-  Number.isInteger(x) ? Success : 'Validations.Integer' |> i18next.t |> ValidationError |> Failure
-)
+export const integer = Validator(x => (Number.isInteger(x) ? Success : 'Validations.Integer' |> i18next.t |> ValidationError |> Failure))
 
 export const numberOfFiles = Validator(list =>
   list.length > 5 ? Failure(ValidationError(i18next.t('Validations.MaximumNumberOfFiles'))) : Success
