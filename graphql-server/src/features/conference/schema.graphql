@@ -82,6 +82,11 @@ input SpeakerInput {
   rating: Float
 }
 
+type AttendConference {
+  code: String
+  suggestedConferences: [Conference!]
+}
+
 extend type Query {
   conference(id: ID!): Conference!
   conferenceList(pager: PagerInput!, filters: ConferenceFilterInput): ConferenceList
