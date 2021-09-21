@@ -56,8 +56,8 @@ const conferenceResolvers = {
   Mutation: {
     attend: async (_parent, { input }, { dataSources }, _info) => {
       const updateInput = { ...input, statusId: 3 /* Attended */ }
-      const suggestedConferences = await dataSources.conferenceApi.getConferenceSuggestions(input)
       const statusId = await dataSources.conferenceDb.updateConferenceXAttendee(updateInput)
+      const suggestedConferences = await dataSources.conferenceApi.getConferenceSuggestions(input)
       const code = statusId ? randomCharacters(10) : null
       return { suggestedConferences, code }
     },
