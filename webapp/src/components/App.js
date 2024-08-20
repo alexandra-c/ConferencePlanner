@@ -1,27 +1,21 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react'
-import PropTypes from 'prop-types'
-import { makeStyles } from '@material-ui/core'
+import React, { useState, useRef, useEffect, useCallback, Suspense } from 'react'
+import { Outlet, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import appStyle from 'assets/jss/components/appStyle'
+import { ToastContainer } from '@totalsoft/rocket-ui'
+
 import logo from 'assets/img/logo.png'
 import miniLogo from 'assets/img/miniLogo.png'
-import cx from 'classnames'
+import { Container, Content } from './AppStyle'
 
-import Sidebar from './layout/Sidebar'
-import Header from './layout/Header'
-import Footer from './layout/Footer'
+import Sidebar from './layout/sidebar/Sidebar'
+import Header from './layout/header/Header'
+import Footer from './layout/footer/Footer'
 
-import AppRoutes from 'routes/AppRoutes'
-
-import { ToastContainer, CheckInternetConnection } from '@bit/totalsoft_oss.react-mui.kit.core'
-
-const useStyles = makeStyles(appStyle)
 const isWeb = () => window.matchMedia('(min-width: 480px)')?.matches
 
-function App(props) {
+export default function App() {
+  const location = useLocation()
   const mainPanelRef = useRef()
-  const classes = useStyles()
-  const { location } = props
   const { i18n } = useTranslation()
 
   const [drawerOpen, setDrawerOpen] = useState(isWeb())
@@ -44,37 +38,25 @@ function App(props) {
   )
 
   useEffect(() => {
-    mainPanelRef.current.scrollTop = 0
+    if (mainPanelRef?.current?.scrollTop) mainPanelRef.current.scrollTop = 0
   }, [location.pathname])
 
-  const mainPanel =
-    classes.mainPanel +
-    ' ' +
-    cx({
-      [classes.mainPanelSidebarMini]: !drawerOpen
-    })
-
   return (
-    <div className={classes.wrapper}>
-      <Sidebar
-        logo={drawerOpen ? logo : miniLogo}
-        closeDrawer={handleCloseDrawer}
-        changeLanguage={changeLanguage}
-        drawerOpen={drawerOpen}
-      />
-      <div className={mainPanel} ref={mainPanelRef}>
-        <Header drawerOpen={drawerOpen} handleDrawerToggle={handleDrawerToggle} />
-        <AppRoutes />
-        <Footer fluid />
-      </div>
-      <ToastContainer />
-      <CheckInternetConnection />
-    </div>
+    <Suspense fallback={<div>Loading...</div>}>
+      <Container>
+        <Sidebar
+          logo={drawerOpen ? logo : miniLogo}
+          closeDrawer={handleCloseDrawer}
+          changeLanguage={changeLanguage}
+          drawerOpen={drawerOpen}
+        />
+        <Content ref={mainPanelRef} drawerOpen={drawerOpen}>
+          <Header drawerOpen={drawerOpen} handleDrawerToggle={handleDrawerToggle} />
+          <Outlet />
+          <Footer fluid />
+        </Content>
+        <ToastContainer theme="colored" />
+      </Container>
+    </Suspense>
   )
 }
-
-App.propTypes = {
-  location: PropTypes.object.isRequired
-}
-
-export default App

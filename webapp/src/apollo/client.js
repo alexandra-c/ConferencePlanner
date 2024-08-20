@@ -1,14 +1,11 @@
 import { ApolloClient, ApolloLink, InMemoryCache } from '@apollo/client'
+import { HttpLink } from '@apollo/client/core'
 import { onError } from '@apollo/client/link/error'
 import { RetryLink } from '@apollo/client/link/retry'
-import { setContext } from '@apollo/client/link/context'
 import { env } from '../utils/env'
-import { createUploadLink } from 'apollo-upload-client'
 import omitDeep from 'omit-deep-lodash'
-import { getUserManager } from '@axa-fr/react-oidc-core'
-import { emptyObject } from 'utils/constants'
 
-const httpLink = createUploadLink({
+const httpLink = new HttpLink({
   uri: `${env.REACT_APP_GQL_HTTP_PROTOCOL}://${env.REACT_APP_GQL}/graphql`,
   onError: onError(({ graphQLErrors, networkError }) => {
     if (graphQLErrors)
@@ -17,18 +14,6 @@ const httpLink = createUploadLink({
       )
     if (networkError) console.log(`[Network error]: ${networkError}`)
   })
-})
-
-const authLink = setContext(async (_, { headers }) => {
-  const userManager = getUserManager()
-  const { access_token } = await userManager.getUser() ?? emptyObject
-
-  return {
-    headers: {
-      ...headers,
-      authorization: access_token ? `Bearer ${access_token}` : ''
-    }
-  }
 })
 
 const omitTypenameLink = new ApolloLink((operation, forward) => {
@@ -49,12 +34,12 @@ const retryLink = new RetryLink({
   }
 })
 
-const myAppLink = () => ApolloLink.from([omitTypenameLink, retryLink, authLink.concat(httpLink)])
+const myAppLink = () => ApolloLink.from([omitTypenameLink, retryLink, httpLink])
 
 const cache = new InMemoryCache({
   typePolicies: {
     Page: {
-      keyFields: ["page", "pageSize"]
+      keyFields: ['afterId', 'sortBy', 'direction', 'pageSize']
     }
   }
 })

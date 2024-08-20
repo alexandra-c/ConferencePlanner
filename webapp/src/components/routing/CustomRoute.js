@@ -1,41 +1,27 @@
 import React, { useMemo } from 'react'
-import { Route } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import { withOidcSecure } from '@axa-fr/react-oidc-context'
+import { Container } from './CustomRouteStyle'
+import { getOidcConfigName } from 'utils/functions'
+import { withOidcSecure } from '@axa-fr/react-oidc'
 
-function PrivateRoute({ component: Component, exact, path }) {
-  const SecuredComponent = useMemo(() => withOidcSecure(Component), [Component])
+function PrivateRoute({ component: Component }) {
+  const SecuredComponent = useMemo(() => withOidcSecure(Component, undefined, undefined, getOidcConfigName()), [Component])
 
-  return useMemo(() => <Route exact={exact} path={path} component={SecuredComponent} />, [SecuredComponent, exact, path])
+  return <SecuredComponent />
 }
 
 PrivateRoute.propTypes = {
-  component: PropTypes.func,
-  exact: PropTypes.bool,
-  path: PropTypes.string
+  component: PropTypes.func
 }
 
-import { makeStyles } from '@material-ui/core'
-import mainStyle from 'assets/jss/components/mainStyle'
-
-const useStyles = makeStyles(mainStyle)
-
-function CustomRoute({ isPrivate, fullWidth, ...props }) {
-  const classes = useStyles({ fullWidth })
-  return <div className={classes.container}>{isPrivate ? <PrivateRoute {...props} /> : <Route {...props} />}</div>
-}
-
-CustomRoute.defaultProps = {
-  isPrivate: true,
-  fullWidth: false
+function CustomRoute({ isPrivate = true, component: Component, ...props }) {
+  return <Container>{isPrivate ? <PrivateRoute component={Component} {...props} /> : <Component />}</Container>
 }
 
 CustomRoute.propTypes = {
   component: PropTypes.func,
-  exact: PropTypes.bool,
   isPrivate: PropTypes.bool,
-  fullWidth: PropTypes.bool,
-  path: PropTypes.string
+  fullWidth: PropTypes.bool
 }
 
 export default CustomRoute

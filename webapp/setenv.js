@@ -4,6 +4,7 @@ const crypto = require('crypto')
 const path = require('path')
 
 const envFileRegEx = /env.([a-z0-9]*.)?js/g
+const injectedObjectRegEx = /(const oidc = {[^}]*})/
 const buildDir = './build'
 
 // Generate the configuration script from environment variables
@@ -29,6 +30,34 @@ function saveConfigScript(scriptContents, scriptName) {
   })
 }
 
+function setOidcDomains(scriptContents, trustedDomainsFile) {
+  const scriptPath = path.join(buildDir, trustedDomainsFile)
+  fs.readFile(scriptPath, 'utf8', function (err, data) {
+    if (err) {
+      console.error(err)
+      return
+    }
+    const { REACT_APP_IDENTITY_AUTHORITY, REACT_APP_GQL_HTTP_PROTOCOL, REACT_APP_GQL } = process.env
+
+    const injectedValue =
+      'const oidc = ' +
+      JSON.stringify({
+        REACT_APP_IDENTITY_AUTHORITY,
+        REACT_APP_GQL_HTTP_PROTOCOL,
+        REACT_APP_GQL
+      })
+
+    data = data.replace(injectedObjectRegEx, injectedValue)
+
+    console.log('Saving file to: ' + scriptPath)
+    fs.writeFile(scriptPath, data, 'utf8', function (err) {
+      if (err) throw err
+
+      console.log('The file was saved!')
+    })
+  })
+}
+
 // Update configuration script name in index.html
 function updateIndex(scriptName) {
   const indexPath = path.join(buildDir, 'index.html')
@@ -39,24 +68,6 @@ function updateIndex(scriptName) {
     let result = data.replace(envFileRegEx, scriptName)
 
     fs.writeFile(indexPath, result, 'utf8', function (err) {
-      if (err) throw err
-
-      var indexHash = crypto.createHash('md5').update(result).digest('hex')
-      updateIndexInServiceWorker(indexHash)
-    })
-  })
-}
-
-// Update index hash in service-worker.js
-function updateIndexInServiceWorker(indexHash) {
-  const swPath = path.join(buildDir, 'service-worker.js')
-
-  fs.readFile(swPath, 'utf8', function (err, data) {
-    if (err) throw err
-
-    let result = data.replace(/"\/index.html","(.*?)"/, `"/index.html","${indexHash}"`)
-
-    fs.writeFile(swPath, result, 'utf8', function (err) {
       if (err) throw err
     })
   })
@@ -76,9 +87,11 @@ function deleteOldScript(currentScriptName) {
 // MAIN
 console.log('Setting runtime envoronment..')
 let scriptContents = generateConfigScript()
-let scriptHash = crypto.createHash('md5').update(scriptContents).digest('hex')
+let scriptHash = crypto.createHash('sha256').update(scriptContents).digest('hex')
 let scriptName = `env.${scriptHash}.js`
+const trustedDomainsFile = 'OidcTrustedDomains.js'
 
 saveConfigScript(scriptContents, scriptName)
+setOidcDomains(scriptContents, trustedDomainsFile)
 updateIndex(scriptName)
 deleteOldScript(scriptName)

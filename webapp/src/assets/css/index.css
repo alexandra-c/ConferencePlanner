@@ -61,9 +61,7 @@ h6 {
   margin-top: 10px;
   margin-bottom: 10px;
 }
-p {
-  margin: 0 0 10px;
-}
+
 blockquote p {
   font-style: italic;
 }
@@ -74,7 +72,6 @@ a {
 }
 a:hover,
 a:focus {
-  color: #00497b;
   text-decoration: none;
 }
 legend {
@@ -688,20 +685,8 @@ td.rdtYear:hover {
   color: #ffffff;
 }
 
-.Toastify__close-button {
-  color: #fff;
-  background: transparent;
-  outline: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  opacity: 1;
-  transition: 0.3s ease;
-  align-self: auto;
-}
-
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {

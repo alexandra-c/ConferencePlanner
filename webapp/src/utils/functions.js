@@ -1,4 +1,5 @@
 import { curry, without, intersection, isEmpty, not } from 'ramda'
+import { validEmailRegEx } from './constants'
 
 export const extractExactAge = (birthday, referenceDate) => {
   var differenceInMilisecond = Date.parse(referenceDate) || Date.now() - Date.parse(birthday)
@@ -48,3 +49,19 @@ export const addMilliseconds = curry((milliseconds, date) => new Date(date.getTi
 
 // subtractOneMillisecond :: Date -> Date
 export const subtractOneMillisecond = addMilliseconds(-1)
+
+export const getOidcConfigName = () => {
+  const tid = 'config_show_access_token'
+  return tid
+}
+
+export const validateEmail = email => validEmailRegEx.test(email)
+
+export const generateDefaultFilters = () => {
+  const startDate = new Date()
+  const endDate = addDays(2, startDate)
+  return {
+    startDate,
+    endDate
+  }
+}

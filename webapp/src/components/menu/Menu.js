@@ -1,35 +1,34 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useMemo } from 'react'
 import PropTypes from 'prop-types'
-import { List, makeStyles } from '@material-ui/core'
 import { useLocation } from 'react-router-dom'
-import menuConfig from 'constants/menuConfig'
-import menuStyle from 'assets/jss/components/menuStyle'
 import MenuItem from './MenuItem'
+import CollapsibleMenuItem from './CollapsibleMenuItem'
+import { List } from './MenuStyle'
+import menuItems from 'constants/menuConfig'
 
-const useStyles = makeStyles(menuStyle)
-
-function Menu({ drawerOpen }) {
-  const classes = useStyles()
+function Menu({ drawerOpen, withGradient }) {
   const location = useLocation()
-
   const activeRoute = useCallback(routeName => location.pathname.indexOf(routeName) > -1, [location.pathname])
-  const menuItems = menuConfig
 
   return (
-    menuItems && (
-      <nav>
-        <List className={classes.menuList}>
-          {menuItems.map((menu, key) => {
-            return <MenuItem key={key} menu={menu} drawerOpen={drawerOpen} activeRoute={activeRoute} />
-          })}
-        </List>
-      </nav>
-    )
+    <nav>
+      <List>
+        {menuItems.map((menu, key) => {
+          const menuItemProps = { menu, drawerOpen, activeRoute, withGradient }
+          return menu.children ? (
+            <CollapsibleMenuItem key={key} {...menuItemProps} />
+          ) : (
+            <MenuItem key={key} {...menuItemProps} />
+          )
+        })}
+      </List>
+    </nav>
   )
 }
 
 Menu.propTypes = {
-  drawerOpen: PropTypes.bool.isRequired
+  drawerOpen: PropTypes.bool.isRequired,
+  withGradient: PropTypes.bool.isRequired
 }
 
 export default Menu
