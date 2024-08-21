@@ -37,27 +37,47 @@ const parseConnectionString = connectionString => {
       return (a[prop[0]] = prop[1]), a
     }, {})
 
-  return humps.camelizeKeys(parsed)
+  return sanitizeConnectionInfo(parsed)
 }
 
-const getCurrentDate = () => new Date().toLocaleString()
+const sanitizeConnectionInfo = connectionInfo => {
+  connectionInfo = humps.camelizeKeys(connectionInfo)
 
-const customConsole = (function (oldCons) {
-  return {
-    log: function (text) {
-      oldCons.log(`[${getCurrentDate()}] ${text}`)
-    },
-    info: function (text) {
-      oldCons.info(`[${getCurrentDate()}] ${text}`)
-    },
-    warn: function (text) {
-      oldCons.warn(`[${getCurrentDate()}] ${text}`)
-    },
-    error: function (text) {
-      oldCons.error(`[${getCurrentDate()}] ${text}`)
-    }
+  const portSplit = connectionInfo.server?.split(',')
+  if (portSplit?.length > 1) {
+    connectionInfo.server = portSplit[0]
+    connectionInfo.port = portSplit[1]
   }
-})(global.console)
+
+  const instanceSplit = connectionInfo.server?.split('\\')
+  if (instanceSplit?.length > 1) {
+    connectionInfo.server = instanceSplit[0]
+    connectionInfo.instanceName = instanceSplit[1]
+  }
+
+  const otherParams = connectionInfo.otherParams
+    ?.split(';')
+    .filter(i => i)
+    .map(pair => pair.split('='))
+  if (otherParams) {
+    connectionInfo = { ...connectionInfo, ...humps.camelizeKeys(Object.fromEntries(otherParams)) }
+  }
+
+  return connectionInfo
+}
+
+const publicRoute = (ctx, publicRoutes = []) => {
+  if (
+    ctx.method === 'GET' ||
+    ctx.request.body.operationName === 'IntrospectionQuery' ||
+    (ctx.request.body.query && ctx.request.body.query.includes('IntrospectionQuery')) ||
+    publicRoutes.includes(ctx.path.toLowerCase())
+  ) {
+    return true
+  } else {
+    return false
+  }
+}
 
 module.exports = {
   randomCharacters,
@@ -65,5 +85,6 @@ module.exports = {
   JSONConverter,
   postProcessDbResponse,
   parseConnectionString,
-  customConsole
+  sanitizeConnectionInfo,
+  publicRoute
 }

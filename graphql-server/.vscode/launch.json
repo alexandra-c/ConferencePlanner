@@ -9,7 +9,24 @@
       "request": "launch",
       "name": "Program",
       "skipFiles": ["<node_internals>/**"],
-      "program": "${workspaceFolder}\\src\\index.js"
+      "program": "${workspaceFolder}\\src\\index.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Program with Kubernetes",
+      "skipFiles": ["<node_internals>/**"],
+      "program": "${workspaceFolder}\\src\\index.js",
+      "preLaunchTask": "bridge-to-kubernetes.resource",
+      "outputCapture": "std",
+      "env": {
+        "GRPC_DNS_RESOLVER": "native",
+        "NODE_ENV": "development"
+      }
     },
     {
       "type": "node",

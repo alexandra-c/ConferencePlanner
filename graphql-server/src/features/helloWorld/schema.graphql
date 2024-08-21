@@ -1,3 +1,7 @@
-extend type Query {
-  myFirstEndpoint: String
+extend type Query{
+    helloWorldQuery: String
 }
+
+extend type Mutation{
+    _helloWorldMutation: String
+} 

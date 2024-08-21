@@ -5,64 +5,50 @@ if (result.error) {
   const path = `.env`
   dotenv.config({ path })
 }
-const { customConsole } = require('./utils/functions')
-global.console = customConsole
 
-const { ApolloServer } = require('apollo-server-koa')
-const Koa = require('koa')
+if (process.env.NODE_ENV) {
+  dotenv.config({ path: `./.env.${process.env.NODE_ENV}`, override: true })
+}
 
-const { dbInstanceFactory } = require('./db')
-const { contextDbInstance, errorHandlingMiddleware } = require('./middleware')
-const { schema, getDataSources, getDataLoaders } = require('./startup/index')
+const keyPerFileEnv = require('@totalsoft/key-per-file-configuration')
+const configMonitor = keyPerFileEnv.load()
 
-const app = new Koa()
-
-app.use(errorHandlingMiddleware())
-app.use(contextDbInstance())
-
-const server = new ApolloServer({
-  schema,
-  dataSources: getDataSources,
-  context: async context => {
-    const { ctx, connection } = context
-
-    if (connection) {
-      return {
-        ...connection.context
-      }
-    } else {
-      const { token, dbInstance, externalUser, correlationId, request, requestSpan } = ctx
-      return {
-        token,
-        dbInstance,
-        dataLoaders: getDataLoaders(dbInstance),
-        dbInstanceFactory,
-        externalUser,
-        correlationId,
-        request,
-        requestSpan
-      }
-    }
-  },
-  uploads: {
-    // Limits here should be stricter than config for surrounding
-    // infrastructure such as Nginx so errors can be handled elegantly by
-    // graphql-upload:
-    // https://github.com/jaydenseric/graphql-upload#type-processrequestoptions
-    maxFileSize: 1000000, // 1 MB
-    maxFiles: 20
-  }
+require('console-stamp')(global.console, {
+  format: ':date(yyyy/mm/dd HH:MM:ss.l)'
 })
 
-// This `listen` method launches a web-server.  Existing apps
-// can utilize middleware options, which we'll discuss later.
+const { logger } = require('./startup'),
+  { createServer } = require('http'),
+  { startApolloServer } = require('./servers')
+
+// Metrics, diagnostics
+const { DIAGNOSTICS_ENABLED, METRICS_ENABLED } = process.env,
+  diagnosticsEnabled = JSON.parse(DIAGNOSTICS_ENABLED),
+  metricsEnabled = JSON.parse(METRICS_ENABLED),
+  diagnostics = require('./monitoring/diagnostics'),
+  metrics = require('./monitoring/metrics')
+
+const httpServer = createServer()
+const apolloServerPromise = startApolloServer(httpServer)
+
 const port = process.env.PORT || 4000
-app.listen(port, () => {
-  console.log(`🚀  Server ready at http://localhost:${port}/graphql`)
+httpServer.listen(port, () => {
+  logger.info(`🚀 Server ready at http://localhost:${port}/graphql`)
 })
 
-server.applyMiddleware({ app })
+async function cleanup() {
+  await configMonitor?.close()
+  await (await apolloServerPromise)?.stop()
+}
 
-process.on('uncaughtException', function (error) {
-  throw new Error(`Error occurred while processing the request: ${error.stack}`)
+const { gracefulShutdown } = require('@totalsoft/graceful-shutdown')
+gracefulShutdown({
+  onShutdown: cleanup,
+  terminationSignals: ['SIGINT', 'SIGTERM', 'SIGUSR1', 'SIGUSR2'],
+  unrecoverableEvents: ['uncaughtException', 'unhandledRejection'],
+  logger,
+  timeout: 5000
 })
+
+diagnosticsEnabled && diagnostics.startServer(logger)
+metricsEnabled && metrics.startServer(logger)
