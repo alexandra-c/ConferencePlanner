@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import ConferenceFilters from './ConferenceFilters'
-import conferences from 'utils/mocks/conferences'
 import { FakeText, IconButton } from '@totalsoft/rocket-ui'
 import ConferenceList from './ConferenceList'
 import { generateDefaultFilters } from 'utils/functions'
@@ -8,10 +7,21 @@ import { useTranslation } from 'react-i18next'
 import { useHeader } from 'providers/AreasProvider'
 import ConferenceHeader from 'features/conference/ConferenceHeader'
 import { useNavigate } from 'react-router-dom'
+import { useQuery } from '@apollo/client'
+import { CONFERENCE_LIST_QUERY } from 'features/conference/gql/queries'
+import { useEmail } from 'hooks/useEmail'
+import { useError } from 'hooks/errorHandling'
 
 const ConferenceListContainer = () => {
   const navigate = useNavigate()
   const { t } = useTranslation()
+  const [email] = useEmail()
+
+  const showError = useError()
+
+  const [filters, setFilters] = useState(generateDefaultFilters())
+
+  const { data, loading } = useQuery(CONFERENCE_LIST_QUERY, { variables: { filters, userEmail: email }, onError: showError })
 
   const handleAddClick = useCallback(() => {
     navigate('/conferences/new')
@@ -28,11 +38,9 @@ const ConferenceListContainer = () => {
     )
   }, [handleAddClick, setHeader, t])
 
-  const [filters, setFilters] = useState(generateDefaultFilters())
-
-  const { data, loading } = { data: conferences, loading: false } // don't worry about it! it will make a lot more sense after GraphQL
-
-  const handleApplyFilters = useCallback(filters => setFilters(filters), [])
+  const handleApplyFilters = useCallback(filters => {
+    setFilters(filters)
+  }, [])
 
   if (loading) {
     return <FakeText lines={10} />
@@ -41,7 +49,7 @@ const ConferenceListContainer = () => {
   return (
     <>
       <ConferenceFilters filters={filters} onApplyFilters={handleApplyFilters} />
-      <ConferenceList conferences={data} />
+      <ConferenceList conferences={data?.conferenceList} />
     </>
   )
 }
