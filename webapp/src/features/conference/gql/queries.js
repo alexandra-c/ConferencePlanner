@@ -9,7 +9,7 @@ export const CONFERENCE_LIST_QUERY = gql`
         ...type
       }
       category {
-        ...category
+        ...category 
       }
       location {
         id

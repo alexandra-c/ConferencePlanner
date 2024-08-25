@@ -29,7 +29,7 @@ const ConferenceListContainer = () => {
 
   const [, setHeader] = useHeader()
   useEffect(() => () => setHeader(null), [setHeader])
-  useEffect(() => {
+  useEffect(() => { 
     setHeader(
       <ConferenceHeader
         title={t('NavBar.Conferences')}
