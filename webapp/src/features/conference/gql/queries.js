@@ -3,7 +3,7 @@ import Fragments from './fragments'
 
 export const CONFERENCE_LIST_QUERY = gql`
   query conferenceList($filters: ConferenceFilterInput, $userEmail: String!) {
-    conferenceList(filters: $filters) {
+    conferenceList(filters: $filters, userEmail: $userEmail) {
       ...conference
       type {
         ...type
@@ -39,4 +39,55 @@ export const CONFERENCE_LIST_QUERY = gql`
   ${Fragments.conference}
   ${Fragments.speaker}
   ${Fragments.status}
+`
+export const CONFERENCE_QUERY = gql`
+query conferenceData($id: Int!, $isNew: Boolean!) {
+  conference(id: $id) @skip(if: $isNew){
+    ...conference
+    type {
+      ...type
+    }
+    category {
+      ...category
+    }
+    location {
+      ...location
+      city {
+        ...city
+      }
+      county{
+        ...county
+      }
+      country{
+        ...country
+      }
+    }
+    speakers {
+      ...speaker
+    }
+  }
+  typeList {
+    ...type
+  }
+  categoryList {
+    ...category
+  }
+  cityList {
+    ...city
+  }
+  countyList {
+    ...county
+  }
+  countryList {
+    ...country
+  }
+},
+${Fragments.conference}
+${Fragments.speaker}
+${Fragments.location}
+${Fragments.type}
+${Fragments.category}
+${Fragments.city}
+${Fragments.county}
+${Fragments.country}
 `

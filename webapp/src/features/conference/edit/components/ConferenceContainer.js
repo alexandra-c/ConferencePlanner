@@ -8,6 +8,9 @@ import { FakeText, IconButton } from '@totalsoft/rocket-ui'
 import { initialConference, reducer } from '../conferenceState'
 import { conference as serverConference } from 'utils/mocks/conference'
 import { useParams } from 'react-router-dom'
+import { useQuery } from '@apollo/client'
+import { CONFERENCE_QUERY } from 'features/conference/gql/queries'
+import { useError } from 'hooks/errorHandling'
 
 const ConferenceContainer = () => {
   const { t } = useTranslation()
@@ -15,11 +18,12 @@ const ConferenceContainer = () => {
   const isNew = id === 'new'
   const [, setHeader] = useHeader()
   const [conference, dispatch] = useReducer(reducer, initialConference)
+  const showError = useError()
 
   useEffect(() => () => setHeader(null), [setHeader])
   useEffect(() => {
-    setHeader(<ConferenceHeader title={conference.name} actions={<IconButton type='save' title={t('General.Buttons.Save')} />} />)
-  }, [conference.name, setHeader, t])
+    setHeader(<ConferenceHeader title={conference?.name} actions={<IconButton type='save' title={t('General.Buttons.Save')} />} />)
+  }, [conference?.name, setHeader, t])
 
   useEffect(() => {
     if (!isNew) {
@@ -27,16 +31,11 @@ const ConferenceContainer = () => {
     }
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
-  const { loading, data } = {
-    loading: false,
-    data: {
-      typeList: types,
-      categoryList: categories,
-      countryList: countries,
-      countyList: counties,
-      cityList: cities
-    }
-  }
+  const { loading, data } = useQuery(CONFERENCE_QUERY, {
+    variables: { id: parseInt(id) || -1, isNew },
+    onCompleted: data => data?.conference && dispatch({ type: 'resetData', payload: data?.conference }),
+    onError: showError
+  })
 
   if (loading) {
     return <FakeText lines={10} />
