@@ -6,7 +6,7 @@ import { Autocomplete, DateTime, TextField } from '@totalsoft/rocket-ui'
 
 const ConferenceInfo = props => {
   const { types, categories, conference, dispatch } = props
-  const { name, startDate, endDate, type, category } = conference
+  const { name, startDate, endDate, type, category } = conference || {}
   const { t } = useTranslation()
 
   const handleDispatch = actionType => value => dispatch({ type: actionType, payload: value })

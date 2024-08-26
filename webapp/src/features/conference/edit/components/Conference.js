@@ -9,7 +9,7 @@ import { Card, IconButton } from '@totalsoft/rocket-ui'
 
 const Conference = props => {
   const { types, categories, countries, counties, cities, conference, dispatch } = props
-  const { location, speakers } = conference
+  const { location, speakers } = conference || {}
   const { t } = useTranslation()
 
   const handleAddButton = useCallback(() => dispatch({ type: 'addSpeaker' }), [dispatch])
