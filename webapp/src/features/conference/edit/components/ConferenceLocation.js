@@ -61,10 +61,10 @@ const ConferenceLocation = props => {
       </Grid>
       <Grid item container lg={12} spacing={3}>
         <Grid item xs={12} sm={6} lg={3}>
-          <TextField label={t('Location.Latitude')} fullWidth value={latitude} onChange={handleDispatch('latitude')} />
+          <TextField label={t('Location.Latitude')} fullWidth value={latitude} onChange={handleDispatch('latitude')} isNumeric/>
         </Grid>
         <Grid item xs={12} sm={6} lg={3}>
-          <TextField label={t('Location.Longitude')} fullWidth value={longitude} onChange={handleDispatch('longitude')} />
+          <TextField label={t('Location.Longitude')} fullWidth value={longitude} onChange={handleDispatch('longitude')} isNumeric />
         </Grid>
       </Grid>
     </Grid>
