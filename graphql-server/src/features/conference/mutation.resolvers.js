@@ -1,5 +1,6 @@
 const { prisma } = require('../../prisma')
 const { map } = require('ramda')
+const { randomCharacters } = require('../../utils/functions')
 
 const conferenceMutationResolvers = {
   Mutation: {
@@ -62,6 +63,20 @@ const conferenceMutationResolvers = {
       })
 
       return result
+    },
+    changeAttendanceStatus: async (_parent, { input }, _ctx, _info) => {
+      await prisma().conferenceXAttendee.upsert({
+        where: {
+          attendeeEmail_conferenceId: { conferenceId: input.conferenceId, attendeeEmail: input.attendeeEmail }
+        },
+        update: { statusId: input.statusId },
+        create: {
+          conferenceId: input.conferenceId,
+          attendeeEmail: input.attendeeEmail,
+          statusId: input.statusId
+        }
+      })
+      return input.statusId === 3 ? randomCharacters(10) : null
     }
   }
 }

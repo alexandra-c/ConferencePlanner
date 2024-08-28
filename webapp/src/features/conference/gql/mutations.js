@@ -37,3 +37,9 @@ export const UPDATE_CONFERENCE = gql`
   ${Fragments.county}
   ${Fragments.country}
 `
+
+export const CHANGE_ATTENDANCE_STATUS_MUTATION = gql`
+  mutation changeAttendanceStatus($input: Attendee!) {
+    changeAttendanceStatus(input: $input)
+  }
+`

@@ -72,6 +72,12 @@ input SpeakerInput {
   rating: Float
 }
 
+input Attendee {
+  attendeeEmail: String!
+  conferenceId: Int!
+  statusId: Int!
+}
+
 extend type Query {
   conferenceList(filters: ConferenceFilterInput, userEmail: String!): [Conference]
   conference(id: Int!): Conference!
@@ -79,4 +85,5 @@ extend type Query {
 
 extend type Mutation {
   saveConference(input: ConferenceInput!): Conference!
+  changeAttendanceStatus(input: Attendee!): String
 }
