@@ -20,6 +20,6 @@ export const conference = {
     { id: 2, name: 'Dragos Rosca', nationality: 'Ro', rating: 4, image: '', isMainSpeaker: false },
     { id: 3, name: 'Costi Diaconita', nationality: 'Ro', rating: 3, image: '', isMainSpeaker: false },
     { id: 4, name: 'Elena Dumitrescu', nationality: 'Ro', rating: 2, image: '', isMainSpeaker: false },
-    { id: 4, name: 'Andra Sava', nationality: 'Ro', rating: 2, image: '', isMainSpeaker: false }
+    { id: 5, name: 'Andra Sava', nationality: 'Ro', rating: 2, image: '', isMainSpeaker: false }
   ]
 }

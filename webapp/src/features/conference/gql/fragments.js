@@ -24,6 +24,7 @@ const Fragments = {
       name
       nationality
       rating
+      isMainSpeaker
     }
   `,
   status: gql`
