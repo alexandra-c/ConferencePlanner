@@ -12,7 +12,7 @@ import { useTranslation } from 'react-i18next'
 import { useError } from 'hooks/errorHandling'
 
 const ConferenceItem = props => {
-  const { conference } = props
+  const { conference, onChangeAttendanceStatus } = props
   const { t } = useTranslation()
   const navigate = useNavigate()
   const [email] = useEmail()
@@ -41,13 +41,14 @@ const ConferenceItem = props => {
 
   return (
     <Card title={title} subheader={<ConferenceSubtitle speaker={speaker} location={location} />}>
-      <ConferenceContent conference={conference} />
+      <ConferenceContent onChangeAttendanceStatus={onChangeAttendanceStatus} conference={conference} />
     </Card>
   )
 }
 
 ConferenceItem.propTypes = {
-  conference: PropTypes.object.isRequired
+  conference: PropTypes.object.isRequired,
+  onChangeAttendanceStatus: PropTypes.func.isRequired
 }
 
 export default ConferenceItem

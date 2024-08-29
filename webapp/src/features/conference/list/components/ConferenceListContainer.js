@@ -7,10 +7,11 @@ import { useTranslation } from 'react-i18next'
 import { useHeader } from 'providers/AreasProvider'
 import ConferenceHeader from 'features/conference/ConferenceHeader'
 import { useNavigate } from 'react-router-dom'
-import { useQuery } from '@apollo/client'
+import { useMutation, useQuery } from '@apollo/client'
 import { CONFERENCE_LIST_QUERY } from 'features/conference/gql/queries'
 import { useEmail } from 'hooks/useEmail'
 import { useError } from 'hooks/errorHandling'
+import { CHANGE_ATTENDANCE_STATUS_MUTATION } from 'features/conference/gql/mutations'
 
 const ConferenceListContainer = () => {
   const navigate = useNavigate()
@@ -29,7 +30,7 @@ const ConferenceListContainer = () => {
 
   const [, setHeader] = useHeader()
   useEffect(() => () => setHeader(null), [setHeader])
-  useEffect(() => { 
+  useEffect(() => {
     setHeader(
       <ConferenceHeader
         title={t('NavBar.Conferences')}
@@ -42,6 +43,23 @@ const ConferenceListContainer = () => {
     setFilters(filters)
   }, [])
 
+  const [changeAttendanceStatus] = useMutation(CHANGE_ATTENDANCE_STATUS_MUTATION, {
+    refetchQueries: [{ query: CONFERENCE_LIST_QUERY, variables: { filters, userEmail: email } }],
+    onError: showError
+  })
+
+  const handleChangeAttendanceStatus = useCallback(
+    (conferenceId, statusId) => () => {
+      const input = {
+        attendeeEmail: email,
+        conferenceId,
+        statusId
+      }
+      changeAttendanceStatus({ variables: { input } })
+    },
+    [changeAttendanceStatus, email]
+  )
+
   if (loading) {
     return <FakeText lines={10} />
   }
@@ -49,7 +67,7 @@ const ConferenceListContainer = () => {
   return (
     <>
       <ConferenceFilters filters={filters} onApplyFilters={handleApplyFilters} />
-      <ConferenceList conferences={data?.conferenceList} />
+      <ConferenceList onChangeAttendanceStatus={handleChangeAttendanceStatus} conferences={data?.conferenceList} />
     </>
   )
 }
