@@ -19,6 +19,7 @@ type Speaker {
   name: String
   rating: Float
   nationality: String
+  phoneNumber: String
   isMainSpeaker: Boolean
 }
 
@@ -70,12 +71,7 @@ input SpeakerInput {
   isMainSpeaker: Boolean
   nationality: String
   rating: Float
-}
-
-input AttendeeInput {
-  attendeeEmail: String!
-  conferenceId: Int!
-  statusId: Int!
+  phoneNumber: String
 }
 
 extend type Query {
@@ -85,5 +81,5 @@ extend type Query {
 
 extend type Mutation {
   saveConference(input: ConferenceInput!): Conference!
-  changeAttendanceStatus(input: AttendeeInput!): String
+  deleteConference(id: Int!): String!
 }
