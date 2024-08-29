@@ -26,7 +26,7 @@ const ConferenceContainer = () => {
 
   const [updateConference] = useMutation(UPDATE_CONFERENCE, {
     onCompleted: result => {
-      addToast(t('Conference.SavingSucceeded'), 'success')
+      addToast(t('General.SavingSucceeded'), 'success')
 
       if (isNew) {
         navigate(`/conferences/${result?.saveConference?.id}`)
