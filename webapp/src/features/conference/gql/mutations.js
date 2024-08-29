@@ -39,7 +39,7 @@ export const UPDATE_CONFERENCE = gql`
 `
 
 export const CHANGE_ATTENDANCE_STATUS_MUTATION = gql`
-  mutation changeAttendanceStatus($input: Attendee!) {
+  mutation changeAttendanceStatus($input: AttendeeInput!) {
     changeAttendanceStatus(input: $input)
   }
 `

@@ -76,7 +76,7 @@ const conferenceMutationResolvers = {
           statusId: input.statusId
         }
       })
-      return input.statusId === 3 ? randomCharacters(10) : null
+      return null
     }
   }
 }
