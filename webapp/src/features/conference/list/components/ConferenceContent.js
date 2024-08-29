@@ -35,17 +35,17 @@ const ConferenceContent = props => {
       <Grid container spacing={2}>
         <Grid item xs={12}>
           {showJoin && (
-            <Button right color='success' size={'small'} onClick={onChangeAttendanceStatus(conference?.id, 1)}>
+            <Button right color='success' size={'small'} onClick={onChangeAttendanceStatus(conference?.id, attendeeStatus.Joined)}>
               {t('Conferences.Join')}
             </Button>
           )}
           {showWithdraw && (
-            <Button right color='error' size={'small'} onClick={onChangeAttendanceStatus(conference?.id, 2)}>
+            <Button right color='error' size={'small'} onClick={onChangeAttendanceStatus(conference?.id, attendeeStatus.Withdrawn)}>
               {t('Conferences.Withdraw')}
             </Button>
           )}
           {showAttend && (
-            <Button right color='info' size={'small'} onClick={onChangeAttendanceStatus(conference?.id, 3)}>
+            <Button right color='info' size={'small'} onClick={onChangeAttendanceStatus(conference?.id, attendeeStatus.Attended)}>
               {t('Conferences.Attend')}
             </Button>
           )}
