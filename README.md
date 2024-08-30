@@ -11,8 +11,8 @@ Our goal is to show you how newer technologies like React and GraphQL can make y
 ## Prerequisites
 In order to successfully complete the tasks in the workshop, you should have:
 
-- [Node.js](https://nodejs.org/en/) installed on your machine (v14 or higher)
-- SQL Server Management Studio (v14 or higher)
+- [Node.js](https://nodejs.org/en/)
+- SQL Server Management Studio 
 - [Visual Studio Code](https://code.visualstudio.com/download)
 - [Git](https://git-scm.com/download/win)
 - [Git Extensions](https://github.com/gitextensions/gitextensions/releases)
@@ -21,3 +21,4 @@ In order to successfully complete the tasks in the workshop, you should have:
     - [GraphQL](https://marketplace.visualstudio.com/items?itemName=Prisma.vscode-graphql)
     - [Code Spell Checker](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker)
     - [GitLens](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens)
+    - [Prisma](https://marketplace.visualstudio.com/items?itemName=Prisma.prisma)
