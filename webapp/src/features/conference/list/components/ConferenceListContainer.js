@@ -11,18 +11,29 @@ import { useMutation, useQuery } from '@apollo/client'
 import { CONFERENCE_LIST_QUERY } from 'features/conference/gql/queries'
 import { useEmail } from 'hooks/useEmail'
 import { useError } from 'hooks/errorHandling'
-import { CHANGE_ATTENDANCE_STATUS_MUTATION } from 'features/conference/gql/mutations'
+import { CHANGE_ATTENDANCE_STATUS_MUTATION, DELETE_CONFERENCE } from 'features/conference/gql/mutations'
 
 const ConferenceListContainer = () => {
   const navigate = useNavigate()
   const { t } = useTranslation()
   const [email] = useEmail()
-
   const showError = useError()
 
   const [filters, setFilters] = useState(generateDefaultFilters())
 
   const { data, loading } = useQuery(CONFERENCE_LIST_QUERY, { variables: { filters, userEmail: email }, onError: showError })
+
+  const [deleteConference] = useMutation(DELETE_CONFERENCE, {
+    refetchQueries: [{ query: CONFERENCE_LIST_QUERY, variables: { filters, userEmail: email } }],
+    onError: showError
+  })
+
+  const handleDelete = useCallback(
+    id => () => {
+      deleteConference({ variables: { id } })
+    },
+    [deleteConference]
+  )
 
   const handleAddClick = useCallback(() => {
     navigate('/conferences/new')
@@ -67,7 +78,7 @@ const ConferenceListContainer = () => {
   return (
     <>
       <ConferenceFilters filters={filters} onApplyFilters={handleApplyFilters} />
-      <ConferenceList onChangeAttendanceStatus={handleChangeAttendanceStatus} conferences={data?.conferenceList} />
+      <ConferenceList onDelete={handleDelete} onChangeAttendanceStatus={handleChangeAttendanceStatus} conferences={data?.conferenceList} />
     </>
   )
 }

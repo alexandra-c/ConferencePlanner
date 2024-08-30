@@ -10,8 +10,8 @@ type Location {
   city: City!
   county: County!
   country: Country!
-  latitude: String
-  longitude: String
+  latitude: Float
+  longitude: Float
 }
 
 type Speaker {
