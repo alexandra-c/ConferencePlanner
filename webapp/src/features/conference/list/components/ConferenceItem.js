@@ -6,11 +6,9 @@ import { Card } from '@totalsoft/rocket-ui'
 import ConferenceTitle from './ConferenceTitle'
 import { useEmail } from 'hooks/useEmail'
 import { useNavigate } from 'react-router-dom'
-import { useTranslation } from 'react-i18next'
 
 const ConferenceItem = props => {
   const { conference, onDelete, onChangeAttendanceStatus } = props
-  const { t } = useTranslation()
   const navigate = useNavigate()
   const [email] = useEmail()
 
