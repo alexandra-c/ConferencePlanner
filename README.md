@@ -1,6 +1,6 @@
 # ConferencePlanner
 ## Workshop
-[Creating a Web Application with GraphQL and React](https://www.notion.so/acapatina/Creating-a-Web-Application-with-GraphQL-and-React-6051df7bf1fa42b2ab21b56268f46de4) 
+[Creating a Web Application with GraphQL and React](https://www.notion.so/Software-Bootcamp-2024-021bac712ac545bd90a0512d2c3473ac) 
 
 **Welcome to our Web Application Workshop! 👋**
 
