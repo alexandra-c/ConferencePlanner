@@ -105,6 +105,20 @@ const conferenceMutationResolvers = {
         return conference.name
       })
       return result
+    },
+    changeAttendanceStatus: async (_parent, { input }, _ctx, _info) => {
+      await prisma().conferenceXAttendee.upsert({
+        where: {
+          attendeeEmail_conferenceId: { conferenceId: input.conferenceId, attendeeEmail: input.attendeeEmail }
+        },
+        update: { statusId: input.statusId },
+        create: {
+          conferenceId: input.conferenceId,
+          attendeeEmail: input.attendeeEmail,
+          statusId: input.statusId
+        }
+      })
+      return null
     }
   }
 }

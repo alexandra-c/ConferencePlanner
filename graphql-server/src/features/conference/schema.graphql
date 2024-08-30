@@ -74,6 +74,12 @@ input SpeakerInput {
   phoneNumber: String
 }
 
+input AttendeeInput  {
+  attendeeEmail: String!
+  conferenceId: Int!
+  statusId: Int!
+}
+
 extend type Query {
   conferenceList(filters: ConferenceFilterInput, userEmail: String!): [Conference]
   conference(id: Int!): Conference!
@@ -81,5 +87,6 @@ extend type Query {
 
 extend type Mutation {
   saveConference(input: ConferenceInput!): Conference!
+  changeAttendanceStatus(input: AttendeeInput !): String
   deleteConference(id: Int!): String!
 }
