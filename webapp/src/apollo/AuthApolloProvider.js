@@ -1,14 +1,15 @@
-import { ApolloProvider } from '@apollo/client'
-import React, { useContext } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
-import { AuthenticationContext } from '@axa-fr/react-oidc-context'
+import { ApolloProvider } from '@apollo/client'
+import { useOidcUser, OidcUserStatus } from '@axa-fr/react-oidc'
 
 import { getApolloClient } from './client'
+import { getOidcConfigName } from 'utils/functions'
 
 export function AuthApolloProvider({ children }) {
-  const oidc = useContext(AuthenticationContext)
+  const { oidcUserLoadingState } = useOidcUser(getOidcConfigName())
 
-  if (oidc.isLoading) {
+  if (oidcUserLoadingState === OidcUserStatus.Loading) {
     return <>auth loading</>
   }
 

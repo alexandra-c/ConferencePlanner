@@ -1,38 +1,54 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import cx from 'classnames'
-import { ListItem, ListItemIcon, ListItemText, makeStyles, Tooltip } from '@material-ui/core'
-import { NavLink } from 'react-router-dom'
-import menuStyle from 'assets/jss/components/menuStyle'
+import { Tooltip } from '@mui/material'
 import { useTranslation } from 'react-i18next'
+import {
+  ListItem,
+  ListItemIcon,
+  ListItemLink,
+  ListItemText,
+  StyledArrowDropDown,
+  StyledArrowDropUp,
+  StyledNavLink
+} from './MenuStyle'
 
-const useStyles = makeStyles(menuStyle)
-
-const MenuItem = ({ menu, drawerOpen, activeRoute }) => {
-  const classes = useStyles()
+const getActiveChild = (children, activeRoute) => {
+  if (!children) return false
+  return children.some(child => activeRoute(child.path) || getActiveChild(child.children, activeRoute))
+}
+const MenuItem = ({ menu, drawerOpen, activeRoute, isSubMenuItem, subMenuOpen, onToggleSubMenu, withGradient }) => {
   const { t } = useTranslation()
-  const navLinkClasses =
-    classes.menuItemLink +
-    ' ' +
-    cx({
-      [' ' + classes.menuActiveColor]: activeRoute(menu.path)
-    })
-  const itemText =
-    classes.menuItemText +
-    ' ' +
-    cx({
-      [classes.menuItemTextMini]: !drawerOpen
-    })
+  const { children, path, icon, text } = menu
+  const isSubMenu = Boolean(children)
+  const isActive = activeRoute && (activeRoute(path) || (!isSubMenuItem && getActiveChild(children, activeRoute)))
 
-  const text = t(menu.text)
+  const translatedText = t(text)
+  const Item = isSubMenu ? ListItemLink : StyledNavLink
+  const itemProps = isSubMenu ? { onClick: onToggleSubMenu, button: true } : { to: path }
 
   return (
-    <Tooltip disableHoverListener={!drawerOpen} title={text}>
-      <ListItem className={classes.menuItem}>
-        <NavLink to={menu.path} className={navLinkClasses}>
-          <ListItemIcon className={classes.menuItemIcon}>{menu.icon}</ListItemIcon>
-          <ListItemText primary={text} disableTypography={true} className={itemText} />
-        </NavLink>
+    <Tooltip disableHoverListener={drawerOpen} title={translatedText}>
+      <ListItem>
+        <Item {...itemProps} isSubMenuItem={isSubMenuItem} isActive={isActive} withGradient={withGradient} hasIcon={icon}>
+          {icon && (
+            <ListItemIcon isSubMenuItem={isSubMenuItem} drawerOpen={drawerOpen} isActive={isActive}>
+              {icon}
+            </ListItemIcon>
+          )}
+          <ListItemText
+            primary={translatedText}
+            secondary={
+              isSubMenu &&
+              (subMenuOpen ? (
+                <StyledArrowDropUp isSubMenuItem={isSubMenuItem} />
+              ) : (
+                <StyledArrowDropDown isSubMenuItem={isSubMenuItem} />
+              ))
+            }
+            disableTypography={true}
+            drawerOpen={drawerOpen}
+          />
+        </Item>
       </ListItem>
     </Tooltip>
   )
@@ -41,7 +57,11 @@ const MenuItem = ({ menu, drawerOpen, activeRoute }) => {
 MenuItem.propTypes = {
   menu: PropTypes.object.isRequired,
   drawerOpen: PropTypes.bool.isRequired,
-  activeRoute: PropTypes.func.isRequired
+  activeRoute: PropTypes.func,
+  isSubMenuItem: PropTypes.bool,
+  subMenuOpen: PropTypes.bool,
+  onToggleSubMenu: PropTypes.func,
+  withGradient: PropTypes.bool.isRequired
 }
 
 export default MenuItem

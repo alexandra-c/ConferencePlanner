@@ -1,7 +1,7 @@
 import { useApolloClient, useQuery } from '@apollo/client'
 import { useCallback } from 'react'
 import { emptyFunction } from 'utils/constants'
-import { useToast } from '@bit/totalsoft_oss.react-mui.kit.core'
+import { useToast } from '@totalsoft/rocket-ui'
 
 export function useQueryWithErrorHandling(query, { onError = emptyFunction, ...props } = {}) {
   const showError = useError()
@@ -37,20 +37,23 @@ export function useClientQueryWithErrorHandling() {
 
 export const useError = () => {
   const addToast = useToast()
-  const generateErrorMessage = error => `${error.extensions.code} - ${error.message}`
+  const generateErrorMessage = error => `${error?.extensions?.code} - ${error?.message}`
   const generateSimpleErrorMessage = message => `There is a problem communicating with the server. ${message}`
-  const addErrorToast = useCallback(message => addToast(generateSimpleErrorMessage(message), 'error', false), [addToast])
+  const addErrorToast = useCallback(
+    errorMessage => addToast(generateSimpleErrorMessage(errorMessage), 'error', false),
+    [addToast]
+  )
 
   return useCallback(
     error => {
       if (!error?.graphQLErrors && !error?.networkError?.result?.errors) {
-        addErrorToast(generateSimpleErrorMessage(error.message))
+        addErrorToast(error?.message)
         return
       }
 
       const graphQLErrors = error?.graphQLErrors ?? []
       graphQLErrors.forEach(err => {
-        err?.extensions?.code ? addErrorToast(generateErrorMessage(err)) : addErrorToast(generateSimpleErrorMessage(err.message))
+        err?.extensions?.code ? addErrorToast(generateErrorMessage(err)) : addErrorToast(err?.message)
       })
 
       const networkErrors = error?.networkError?.result?.errors ?? []

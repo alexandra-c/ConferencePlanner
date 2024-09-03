@@ -1,4 +1,4 @@
-const { RESTDataSource } = require('apollo-datasource-rest')
+const { RESTDataSource } = require('@apollo/datasource-rest')
 
 class ConferenceApi extends RESTDataSource {
   constructor() {
@@ -6,9 +6,9 @@ class ConferenceApi extends RESTDataSource {
     this.baseURL = process.env.API_URL
   }
 
-  async getConferenceSuggestions(input) {
-    const { conferenceId, attendeeEmail } = input
-    return await this.get(`Suggestions`, { conferenceId, attendeeEmail })
+  async sendSMSNotification(body) {
+    const response = await this.post('notification/SendSpeakerSmsNotification', { body })
+    return response
   }
 }
 

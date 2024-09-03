@@ -1,43 +1,43 @@
 type Category {
-  id: ID!
+  id: Int!
   name: String!
   code: String
 }
 
 input CategoryInput {
-  id: ID!
+  id: Int!
   name: String!
   code: String
 }
 
 type Type {
-  id: ID!
+  id: Int!
   name: String!
   code: String
 }
 
 input TypeInput {
-  id: ID!
+  id: Int!
   name: String!
   code: String
 }
 
 type Country {
-  id: ID!
+  id: Int!
   name: String!
-  code: String
+  code: String    
 }
 
 type County {
-  id: ID!
+  id: Int!
   name: String!
-  code: String
+  code: String    
 }
 
 type City {
-  id: ID!
+  id: Int!
   name: String!
-  code: String
+  code: String    
 }
 
 extend type Query {

@@ -1,13 +1,9 @@
-const { v4 } = require('uuid')
-const CORRELATION_ID = 'nbb.correlation_id'
+const { correlationManager } = require('@totalsoft/correlation')
+const CORRELATION_ID = 'x-correlation-id'
 
 const correlationMiddleware = () => async (ctx, next) => {
-  if (!ctx.correlationId) {
-    const correlationId = ctx.req.headers[CORRELATION_ID] || v4()
-    ctx.correlationId = correlationId
-  }
-
-  await next()
+  const correlationId = ctx.req.headers[CORRELATION_ID]
+  await correlationManager.useCorrelationId(correlationId, next)
 }
 
 module.exports = correlationMiddleware

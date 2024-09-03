@@ -1,13 +1,10 @@
-import React from 'react';
-import HomeIcon from '@material-ui/icons/Home';
-import EventIcon from '@material-ui/icons/Event';
-import EventNoteIcon from '@material-ui/icons/EventNote';
+import React from 'react'
+import HomeIcon from '@mui/icons-material/Home'
+import EventIcon from '@mui/icons-material/Event'
 
 const menuItems = [
-    { icon: <HomeIcon />, text: 'NavBar.Welcome', path: '/welcome', name: 'Welcome' },
-    { icon: <HomeIcon />, text: 'NavBar.MyFirstMenu', path: '/helloWorld', name: 'MyFirstMenu' },
-    { icon: <EventIcon />, text: 'NavBar.Conferences', path: '/conferences', name: 'Conferences' },
-    { icon: <EventNoteIcon />, text: 'NavBar.MyConferences', path: '/myconferences', name: 'MyConferences' }
+  { icon: <HomeIcon />, text: 'NavBar.Welcome', path: '/welcome', name: 'Welcome' },
+  { icon: <EventIcon />, text: 'NavBar.Conferences', path: '/conferences', name: 'Conferences' }
 ]
 
 export default menuItems

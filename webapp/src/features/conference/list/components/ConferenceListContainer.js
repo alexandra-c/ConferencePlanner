@@ -1,153 +1,84 @@
-import React, { useEffect, useState, useCallback } from 'react'
-import { useTranslation } from 'react-i18next'
-import ConferenceList from './ConferenceList'
+import React, { useCallback, useEffect, useState } from 'react'
 import ConferenceFilters from './ConferenceFilters'
-import { useFooter } from 'providers/AreasProvider'
-import { useToast, Pagination, LoadingFakeText, DialogDisplay } from '@bit/totalsoft_oss.react-mui.kit.core'
-import { useQuery, useMutation } from '@apollo/client'
-import { CONFERENCE_LIST_QUERY } from '../queries/ConferenceListQuery'
-import { emptyObject, emptyArray } from 'utils/constants'
+import { FakeText, IconButton } from '@totalsoft/rocket-ui'
+import ConferenceList from './ConferenceList'
+import { generateDefaultFilters } from 'utils/functions'
+import { useTranslation } from 'react-i18next'
+import { useHeader } from 'providers/AreasProvider'
+import ConferenceHeader from 'features/conference/ConferenceHeader'
+import { useNavigate } from 'react-router-dom'
+import { useMutation, useQuery } from '@apollo/client'
+import { CONFERENCE_LIST_QUERY } from 'features/conference/gql/queries'
 import { useEmail } from 'hooks/useEmail'
-import { ATTEND_CONFERENCE_MUTATION } from '../mutations/AttendConference'
-import { WITHDRAW_CONFERENCE_MUTATION } from '../mutations/WithdrawConference'
-
-import ConferenceCodeModal from './ConferenceCodeModal'
 import { useError } from 'hooks/errorHandling'
-
-const defaultPager = {
-  totalCount: 0,
-  pageSize: 3,
-  page: 0
-}
+import { CHANGE_ATTENDANCE_STATUS_MUTATION, DELETE_CONFERENCE } from 'features/conference/gql/mutations'
 
 const ConferenceListContainer = () => {
+  const navigate = useNavigate()
   const { t } = useTranslation()
+  const [email] = useEmail()
   const showError = useError()
-  const addToast = useToast()
-  const [, setFooter] = useFooter()
-  const [pager, setPager] = useState(defaultPager)
-  const [filters, setFilters] = useState(emptyObject)
-  const [userEmail] = useEmail()
-  const [code, setCode] = useState('')
-  const [open, setOpenDialog] = useState(false)
-  const [suggestedConferences, setSuggestedConferences] = useState(emptyArray)
 
-  const { data, loading, refetch } = useQuery(CONFERENCE_LIST_QUERY, {
-    variables: {
-      pager: {
-        page: pager.page,
-        pageSize: pager.pageSize
-      },
-      filters,
-      userEmail
-    },
+  const [filters, setFilters] = useState(generateDefaultFilters())
+
+  const { data, loading } = useQuery(CONFERENCE_LIST_QUERY, { variables: { filters, userEmail: email }, onError: showError })
+
+  const [deleteConference] = useMutation(DELETE_CONFERENCE, {
+    refetchQueries: [{ query: CONFERENCE_LIST_QUERY, variables: { filters, userEmail: email } }],
     onError: showError
   })
 
-  const [attend] = useMutation(ATTEND_CONFERENCE_MUTATION, {
-    onCompleted: data => {
-      if (!data) {
-        return
-      }
-      setCode(data?.attend?.code)
-      setSuggestedConferences(data?.attend?.suggestedConferences)
-      setOpenDialog(true)
-      addToast(t('Conferences.SuccessfullyAttended'), 'success')
+  const handleDelete = useCallback(
+    id => () => {
+      deleteConference({ variables: { id } })
     },
-    onError: showError
-  })
+    [deleteConference]
+  )
 
-  const [withdraw] = useMutation(WITHDRAW_CONFERENCE_MUTATION, {
-    onCompleted: () => {
-      addToast(t('Conferences.SuccessfullyWithdrawn'), 'success')
-      refetch()
-    },
-    onError: showError
-  })
+  const handleAddClick = useCallback(() => {
+    navigate('/conferences/new')
+  }, [navigate])
 
-  const handleChangePage = useCallback(page => setPager(currentPager => ({ ...currentPager, page })), [setPager])
-
-  const handleChangeRowsPerPage = useCallback(pageSize => setPager({ ...defaultPager, pageSize: parseInt(pageSize, 10) }), [setPager])
-
+  const [, setHeader] = useHeader()
+  useEffect(() => () => setHeader(null), [setHeader])
   useEffect(() => {
-    if (data && pager.totalCount !== data?.conferenceList?.pagination?.totalCount) {
-      setPager(currentPager => ({ ...currentPager, totalCount: data?.conferenceList?.pagination?.totalCount }))
-    }
-  }, [data, pager.totalCount, setPager])
-
-  useEffect(() => () => setFooter(null), [setFooter])
-  useEffect(() => {
-    setFooter(
-      <Pagination
-        totalCount={pager.totalCount}
-        pageSize={pager.pageSize}
-        page={pager.page}
-        rowsPerPageOptions={[3, 6, 9, 12, 21]}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-        onPageChange={handleChangePage}
-        onRefresh={refetch}
+    setHeader(
+      <ConferenceHeader
+        title={t('NavBar.Conferences')}
+        actions={<IconButton type='add' key='addButton' title={t('General.Buttons.AddConference')} onClick={handleAddClick} />}
       />
     )
-  }, [setFooter, refetch, handleChangeRowsPerPage, handleChangePage, pager.totalCount, pager.pageSize, pager.page])
+  }, [handleAddClick, setHeader, t])
 
-  const handleAttend = useCallback(
-    conference => () => {
+  const handleApplyFilters = useCallback(filters => {
+    setFilters(filters)
+  }, [])
+
+  const [changeAttendanceStatus] = useMutation(CHANGE_ATTENDANCE_STATUS_MUTATION, {
+    refetchQueries: [{ query: CONFERENCE_LIST_QUERY, variables: { filters, userEmail: email } }],
+    onError: showError
+  })
+
+  const handleChangeAttendanceStatus = useCallback(
+    (conferenceId, statusId) => () => {
       const input = {
-        attendeeEmail: userEmail,
-        conferenceId: conference.id
+        attendeeEmail: email,
+        conferenceId,
+        statusId
       }
-      attend({ variables: { input } })
+      changeAttendanceStatus({ variables: { input } })
     },
-    [attend, userEmail]
+    [changeAttendanceStatus, email]
   )
-
-  const handleWithdraw = useCallback(
-    conference => () => {
-      const input = {
-        attendeeEmail: userEmail,
-        conferenceId: conference.id
-      }
-      withdraw({ variables: { input } })
-    },
-    [withdraw, userEmail]
-  )
-
-  const handleApplyFilters = useCallback(
-    value => {
-      setPager(currentPager => ({ ...currentPager, page: 0 })) // reset pager
-      setFilters(value)
-    },
-    [setFilters, setPager]
-  )
-
-  const handleClose = useCallback(() => {
-    setOpenDialog(false)
-    setCode('')
-    refetch()
-  }, [refetch])
 
   if (loading) {
-    return <LoadingFakeText lines={10} />
+    return <FakeText lines={10} />
   }
 
   return (
     <>
       <ConferenceFilters filters={filters} onApplyFilters={handleApplyFilters} />
-      <ConferenceList conferences={data?.conferenceList?.values} onAttend={handleAttend} onWithdraw={handleWithdraw} />
-      <DialogDisplay
-        id='showQRCode'
-        open={open}
-        title={t('General.Congratulations')}
-        content={
-          <ConferenceCodeModal
-            code={code}
-            suggestedConferences={suggestedConferences}
-            onAttend={handleAttend}
-            onWithdraw={handleWithdraw}
-          />
-        }
-        onClose={handleClose}
-      />
+      <ConferenceList onDelete={handleDelete} onChangeAttendanceStatus={handleChangeAttendanceStatus} conferences={data?.conferenceList} />
     </>
   )
 }
