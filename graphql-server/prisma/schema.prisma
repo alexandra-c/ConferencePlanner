@@ -7,18 +7,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Logs {
-  id            Int      @id(map: "PK___Logs") @default(autoincrement()) @map("Id")
-  message       String?  @map("Message") @db.NVarChar(Max)
-  level         String?  @map("Level") @db.NVarChar(128)
-  timeStamp     DateTime @map("TimeStamp") @db.DateTime
-  exception     String?  @map("Exception") @db.NVarChar(Max)
-  logEvent      String?  @map("LogEvent") @db.NVarChar(Max)
-  correlationId String?  @map("CorrelationId") @db.UniqueIdentifier
-
-  @@map("__Logs")
-}
-
 model Conference {
   id                       Int                      @id(map: "PK_Conference") @default(autoincrement()) @map("Id")
   conferenceTypeId         Int                      @map("ConferenceTypeId")
@@ -43,7 +31,7 @@ model ConferenceXAttendee {
   statusId         Int              @map("StatusId")
   name             String?          @map("Name") @db.NVarChar(255)
   phoneNumber      String?          @map("PhoneNumber") @db.NVarChar(50)
-  conference       Conference       @relation(fields: [conferenceId], references: [id], onUpdate: NoAction, map: "FK_ConferenceXAttendee_Conference")
+  conference       Conference       @relation(fields: [conferenceId], references: [id], onUpdate: NoAction, onDelete: Cascade, map: "FK_ConferenceXAttendee_Conference")
   dictionaryStatus DictionaryStatus @relation(fields: [statusId], references: [id], onUpdate: NoAction, map: "FK_ConferenceXAttendee_DictionaryStatus")
 
   @@unique([attendeeEmail, conferenceId], map: "IX_ConferenceXAttendee")
@@ -54,7 +42,7 @@ model ConferenceXSpeaker {
   conferenceId  Int        @map("ConferenceId")
   speakerId     Int        @map("SpeakerId")
   isMainSpeaker Boolean?   @map("IsMainSpeaker")
-  conference    Conference @relation(fields: [conferenceId], references: [id], onUpdate: NoAction, map: "FK_ConferenceXSpeaker_Conference")
+  conference    Conference @relation(fields: [conferenceId], references: [id], onUpdate: NoAction, onDelete: Cascade, map: "FK_ConferenceXSpeaker_Conference")
   speaker       Speaker    @relation(fields: [speakerId], references: [id], onUpdate: NoAction, map: "FK_ConferenceXSpeaker_Speaker")
 
   @@unique([conferenceId, speakerId], map: "IX_ConferenceXSpeaker")
@@ -103,7 +91,7 @@ model DictionaryStatus {
 }
 
 model EmailNotification {
-  id       Int      @id(map: "PK__EmailNot__3214EC07E02F9A9C") @default(autoincrement()) @map("Id")
+  id       Int      @id(map: "PK__EmailNot__3214EC07A7EF57A7") @default(autoincrement()) @map("Id")
   to       String   @map("To") @db.NVarChar(150)
   cc       String?  @map("Cc") @db.NVarChar(150)
   subject  String   @map("Subject") @db.NVarChar(200)
@@ -112,13 +100,13 @@ model EmailNotification {
 }
 
 model Feedback {
-  id            Int        @id(map: "PK__Feedback__3214EC0738D463CC") @default(autoincrement()) @map("Id")
+  id            Int        @id(map: "PK__Feedback__3214EC07085CC439") @default(autoincrement()) @map("Id")
   attendeeEmail String?    @map("AttendeeEmail") @db.NVarChar(100)
   conferenceId  Int        @map("ConferenceId")
   speakerId     Int        @map("SpeakerId")
   rating        Decimal?   @map("Rating") @db.Decimal(5, 2)
   message       String?    @map("Message") @db.NVarChar(Max)
-  conference    Conference @relation(fields: [conferenceId], references: [id], onUpdate: NoAction, map: "FK_Feedback_ConferenceId")
+  conference    Conference @relation(fields: [conferenceId], references: [id], onUpdate: NoAction, onDelete: Cascade, map: "FK_Feedback_ConferenceId")
   speaker       Speaker    @relation(fields: [speakerId], references: [id], onUpdate: NoAction, map: "FK_Feedback_SpeakerId")
 }
 
@@ -139,7 +127,7 @@ model Location {
 }
 
 model SmsNotification {
-  id          Int      @id(map: "PK__SMSNotif__3214EC07858AA55F") @default(autoincrement()) @map("Id")
+  id          Int      @id(map: "PK__SMSNotif__3214EC0701E181E0") @default(autoincrement()) @map("Id")
   phoneNumber String   @map("PhoneNumber") @db.NVarChar(20)
   message     String   @map("Message") @db.NVarChar(Max)
   sentDate    DateTime @map("SentDate") @db.DateTime
@@ -157,15 +145,4 @@ model Speaker {
   phoneNumber        String?              @map("PhoneNumber") @db.NVarChar(50)
   conferenceXSpeaker ConferenceXSpeaker[]
   feedback           Feedback[]
-}
-
-model Sysdiagrams {
-  name        String @db.NVarChar(128)
-  principalId Int    @map("principal_id")
-  diagramId   Int    @id(map: "PK__sysdiagr__C2B05B616181378D") @default(autoincrement()) @map("diagram_id")
-  version     Int?
-  definition  Bytes?
-
-  @@unique([principalId, name], map: "UK_principal_name")
-  @@map("sysdiagrams")
 }

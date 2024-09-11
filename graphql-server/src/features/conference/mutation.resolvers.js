@@ -74,32 +74,12 @@ const conferenceMutationResolvers = {
     },
     deleteConference: async (_parent, { id }, _ctx, _info) => {
       const result = await prisma().$transaction(async prismaClient => {
-        await prismaClient.conferenceXAttendee.deleteMany({ where: { conferenceId: id } })
-        await prismaClient.feedback.deleteMany({ where: { conferenceId: id } })
-
-        const conferenceXSpeakers = await prismaClient.conferenceXSpeaker.findMany({
-          where: { conferenceId: id },
-          select: { speakerId: true }
-        })
-
-        // Extract speaker IDs
-        const speakerIds = conferenceXSpeakers.map(cxs => cxs.speakerId)
-
-        // Optionally delete the speakers if they are not associated with other conferences
-        await prismaClient.speaker.deleteMany({
-          where: {
-            id: { in: speakerIds },
-            conferenceXSpeaker: { none: {} } // Check if the speaker is not related to any other conferences
-          }
-        })
-
-        await prismaClient.conferenceXSpeaker.deleteMany({ where: { conferenceId: id } })
-
         const conference = await prismaClient.conference.findUnique({
           where: { id },
           select: { name: true, locationId: true }
         })
         await prismaClient.conference.delete({ where: { id } })
+        
         if (conference?.locationId) await prismaClient.location.delete({ where: { id: conference.locationId } })
 
         return conference.name
